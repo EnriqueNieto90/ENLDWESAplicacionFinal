@@ -1,14 +1,14 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 15/12/2025
+ * @since: 18/01/2026
  * @description: Controlador de Inicio Privado.
  */
 
 //Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLLoginLogoff'])) {
+if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -17,7 +17,7 @@ if (isset($_REQUEST['cerrarSesion'])) {
     session_destroy(); // Destruir la sesión
     session_start(); // Iniciar una nueva limpia para redirigir
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -25,12 +25,12 @@ if (isset($_REQUEST['cerrarSesion'])) {
 if (isset($_REQUEST['detalle'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'detalle';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
 // PREPARAR DATOS PARA LA VISTA
-$oUsuario = $_SESSION['usuarioENLLoginLogoff'];
+$oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
 
 $avInicioPrivado = [
     'descUsuario'                     => $oUsuario->getDescUsuario(),

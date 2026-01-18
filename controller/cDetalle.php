@@ -6,9 +6,9 @@
  */
 
 //Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLLoginLogoff'])) {
+if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -17,14 +17,14 @@ if (isset($_REQUEST['cerrarSesion'])) {
     session_destroy();
     session_start();
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
 //BOTÓN VOLVER
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 

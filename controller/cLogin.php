@@ -1,14 +1,14 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 11/01/2026
+ * @since: 18/01/2026
  * @description: Controlador del Login. Gestiona la autenticación.
  */
 
 //SI SE PULSA CANCELAR Volver a Inicio Público
 if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -43,10 +43,10 @@ if (isset($_REQUEST['entrar'])) {
 
 // LOGIN CORRECTO. Guardamos usuario en sesión y redirigimos
 if ($entradaOK) {
-    $_SESSION['usuarioENLLoginLogoff'] = $oUsuarioValido;
+    $_SESSION['usuarioENLAplicacionFinal'] = $oUsuarioValido;
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
         
-    header('Location: indexLoginLogoff.php');
+    header('Location: index.php');
     exit;
 }
 
