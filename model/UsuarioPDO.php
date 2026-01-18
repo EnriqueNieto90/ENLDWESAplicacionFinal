@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 11/01/2026
+ * @since: 18/01/2026
  * @description: Clase UsuarioPDO que gestiona las operaciones de usuario en la base de datos.
  */
 

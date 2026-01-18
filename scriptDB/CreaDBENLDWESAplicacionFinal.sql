@@ -1,11 +1,11 @@
 /**
  * Author:  Enrique Nieto Lorenzo
- * Created: 15 dic. 2025
+ * Created: 18 ene. 2026
  */
 
-CREATE DATABASE IF NOT EXISTS DBENLDWESLoginLogoff;
+CREATE DATABASE IF NOT EXISTS DBENLDWESAplicacionFinal;
 
-USE DBENLDWESLoginLogoff;
+USE DBENLDWESAplicacionFinal;
 
 CREATE TABLE IF NOT EXISTS T02_Departamento(
     T02_CodDepartamento VARCHAR(3) PRIMARY KEY,
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS T01_Usuario (
     T01_ImagenUsuario VARCHAR(255) default null
 );
 
-CREATE USER IF NOT EXISTS "userENLDWESLoginLogoff"@"%" IDENTIFIED BY "paso";
-GRANT ALL PRIVILEGES ON *.* TO "userENLDWESLoginLogoff"@"%" WITH GRANT OPTION;
+CREATE USER IF NOT EXISTS "userENLDWESAplicacionFinal"@"%" IDENTIFIED BY "paso";
+GRANT ALL PRIVILEGES ON *.* TO "userENLDWESAplicacionFinal"@"%" WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
 

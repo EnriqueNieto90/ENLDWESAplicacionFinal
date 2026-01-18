@@ -1,9 +1,9 @@
 /**
  * Author:  Enrique Nieto Lorenzo
- * Created: 15 dic. 2025
+ * Created: 18 ene. 2026
  */
 
-USE DBENLDWESLoginLogoff;
+USE DBENLDWESAplicacionFinal;
 
 INSERT INTO T02_Departamento (T02_CodDepartamento,T02_DescDepartamento,T02_FechaCreacionDepartamento,T02_VolumenDeNegocio,T02_FechaBajaDepartamento) VALUES
         ('INF','Departamento de Informática.',now(),1245.5,null),

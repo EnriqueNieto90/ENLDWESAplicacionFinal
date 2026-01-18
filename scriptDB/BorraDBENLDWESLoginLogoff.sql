@@ -1,8 +1,8 @@
 /**
  * Author:  Enrique Nieto Lorenzo
- * Created: 15 dic. 2025
+ * Created: 18 ene. 2026
  */
 
-DROP DATABASE IF EXISTS DBENLDWESLoginLogoff;
+DROP DATABASE IF EXISTS DBENLDWESAplicacionFinal;
 
-DROP USER IF EXISTS 'userENLDWESLoginLogoff'@'%';
+DROP USER IF EXISTS 'userENLDWESAplicacionFinal'@'%';
