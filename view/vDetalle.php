@@ -1,17 +1,17 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 15/12/2025
+ * @since: 18/01/2026
  * @description: Vista de Detalle.
  */
 ?>
 <header class="header-app">
     <div class="logo-seccion">
         <span class="titulo-tema">Detalles</span>
-        <span class="subtitulo-tema">LOGIN LOGOFF</span>
+        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
     </div>
     <div class="nav-derecha">
-        <form action="indexLoginLogoff.php" method="post">
+        <form action="index.php" method="post">
             <button name="cerrarSesion" class="btn-header">Cerrar sesión</button>
         </form>
     </div>
@@ -19,7 +19,7 @@
 
 <main>
     <div class="contenedor-volver">
-        <form action="indexLoginLogoff.php" method="post">
+        <form action="index.php" method="post">
             <button name="volver" class="btn-link btn-volver-color">
                 <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
             </button>

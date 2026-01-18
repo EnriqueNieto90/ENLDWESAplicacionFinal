@@ -1,17 +1,17 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 15/12/2025
+ * @since: 18/01/2026
  * @description: Vista de Login.
  */
 ?>
 <header class="header-app">
     <div class="logo-seccion">
         <span class="titulo-tema">Login</span>
-        <span class="subtitulo-tema">LOGIN LOGOFF</span>
+        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
     </div>
     <div class="nav-derecha">
-        <form action="indexLoginLogoff.php" method="post">
+        <form action="index.php" method="post">
             <button type="submit" name="cancelar" class="btn-header">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
             </button>
@@ -28,7 +28,7 @@
         <h2 class="titulo-login">Iniciar sesión</h2>
         <p class="subtitulo-login">Utilice su cuenta corporativa para acceder.</p>
         
-        <form action="indexLoginLogoff.php" method="post"> 
+        <form action="index.php" method="post"> 
             
             <div class="grupo-input">
                 <input type="text" class="input-microsoft" name="usuario" value="<?php echo $_REQUEST['usuario']??''; ?>" placeholder="Usuario">

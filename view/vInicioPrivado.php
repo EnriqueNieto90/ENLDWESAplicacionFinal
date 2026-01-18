@@ -1,17 +1,17 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 15/12/2025
+ * @since: 18/01/2026
  * @description: Vista de Inicio Privado.
  */
 ?>
 <header class="header-app">
     <div class="logo-seccion">
         <span class="titulo-tema">Portal Privado</span>
-        <span class="subtitulo-tema">LOGIN LOGOFF</span>
+        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
     </div>
     <div class="nav-derecha">
-        <form action="indexLoginLogoff.php" method="post">
+        <form action="index.php" method="post">
             <button name="cerrarSesion" class="btn-header">Cerrar sesión</button>
         </form>
     </div>
@@ -45,7 +45,7 @@
         <?php endif; ?>
     
         <div class="contenedor-boton-centro">
-            <form action="indexLoginLogoff.php" method="post">
+            <form action="index.php" method="post">
                 <button name="detalle" class="btn-primary btn-detalle">
                     Ver Detalle <i class="fa-solid fa-arrow-right"></i>
                 </button>

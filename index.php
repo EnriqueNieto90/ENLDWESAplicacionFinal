@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Enrique Nieto Lorenzo
- * @since 15/12/2025
+ * @since 18/01/2026
  * @description Punto de entrada de la aplicación.
  */
 

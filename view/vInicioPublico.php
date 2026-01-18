@@ -1,18 +1,18 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 15/12/2025
+ * @since: 18/01/2026
  * @description: Vista de Inicio Público.
  */
 ?>
 <header class="header-app">
     <div class="logo-seccion">
         <span class="titulo-tema">Bienvenido</span>
-        <span class="subtitulo-tema">LOGIN LOGOFF</span>
+        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
     </div>
 
     <div class="header-controls">
-        <form action="indexLoginLogoff.php" method="post" class="idioma-buttons">
+        <form action="index.php" method="post" class="idioma-buttons">
             <?php $lang = $_COOKIE['idioma'] ?? 'ES'; ?>
             
             <button type="submit" name="idioma" value="ES" class="btn-flag <?php echo ($lang=='ES')?'active':''; ?>" title="Español">
@@ -26,7 +26,7 @@
             </button>
         </form>
 
-        <form action="indexLoginLogoff.php" method="post" class="form-no-margin">
+        <form action="index.php" method="post" class="form-no-margin">
             <button name="iniciarSesion" class="btn-login-header">
                 Iniciar Sesión
             </button>
