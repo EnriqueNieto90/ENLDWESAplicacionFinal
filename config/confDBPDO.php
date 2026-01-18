@@ -1,14 +1,14 @@
 <?php
 /**
  * @author Enrique Nieto Lorenzo
- * @since 15/12/2025
+ * @since 18/01/2026
  * @description Configuración de conexión a base de datos.
  */
 
-define('DSN', 'mysql:host=localhost;dbname=DBENLDWESLoginLogoff;charset=utf8');
+define('DSN', 'mysql:host=localhost;dbname=DBENLDWESAplicacionFinal;charset=utf8');
 
 // CREDENCIALES
-define('USERNAME', 'userENLDWESLoginLogoff');
+define('USERNAME', 'userENLDWESAplicacionFinal');
 define('PASSWORD', 'pasoPLESK90');
 ?>
 
