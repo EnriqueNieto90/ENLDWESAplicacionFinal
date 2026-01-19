@@ -21,7 +21,8 @@ $controller = [
     'detalle'       => 'controller/cDetalle.php',
     'registro'      => 'controller/cRegistro.php',
     'wip'           => 'controller/cWIP.php',
-    'error'           => 'controller/cError.php'
+    'error'         => 'controller/cError.php',
+    'rest'          => 'controller/cRest.php'
 ];
 
 // ARRAY DE VISTAS
@@ -33,6 +34,7 @@ $view = [
     'detalle'       => 'view/vDetalle.php',
     'registro'      => 'view/vRegistro.php',
     'wip'           => 'view/vWIP.php',
-    'error'           => 'view/vError.php'
+    'error'         => 'view/vError.php',
+    'rest'          => 'view/vRest.php'
 ];
 ?>

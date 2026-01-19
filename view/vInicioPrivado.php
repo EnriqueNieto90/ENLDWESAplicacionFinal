@@ -60,7 +60,7 @@
 
             <form action="index.php" method="post">
                 <button name="rest" class="btn-dashboard btn-blue">
-                    <i class="fa-solid fa-cloud"></i> REST API
+                    <i class="fa-solid fa-cloud"></i> REST
                 </button>
             </form>
 
