@@ -12,6 +12,12 @@ if (isset($_REQUEST['cancelar'])) {
     exit;
 }
 
+if (isset($_REQUEST['registrarse'])) {
+    $_SESSION['paginaEnCurso'] = 'registro'; 
+    header('Location: index.php');
+    exit;
+}
+
 //PROCESO DE LOGIN
 $entradaOK = true;
 $aErrores = ['usuario' => null, 'password' => null];

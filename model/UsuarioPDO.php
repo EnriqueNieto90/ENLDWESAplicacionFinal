@@ -79,6 +79,63 @@ class UsuarioPDO {
 
         $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
     }
+    
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     * @param string $codUsuario Código del usuario (PK).
+     * @param string $password Contraseña (sin cifrar, se cifra dentro).
+     * @param string $descUsuario Nombre completo del usuario.
+     * @return Usuario|null Devuelve el objeto Usuario creado y logueado, o null si falla.
+     */
+    public static function altaUsuario($codUsuario, $password, $descUsuario) {
+        $oUsuario = null;
+
+        $sql = <<<SQL
+            INSERT INTO T01_Usuario 
+            (T01_CodUsuario, T01_Password, T01_DescUsuario, T01_NumConexiones, T01_FechaHoraUltimaConexion, T01_Perfil) 
+            VALUES (:codUsuario, SHA2(:password, 256), :descUsuario, 1, NOW(), 'usuario')
+        SQL;
+
+        $parametros = [
+            ':codUsuario'  => $codUsuario,
+            ':password'    => $codUsuario . $password,
+            ':descUsuario' => $descUsuario
+        ];
+
+        if (DBPDO::ejecutarConsulta($sql, $parametros)) {
+            // Si se crea, lo validamos para devolver el objeto completo
+            $oUsuario = new Usuario(
+                $codUsuario,
+                $password,
+                $descUsuario,
+                1,
+                new DateTime(),
+                null,
+                'usuario',
+                null
+            );
+        }
+        return $oUsuario;
+    }
+
+    /**
+     * Comprueba si un código de usuario ya existe en la base de datos.
+     * @param string $codUsuario Código a comprobar.
+     * @return bool True si el código NO existe (está libre), False si YA existe.
+     */
+    public static function validarCodNoExiste($codUsuario) {
+        $bNoExiste = true;
+        
+        $sql = "SELECT T01_CodUsuario FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
+        $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
+        
+        if ($consulta && $consulta->rowCount() > 0) {
+            $bNoExiste = false; // El usuario ya existe
+        }
+        
+        return $bNoExiste;
+    }
+
 }
 ?>
 
