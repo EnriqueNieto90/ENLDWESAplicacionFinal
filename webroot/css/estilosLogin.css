@@ -456,45 +456,46 @@ button.btn-link:hover {
    PÁGINA DE ERROR
    ========================================= */
 
-.card-error {
-    border-top: 4px solid #d13438;
+.oculto {
+    display: none !important;
 }
 
-.icon-error-container {
-    margin-bottom: 25px;
+.pantalla-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    width: 100%;
 }
 
-.icon-error-container i {
-    font-size: 4rem;
+.titulo-error-grande {
+    font-size: 6rem;
+    font-weight: 300;
     color: #d13438;
+    margin: 0;
+    line-height: 1;
 }
 
-.text-description {
+.subtitulo-error {
+    font-size: 1.5rem;
+    color: #323130;
     margin-bottom: 20px;
-    color: #605e5c;
 }
 
-.error-details-box {
+.detalles-tecnicos {
     background-color: #f3f2f1;
+    border-left: 4px solid #d13438;
     padding: 20px;
+    width: 100%;
+    max-width: 600px;
     text-align: left;
-    border-radius: 4px;
     margin-bottom: 30px;
-    border: 1px solid #e1dfdd;
+    font-size: 0.9rem;
+    color: #605e5c;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.error-details-box p {
-    margin-bottom: 5px;
-}
-
-.error-separator {
-    border: 0;
-    border-top: 1px solid #e1dfdd;
-    margin: 10px 0;
-}
-
-.file-info {
-    font-family: 'Consolas', monospace;
-    font-size: 0.85rem;
-    color: #a4262c; 
+.detalles-tecnicos p {
+    margin: 5px 0;
 }

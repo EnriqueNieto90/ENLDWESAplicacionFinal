@@ -1,38 +1,44 @@
 <?php
 /**
- * @author Enrique Nieto Lorenzo
- * @since 19/01/2026
- * @description Controlador de la página de Error.
+ * @author: Enrique Nieto Lorenzo
+ * @since: 19/01/2026
+ * @description: Controlador de la página de Error.
  */
 
-if (isset($_REQUEST['volver'])) {
-    $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'];
-    unset($_SESSION['error']);
-    header('Location: index.php');
-    exit;
-}
-
-// Inicializar variables vacías por si acaso
+// Inicializamos el array de datos para la vista
 $avError = [
-    'codError' => 'Desconocido',
-    'descError' => 'Ha ocurrido un error inesperado.',
+    'codError' => '',
+    'descError' => '',
     'archivoError' => '',
     'lineaError' => ''
 ];
 
-// Si hay un objeto ErrorApp en la sesión, extraemos sus datos
-if (isset($_SESSION['error']) && $_SESSION['error'] instanceof ErrorApp) {
+// Se recogen los datos del error guardados en la sesión
+if (isset($_SESSION['error'])) {
     $oError = $_SESSION['error'];
-    $avError = [
-        'codError' => $oError->getCodError(),
-        'descError' => $oError->getDescError(),
-        'archivoError' => $oError->getArchivoError(),
-        'lineaError' => $oError->getLineaError()
-    ];
-} elseif (isset($_SESSION['error'])) {
-    $avError['descError'] = $_SESSION['error'];
+
+    // Aseguramos que es un objeto de tipo ErrorApp antes de llamar a los métodos
+    if (is_object($oError) && get_class($oError) == 'ErrorApp') {
+        $avError = [
+            'codError'     => $oError->getCodError(),
+            'descError'    => $oError->getDescError(),
+            'archivoError' => $oError->getArchivoError(),
+            'lineaError'   => $oError->getLineaError()
+        ];
+    }
+
+    // Borramos el error de la sesión para que no persista
+    unset($_SESSION['error']);
 }
 
+if (isset($_REQUEST['volver'])) {
+    // Si se pulsa le damos el valor de la página anterior a la variable en curso
+    $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'];
+    header('Location: index.php');
+    exit;
+}
+
+// Cargamos el layout principal
 require_once $view['layout'];
 ?>
 

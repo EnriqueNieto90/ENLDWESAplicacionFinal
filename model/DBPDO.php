@@ -7,12 +7,6 @@
 
 class DBPDO {
     
-    /**
-     * Ejecuta una consulta SQL preparada.
-     * * @param string $sentenciaSQL La consulta SQL a preparar.
-     * @param array $parametros Los parámetros para la consulta.
-     * @return PDOStatement|null El objeto PDOStatement con los resultados o null si falla.
-     */
     public static function ejecutarConsulta($sentenciaSQL, $parametros = null) {
         try {
             $miDB = new PDO(DSN, USERNAME, PASSWORD);
@@ -22,9 +16,24 @@ class DBPDO {
             $consulta->execute($parametros);
             
             return $consulta;
+
         } catch (PDOException $exception) {
-            echo $exception->getMessage(); 
-            return null;
+            session_start();
+            
+            $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'] ?? 'inicioPublico';
+            
+            $_SESSION['error'] = new ErrorApp(
+                $exception->getCode(),      // Código SQL
+                $exception->getMessage(),   // Mensaje técnico
+                $exception->getFile(),      // Archivo donde ocurrió
+                $exception->getLine(),      // Línea
+            );
+            
+            $_SESSION['paginaEnCurso'] = 'error';
+            
+            // Redirigimos inmediatamente
+            header('Location: index.php');
+            exit;
         } finally {
             unset($miDB);
         }
