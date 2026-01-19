@@ -18,7 +18,8 @@ $controller = [
     'login'         => 'controller/cLogin.php',
     'inicioPrivado' => 'controller/cInicioPrivado.php',
     'detalle'       => 'controller/cDetalle.php',
-    'registro'      => 'controller/cRegistro.php'
+    'registro'      => 'controller/cRegistro.php',
+    'wip'           => 'controller/cWIP.php'
 ];
 
 // ARRAY DE VISTAS
@@ -28,6 +29,7 @@ $view = [
     'login'         => 'view/vLogin.php',
     'inicioPrivado' => 'view/vInicioPrivado.php',
     'detalle'       => 'view/vDetalle.php',
-    'registro'      => 'view/vRegistro.php'
+    'registro'      => 'view/vRegistro.php',
+    'wip'           => 'view/vWIP.php'
 ];
 ?>
