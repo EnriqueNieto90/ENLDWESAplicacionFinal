@@ -5,23 +5,31 @@
  * @description: Controlador de Inicio Privado.
  */
 
-//Si no hay usuario logueado, mandar al login
+// Si no hay usuario logueado, mandar al login
 if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     $_SESSION['paginaEnCurso'] = 'login';
     header('Location: index.php');
     exit;
 }
 
-//BOTÓN CERRAR SESIÓN
+// BOTÓN CERRAR SESIÓN
 if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy(); // Destruir la sesión
-    session_start(); // Iniciar una nueva limpia para redirigir
+    session_destroy();
+    session_start();
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
     header('Location: index.php');
     exit;
 }
 
-//BOTÓN DETALLE
+// BOTÓN CUENTA (WIP por ahora o tu controlador futuro cCuenta)
+if (isset($_REQUEST['cuenta'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip'; 
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN DETALLE
 if (isset($_REQUEST['detalle'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'detalle';
@@ -29,15 +37,38 @@ if (isset($_REQUEST['detalle'])) {
     exit;
 }
 
-// PREPARAR DATOS PARA LA VISTA
-$oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
+// BOTÓN MTO DEPARTAMENTOS
+if (isset($_REQUEST['mtoDepartamentos'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip';
+    header('Location: index.php');
+    exit;
+}
 
+// BOTÓN REST
+if (isset($_REQUEST['rest'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip';
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN ERROR
+if (isset($_REQUEST['error'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['error'] = "Error de prueba generado por el usuario.";
+    $_SESSION['paginaEnCurso'] = 'error';
+    header('Location: index.php');
+    exit;
+}
+
+// PREPARAR DATOS
+$oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
 $avInicioPrivado = [
-    'descUsuario'                     => $oUsuario->getDescUsuario(),
-    'numConexiones'                      => $oUsuario->getNumConexiones(),
+    'descUsuario' => $oUsuario->getDescUsuario(),
+    'numConexiones' => $oUsuario->getNumConexiones(),
     'fechaHoraUltimaConexionAnterior' => $oUsuario->getFechaHoraUltimaConexionAnterior(),
 ];
 
-//CARGAR VISTA
 require_once $view['layout'];
 ?>

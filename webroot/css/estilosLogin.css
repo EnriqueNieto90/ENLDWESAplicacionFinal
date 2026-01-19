@@ -210,6 +210,63 @@ button.btn-link:hover {
 }
 
 /* =========================================
+   BOTONES DEL DASHBOARD (Inicio Privado)
+   ========================================= */
+.dashboard-menu {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.btn-dashboard {
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 2px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-dashboard:active {
+    transform: scale(0.98);
+}
+
+.btn-blue {
+    background-color: var(--ms-blue); 
+}
+.btn-blue:hover {
+    background-color: var(--ms-blue-hover);
+}
+
+.btn-gray {
+    background-color: #605e5c;
+}
+.btn-gray:hover {
+    background-color: #484644;
+}
+
+.btn-red {
+    background-color: #d13438;
+}
+.btn-red:hover {
+    background-color: #a4262c;
+}
+
+/* Icono de cuenta en header */
+.btn-header i {
+    margin-right: 5px;
+}
+
+/* =========================================
    VISTAS PRIVADAS
    ========================================= */
 .card-dashboard {
