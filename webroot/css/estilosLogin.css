@@ -451,3 +451,50 @@ button.btn-link:hover {
 .btn-login-header:hover {
     background-color: var(--ms-blue-hover);
 }
+
+/* =========================================
+   PÁGINA DE ERROR
+   ========================================= */
+
+.card-error {
+    border-top: 4px solid #d13438;
+}
+
+.icon-error-container {
+    margin-bottom: 25px;
+}
+
+.icon-error-container i {
+    font-size: 4rem;
+    color: #d13438;
+}
+
+.text-description {
+    margin-bottom: 20px;
+    color: #605e5c;
+}
+
+.error-details-box {
+    background-color: #f3f2f1;
+    padding: 20px;
+    text-align: left;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    border: 1px solid #e1dfdd;
+}
+
+.error-details-box p {
+    margin-bottom: 5px;
+}
+
+.error-separator {
+    border: 0;
+    border-top: 1px solid #e1dfdd;
+    margin: 10px 0;
+}
+
+.file-info {
+    font-family: 'Consolas', monospace;
+    font-size: 0.85rem;
+    color: #a4262c; 
+}

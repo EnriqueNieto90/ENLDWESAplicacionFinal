@@ -11,6 +11,7 @@ require_once 'core/231018libreriaValidacion.php';
 // CARGA DEL MODELO
 require_once 'model/Usuario.php';
 require_once 'model/UsuarioPDO.php';
+require_once 'model/ErrorApp.php';
 
 // ARRAY DE CONTROLADORES
 $controller = [
@@ -19,7 +20,8 @@ $controller = [
     'inicioPrivado' => 'controller/cInicioPrivado.php',
     'detalle'       => 'controller/cDetalle.php',
     'registro'      => 'controller/cRegistro.php',
-    'wip'           => 'controller/cWIP.php'
+    'wip'           => 'controller/cWIP.php',
+    'error'           => 'controller/cError.php'
 ];
 
 // ARRAY DE VISTAS
@@ -30,6 +32,7 @@ $view = [
     'inicioPrivado' => 'view/vInicioPrivado.php',
     'detalle'       => 'view/vDetalle.php',
     'registro'      => 'view/vRegistro.php',
-    'wip'           => 'view/vWIP.php'
+    'wip'           => 'view/vWIP.php',
+    'error'           => 'view/vError.php'
 ];
 ?>

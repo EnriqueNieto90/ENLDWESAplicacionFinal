@@ -56,7 +56,8 @@ if (isset($_REQUEST['rest'])) {
 // BOTÓN ERROR
 if (isset($_REQUEST['error'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['error'] = "Error de prueba generado por el usuario.";
+    $consultaError = "SELECT * FROM T03_Cuestion";
+    DBPDO::ejecutarConsulta($consultaError);
     $_SESSION['paginaEnCurso'] = 'error';
     header('Location: index.php');
     exit;
