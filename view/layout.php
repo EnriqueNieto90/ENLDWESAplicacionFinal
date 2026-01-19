@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="webroot/css/all.min.css">
     <link rel="stylesheet" href="webroot/css/estilosLogin.css?v=2">
 </head>
-<body>
+<body <body class="<?php echo isset($_SESSION['paginaEnCurso']) ? 'view-' . $_SESSION['paginaEnCurso'] : ''; ?>">
 
     <?php require_once $view[$_SESSION['paginaEnCurso']]; ?>
 

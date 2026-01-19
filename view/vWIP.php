@@ -1,35 +1,29 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 19/01/2026
- * @description: Vista de funcionalidad en construcción.
+ * @description: Vista de WIP (Clean Code).
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">En Desarrollo</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
+
+<div class="pantalla-completa">
+    
+    <div class="icono-grande icono-amarillo">
+        <i class="fa-solid fa-helmet-safety"></i>
     </div>
-</header>
+    
+    <div class="titulo-grande">WIP</div>
 
-<main>
-    <div class="card-central card-center-text">
-        <div style="margin-bottom: 25px;">
-            <i class="fa-solid fa-helmet-safety" style="font-size: 4rem; color: #0078D4;"></i>
-        </div>
+    <h1 class="subtitulo-mensaje">Funcionalidad en Desarrollo</h1>
+    
+    <p class="texto-descripcion">
+        Estamos trabajando duro para implementar esta característica. 
+        Disculpe las molestias, estará operativa próximamente.
+    </p>
 
-        <h2 class="titulo-login">Funcionalidad no disponible</h2>
-        
-        <p style="margin-bottom: 30px; color: #605e5c; line-height: 1.5;">
-            Estamos trabajando para implementar esta característica.<br>
-            Disculpe las molestias, estará operativa próximamente.
-        </p>
+    <form action="index.php" method="post">
+        <button class="btn-primary btn-accion-especial bg-azul" type="submit" name="volver">
+            <i class="fa-solid fa-arrow-left"></i> Volver
+        </button>
+    </form>
 
-        <form action="index.php" method="post">
-            <button class="btn-primary" type="submit" name="volver">
-                <i class="fa-solid fa-arrow-left"></i> Volver
-            </button>
-        </form>
-    </div>
-</main>
-
+</div>

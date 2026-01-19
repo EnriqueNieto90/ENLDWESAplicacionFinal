@@ -453,49 +453,93 @@ button.btn-link:hover {
 }
 
 /* =========================================
-   PÁGINA DE ERROR
+   ESTILOS PÁGINAS ESPECIALES (ERROR / WIP)
    ========================================= */
 
-.oculto {
+body.view-error .header-app,
+body.view-error .footer-microsoft,
+body.view-wip .header-app,
+body.view-wip .footer-microsoft {
     display: none !important;
 }
 
-.pantalla-error {
+body.view-error, body.view-wip {
+    background-color: #ffffff;
+}
+
+.pantalla-completa {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh; 
+    min-height: 80vh;
     width: 100%;
+    text-align: center;
+    padding: 20px;
 }
 
-.titulo-error-grande {
+.icono-grande {
     font-size: 6rem;
+    margin-bottom: 25px;
+}
+
+.icono-rojo { color: #d13438; }
+.icono-amarillo { color: #ffc107; }
+
+.titulo-grande {
+    font-size: 5rem;
     font-weight: 300;
-    color: #d13438;
     margin: 0;
     line-height: 1;
+    color: #323130;
 }
 
-.subtitulo-error {
+.subtitulo-mensaje {
     font-size: 1.5rem;
     color: #323130;
+    font-weight: 600;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.detalles-tecnicos {
+.texto-descripcion {
+    color: #605e5c;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.caja-detalles-tecnicos {
     background-color: #f3f2f1;
-    border-left: 4px solid #d13438;
+    border-left: 5px solid #d13438;
     padding: 20px;
     width: 100%;
     max-width: 600px;
     text-align: left;
-    margin-bottom: 30px;
-    font-size: 0.9rem;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
     color: #605e5c;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.detalles-tecnicos p {
-    margin: 5px 0;
+.caja-detalles-tecnicos p {
+    margin: 8px 0;
 }
+
+.caja-detalles-tecnicos strong {
+    color: #323130;
+}
+
+.btn-accion-especial {
+    padding: 12px 40px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.bg-azul { background-color: #0078D4; }
+.bg-azul:hover { background-color: #005a9e; }
+
+.bg-rojo { background-color: #d13438; }
+.bg-rojo:hover { background-color: #a4262c; }
