@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Enrique Nieto Lorenzo
- * @since 19/01/2026
- * @description Controlador para el registro de nuevos usuarios.
+ * @since 22/01/2026
+ * @description Controlador para mi cuenta de usuario.
  */
 
 // SI SE PULSA CANCELAR
@@ -70,3 +70,4 @@ if (isset($_REQUEST['registrarse'])) {
 
 require_once $view['layout'];
 ?>
+

@@ -39,10 +39,10 @@
             </div>
 
             <div class="acciones-login">
+                <button type="submit" name="entrar" class="btn-primary">Entrar</button>
+                
                 <span class="btn-link">¿No tienes cuenta? <br>
                 <button type="submit" name="registrarse" class="btn-link btn-bold">Crea una aquí</button></span>
-                
-                <button type="submit" name="entrar" class="btn-primary">Entrar</button>
             </div>
         </form>
     </div>

@@ -16,7 +16,7 @@
     <h1 class="subtitulo-mensaje">Funcionalidad en Desarrollo</h1>
     
     <p class="texto-descripcion">
-        Estamos trabajando duro para implementar esta característica. 
+        Estamos trabajando para implementar esta característica. 
         Disculpe las molestias, estará operativa próximamente.
     </p>
 

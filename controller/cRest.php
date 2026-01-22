@@ -12,6 +12,15 @@ if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     exit;
 }
 
+// BOTÓN CERRAR SESIÓN
+if (isset($_REQUEST['cerrarSesion'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['paginaEnCurso'] = 'inicioPublico';
+    header('Location: index.php');
+    exit;
+}
+
 // Control de botón Volver
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';

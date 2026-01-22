@@ -46,7 +46,7 @@
                                    max="<?php echo date('Y-m-d'); ?>">
                             
                             <button type="submit" name="enviarNasa" class="btn-primary btn-api">
-                                Ver
+                                Buscar
                             </button>
                         </div>
                         <span class="error-msg"><?php echo $avRest['error']; ?></span>
@@ -68,7 +68,7 @@
                 <div class="seccion-input">
                     <div class="grupo-input-api">
                         <input type="text" disabled class="input-microsoft input-disabled" placeholder="No disponible">
-                        <button disabled class="btn-primary btn-api btn-disabled">Ver</button>
+                        <button disabled class="btn-primary btn-api btn-disabled">Buscar</button>
                     </div>
                 </div>
 
@@ -77,7 +77,6 @@
                 </div>
 
                 <div class="seccion-contenido">
-                    <i class=""></i>
                     <p class="texto-vacio"></p>
                 </div>
             </div>
@@ -88,7 +87,7 @@
                  <div class="seccion-input">
                      <div class="grupo-input-api">
                          <input type="text" disabled class="input-microsoft input-disabled" placeholder="No disponible">
-                         <button disabled class="btn-primary btn-api btn-disabled">Ver</button>
+                         <button disabled class="btn-primary btn-api btn-disabled">Buscar</button>
                      </div>
                  </div>
 
@@ -97,7 +96,6 @@
                  </div>
 
                  <div class="seccion-contenido">
-                     <i class=""></i>
                      <p class="texto-vacio"></p>
                  </div>
             </div>
