@@ -21,7 +21,7 @@ if (isset($_REQUEST['cerrarSesion'])) {
     exit;
 }
 
-// BOTÓN CUENTA (WIP por ahora o tu controlador futuro cCuenta)
+// BOTÓN CUENTA
 if (isset($_REQUEST['cuenta'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'wip'; 

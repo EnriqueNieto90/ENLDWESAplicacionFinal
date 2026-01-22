@@ -19,6 +19,14 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
+// BOTÓN CUENTA
+if (isset($_REQUEST['cuenta'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip'; 
+    header('Location: index.php');
+    exit;
+}
+
 // Por defecto creamos la fecha de hoy
 $oFechaNasa = new DateTime(); 
 
@@ -76,7 +84,7 @@ if (isset($_REQUEST['enviarNasa'])) {
 if (!isset($oFotoNasa) || is_null($oFotoNasa)) {
     $oFotoNasa = new FotoNasa(
         'Foto no disponible', 
-        'webroot/media/images/error_nasa.jpg',
+        'webroot/images/error_nasa.jpg',
         $oFechaNasa->format('Y-m-d'),
         'No se ha podido conectar con el servidor de la NASA. Inténtelo más tarde.',
         null
