@@ -48,7 +48,7 @@ if (isset($_REQUEST['mtoDepartamentos'])) {
 // BOTÓN REST
 if (isset($_REQUEST['rest'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'rest';
     header('Location: index.php');
     exit;
 }

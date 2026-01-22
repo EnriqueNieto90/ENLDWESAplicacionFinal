@@ -13,6 +13,13 @@ require_once 'model/Usuario.php';
 require_once 'model/UsuarioPDO.php';
 require_once 'model/ErrorApp.php';
 
+// Modelos de la API
+require_once 'model/REST.php';
+require_once 'model/FotoNasa.php';
+
+//Constante con la APIKEY de la NASA
+const API_KEY_NASA = 'VArtVZZeOSBGcSkPjTl7VzP0gX2olfPh8kdQgz3b';
+
 // ARRAY DE CONTROLADORES
 $controller = [
     'inicioPublico' => 'controller/cInicioPublico.php',

@@ -6,20 +6,31 @@
  */
 
 class REST {
-    
-    const API_KEY_NASA = null;
-
-    public static function apiNasa($fecha){
-        //Obtenemos el resultado del servidor de la API REST
-        $resultado = file_get_contents($url = "https://api.nasa.gov/planetary/apod?api_key=" . self::API_KEY_NASA);
+    /**
+     * Llama a la API APOD de la NASA.
+     * * @param string $fecha Fecha en formato YYYY-MM-DD
+     * @return FotoNasa|null Devuelve el objeto con datos o null si falla.
+     */
+    public static function apiNasa($fecha) {
         
-        //Devolvemos el array devuelto por json_decode
-        $archivoApi=json_decode($resultado,true);
-        //si el archivo se a descodificado correctamente, rotorna la foto
-        if(isset($archivoApi)){
-             $fotoNasa= new FotoNasa($archivoApi['title'],$archivoApi['url'], $archivoApi['date']);
-             return $fotoNasa;
+        $url = "https://api.nasa.gov/planetary/apod?date=$fecha&api_key=" . API_KEY_NASA;
+
+        $resultado = @file_get_contents($url);
+
+        if ($resultado !== false) {
+            $archivoApi = json_decode($resultado, true);
+            
+            // Verificamos que no haya error en el JSON devuelto
+            if (isset($archivoApi['title'])) {
+                return new FotoNasa(
+                    $archivoApi['title'],
+                    $archivoApi['url'],
+                    $archivoApi['date']
+                );
+            }
         }
+        
+        return null;
     }
 }
 ?>
