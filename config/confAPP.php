@@ -22,26 +22,28 @@ const API_KEY_NASA = 'VArtVZZeOSBGcSkPjTl7VzP0gX2olfPh8kdQgz3b';
 
 // ARRAY DE CONTROLADORES
 $controller = [
-    'inicioPublico' => 'controller/cInicioPublico.php',
-    'login'         => 'controller/cLogin.php',
-    'inicioPrivado' => 'controller/cInicioPrivado.php',
-    'detalle'       => 'controller/cDetalle.php',
-    'registro'      => 'controller/cRegistro.php',
-    'wip'           => 'controller/cWIP.php',
-    'error'         => 'controller/cError.php',
-    'rest'          => 'controller/cRest.php'
+    'inicioPublico'    => 'controller/cInicioPublico.php',
+    'login'            => 'controller/cLogin.php',
+    'inicioPrivado'    => 'controller/cInicioPrivado.php',
+    'detalle'          => 'controller/cDetalle.php',
+    'registro'         => 'controller/cRegistro.php',
+    'wip'              => 'controller/cWIP.php',
+    'error'            => 'controller/cError.php',
+    'rest'             => 'controller/cRest.php',
+    'mtoDepartamentos' => 'controller/cMtoDepartamentos.php'
 ];
 
 // ARRAY DE VISTAS
 $view = [
-    'layout'        => 'view/layout.php',
-    'inicioPublico' => 'view/vInicioPublico.php',
-    'login'         => 'view/vLogin.php',
-    'inicioPrivado' => 'view/vInicioPrivado.php',
-    'detalle'       => 'view/vDetalle.php',
-    'registro'      => 'view/vRegistro.php',
-    'wip'           => 'view/vWIP.php',
-    'error'         => 'view/vError.php',
-    'rest'          => 'view/vRest.php'
+    'layout'           => 'view/layout.php',
+    'inicioPublico'    => 'view/vInicioPublico.php',
+    'login'            => 'view/vLogin.php',
+    'inicioPrivado'    => 'view/vInicioPrivado.php',
+    'detalle'          => 'view/vDetalle.php',
+    'registro'         => 'view/vRegistro.php',
+    'wip'              => 'view/vWIP.php',
+    'error'            => 'view/vError.php',
+    'rest'             => 'view/vRest.php',
+    'mtoDepartamentos' => 'view/vMtoDepartamentos.php'
 ];
 ?>

@@ -456,13 +456,6 @@ button.btn-link:hover {
    ESTILOS PÁGINAS ESPECIALES (ERROR / WIP)
    ========================================= */
 
-body.view-error .header-app,
-body.view-error .footer-microsoft,
-body.view-wip .header-app,
-body.view-wip .footer-microsoft {
-    display: none !important;
-}
-
 body.view-error, body.view-wip {
     background-color: #ffffff;
 }
@@ -472,7 +465,7 @@ body.view-error, body.view-wip {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: 70vh;
     width: 100%;
     text-align: center;
     padding: 20px;

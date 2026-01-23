@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @description: Vista de WIP.
+ * @description: Vista de Mantenimiento de Departamentos.
  */
 ?>
 <header class="header-app">
@@ -18,26 +18,22 @@
     </div>
 </header>
 <main>
-    <div class="pantalla-completa">
-
-        <div class="icono-grande icono-amarillo">
-            <i class="fa-solid fa-helmet-safety"></i>
-        </div>
-
-        <div class="titulo-grande">WIP</div>
-
-        <h1 class="subtitulo-mensaje">Funcionalidad en Desarrollo</h1>
-
-        <p class="texto-descripcion">
-            Estamos trabajando para implementar esta característica. 
-            Disculpe las molestias, estará operativa próximamente.
-        </p>
-
+    <div class="contenedor-volver">
         <form action="index.php" method="post">
-            <button class="btn-primary btn-accion-especial bg-azul" type="submit" name="volver">
+            <button name="volver" class="btn-link btn-bold">
                 <i class="fa-solid fa-arrow-left"></i> Volver
             </button>
         </form>
-
+    </div>
+    <div class="card-central card-dashboard">
+        <div class="welcome-msg">
+            Mantenimiento de Departamentos
+        </div>
+        <div class="seccion-input">
+            <div class="grupo-input-api">
+                <input type="text" disabled class="input-microsoft input-disabled" placeholder="No disponible">
+                <button disabled class="btn-primary btn-api btn-disabled">Buscar</button>
+            </div>
+        </div>
     </div>
 </main>
