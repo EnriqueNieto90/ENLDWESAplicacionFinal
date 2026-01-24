@@ -102,10 +102,10 @@
             <p>Enrique Nieto Lorenzo</p>
             
             <div class="footer-links">
-                <a href="doc/index.html" target="_blank" class="link-destacado" title="Documentación PHPDoc">
+                <a href="#" class="link-destacado" title="Documentación PHPDoc">
                     <i class="fa-solid fa-book"></i> <span>PHPDoc</span>
                 </a>
-                <a href="webroot/media/CV_EnriqueNieto.pdf" target="_blank" class="link-destacado" title="Descargar Currículo">
+                <a href="#" class="link-destacado" title="Descargar Currículo">
                     <i class="fa-solid fa-file-pdf"></i> <span>CV</span>
                 </a>
                 <span class="separador-footer">|</span>
@@ -115,7 +115,7 @@
                 <a href="https://github.com/EnriqueNieto90/ENLDWESAplicacionFinal" target="_blank" title="Repositorio GitHub">
                     <i class="fa-brands fa-github"></i>
                 </a>
-                <a href="../index.html" title="Web Personal">
+                <a href="../index.html" target="_blank" title="Web Personal">
                     <i class="fa-solid fa-house"></i>
                 </a>
             </div>

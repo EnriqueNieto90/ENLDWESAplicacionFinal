@@ -41,6 +41,7 @@ if (isset($_REQUEST['entrar'])) {
         // Si no se encuentra en la BBDD entradaOK es false
         if (!isset($oUsuarioValido)) {
             $entradaOK = false;
+            $_REQUEST['password'] = ''; // Limpiar contraseña por seguridad
         }
     }
 } else {
