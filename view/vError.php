@@ -1,7 +1,8 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @description: Vista de Error (Clean Code).
+ * @since: 22/01/2026
+ * @description: Vista de Error.
  */
 ?>
 <main>

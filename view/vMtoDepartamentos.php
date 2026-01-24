@@ -1,6 +1,7 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
+ * @since: 24/01/2026
  * @description: Vista de Mantenimiento de Departamentos.
  */
 ?>

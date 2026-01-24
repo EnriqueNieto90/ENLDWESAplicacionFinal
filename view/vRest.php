@@ -2,7 +2,7 @@
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 22/01/2026
- * @description: Vista del servicio REST (Sin CSS inline)
+ * @description: Vista del servicio REST
  */
 ?>
 <main>
