@@ -4,19 +4,6 @@
  * @description: Vista de Error (Clean Code).
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">ERROR 42S02</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post" style="display:inline;">
-            <button name="cerrarSesion" class="btn-header">
-                <i class="fa-solid fa-power-off"></i> Cerrar sesión
-            </button>
-        </form>
-    </div>
-</header>
 <main>
     <div class="pantalla-completa">
 

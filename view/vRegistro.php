@@ -5,20 +5,6 @@
  * @description: Vista de Registro de usuarios.
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Registro</span>
-        <span class="subtitulo-tema">CREAR CUENTA</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post">
-            <button type="submit" name="cancelar" class="btn-header">
-                <i class="fa-solid fa-xmark"></i> Cancelar
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="card-central">
         <div class="logo-app-img">

@@ -1,10 +1,10 @@
 :root {
-    --ms-blue: #0078D4;           
-    --ms-blue-hover: #0067b8;     
-    --bg-body: #f0f2f5;           
-    --card-bg: #ffffff;           
+    --ms-blue: #0078D4;            
+    --ms-blue-hover: #0067b8;      
+    --bg-body: #f0f2f5;            
+    --card-bg: #ffffff;            
     --text-color: #323130;        
-    --input-bg-yellow: #fff9c4;   
+    --input-bg-yellow: #fff9c4;    
     --border-color: #8a8886;
     --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     --error-color: #e00;
@@ -22,8 +22,17 @@ body {
     flex-direction: column;
 }
 
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
 /* =========================================
-   HEADER
+    HEADER Y NAVEGACIÓN
    ========================================= */
 .header-app {
     background-color: white;
@@ -31,41 +40,87 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 20px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 100;
+    gap: 10px;
 }
 
-.logo-seccion {
+/* Marca Corporativa (Izquierda) */
+.marca-corporativa-ms {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.logo-icono-ms {
+    background-color: var(--ms-blue); 
+    color: white;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-size: 1.2rem;
+}
+
+.logo-texto-ms {
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    justify-content: center;
+    line-height: 1.1;
 }
 
-.logo-seccion .titulo-tema {
+.marca-corporativa-ms .texto-principal {
+    color: #242424;
     font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--ms-blue);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.95rem;
+    letter-spacing: -0.2px;
 }
 
-.logo-seccion .subtitulo-tema {
-    font-size: 0.75rem;
-    color: #666;
+.marca-corporativa-ms .texto-secundario {
+    color: #605e5c;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+/* Título Central */
+.header-titulo-central {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.1rem;
     font-weight: 600;
+    color: #323130;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 15px;
+    cursor: default;
 }
 
+/* Navegación Derecha */
 .nav-derecha {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
-.nav-derecha form { margin: 0; }
+.form-header { margin: 0; display: inline; }
 
+.separador-header {
+    width: 1px;
+    height: 24px;
+    background: #e1dfdd;
+    margin: 0 5px;
+}
+
+/* Botones del Header */
 .btn-header {
     background-color: transparent;
     color: var(--text-color);
@@ -82,265 +137,69 @@ body {
     border-color: #323130;
 }
 
-/* =========================================
-   MAIN Y TARJETAS
-   ========================================= */
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.card-central {
-    background-color: var(--card-bg);
-    padding: 44px;
-    width: 100%;
-    max-width: 440px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    text-align: left;
-}
-
-.card-center-text { text-align: center; } 
-.text-center { text-align: center; } 
-
-.logo-app-img {
-    height: 40px;
-    margin-bottom: 1rem;
-}
-
-.titulo-login {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1b1b1b;
-}
-
-.subtitulo-login {
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-}
-
-/* =========================================
-   FORMULARIO E INPUTS
-   ========================================= */
-.grupo-input {
-    margin-bottom: 15px;
-}
-
-.input-microsoft {
-    width: 100%;
-    height: 38px;
-    padding: 8px 10px;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
-    background-color: var(--input-bg-yellow);
-    border-radius: 0; 
-    outline: none;
-    transition: border 0.2s;
-}
-
-.input-microsoft:focus {
-    border-bottom: 2px solid var(--ms-blue);
-}
-
-.input-microsoft::placeholder {
-    color: #666;
-    opacity: 0.7;
-}
-
-.error-msg {
-    color: var(--error-color);
-    font-size: 0.85rem;
-    margin-top: 5px;
-    display: block;
-}
-
-/* =========================================
-   BOTONES
-   ========================================= */
-.acciones-login {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-}
-
-span.btn-link {
-    color: #666; 
-    cursor: default;
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-
-button.btn-link {
-    background: none;
-    border: none;
-    color: var(--ms-blue-hover); 
-    font-weight: 700; 
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 0;
-}
-
-button.btn-link:hover {
-    text-decoration: underline;
-    color: #004d8a;
-}
-.btn-bold { font-weight: 600; }
-
-.btn-primary {
+.btn-login-header {
     background-color: var(--ms-blue);
     color: white;
     border: none;
-    padding: 8px 36px;
-    font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
     font-weight: 600;
+    border-radius: 2px;
     cursor: pointer;
-    min-width: 100px;
-}
-.btn-primary:hover { background-color: var(--ms-blue-hover); }
-
-
-.btn-detalle {
-    width: auto;
-    padding: 10px 40px;
-}
-
-/* =========================================
-   BOTONES DEL DASHBOARD (Inicio Privado)
-   ========================================= */
-.dashboard-menu {
+    transition: background 0.2s;
     display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
+    align-items: center;
+    gap: 8px;
+}
+.btn-login-header:hover { background-color: var(--ms-blue-hover); }
+
+/* Contenedor de las banderas */
+.idioma-buttons {
+    display: flex;
+    gap: 5px;
+    margin: 0;
+    align-items: center;
 }
 
-.btn-dashboard {
-    border: none;
-    color: white;
-    padding: 15px 25px;
-    font-size: 1rem;
-    font-weight: 600;
+/* Botón individual de bandera */
+.btn-flag {
+    background-color: transparent;
+    border: 1px solid transparent; 
+    padding: 4px;
     cursor: pointer;
-    min-width: 200px;
+    border-radius: 4px;
+    transition: background 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    opacity: 0.6; 
+}
+
+.btn-flag:hover {
+    background-color: #f3f2f1;
+    opacity: 1;
+}
+
+.btn-flag.active {
+    background-color: white;
+    border-color: #d2d0ce;
+    opacity: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.btn-flag img {
+    height: 18px;
+    width: auto;
+    display: block;
     border-radius: 2px;
-    transition: background-color 0.2s, transform 0.1s;
 }
 
-.btn-dashboard:active {
-    transform: scale(0.98);
-}
-
-.btn-blue {
-    background-color: var(--ms-blue); 
-}
-.btn-blue:hover {
-    background-color: var(--ms-blue-hover);
-}
-
-.btn-gray {
-    background-color: #605e5c;
-}
-.btn-gray:hover {
-    background-color: #484644;
-}
-
-.btn-red {
-    background-color: #d13438;
-}
-.btn-red:hover {
-    background-color: #a4262c;
-}
-
-/* Icono de cuenta en header */
-.btn-header i {
-    margin-right: 5px;
+@media (max-width: 400px) {
+    .idioma-buttons { display: none; }
 }
 
 /* =========================================
-   VISTAS PRIVADAS
-   ========================================= */
-.card-dashboard {
-    max-width: 900px;
-    border-top: 4px solid var(--ms-blue);
-}
-
-.card-wide {
-    max-width: 60vw;
-    width: 100%;     
-    padding: 30px;   
-}
-
-.welcome-msg {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-.welcome-msg strong { color: var(--ms-blue); }
-.welcome-msg p { margin-top: 10px; }
-
-.info-conexion {
-    background-color: #f0f6ff;
-    padding: 15px;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    border-left: 3px solid var(--ms-blue);
-}
-
-.contenedor-boton-centro {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.contenedor-volver {
-    width: 100%;
-    max-width: 900px;
-    margin-bottom: 20px;
-}
-.btn-volver-color { color: #666; }
-
-/* Tablas Detalle */
-.tabla-microsoft {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-    font-size: 0.9rem;
-}
-.tabla-microsoft th {
-    text-align: left;
-    padding: 12px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f8f8f8;
-}
-.tabla-microsoft td {
-    padding: 10px;
-    border-bottom: 1px solid #e1dfdd;
-    font-family: 'Consolas', monospace;
-    word-break: break-all;
-}
-
-.titulo-tabla {
-    color: var(--ms-blue);
-    margin: 30px 0 15px;
-}
-.titulo-tabla-first { margin-bottom: 15px; } 
-
-.phpinfo-container {
-    overflow-x: auto;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-/* =========================================
-   FOOTER
+    FOOTER
    ========================================= */
 .footer-microsoft {
     background-color: #f3f2f1;
@@ -361,302 +220,209 @@ button.btn-link:hover {
     color: #605e5c;
 }
 
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .footer-links a {
     color: #605e5c;
     text-decoration: none;
-    margin: 0 10px;
     font-size: 1.2rem;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
 }
-
 .footer-links a:hover { color: var(--ms-blue); }
 
+.footer-links a.link-destacado {
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    border: 1px solid #e1dfdd;
+    gap: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.footer-links a.link-destacado:hover {
+    background-color: var(--ms-blue);
+    color: white;
+    border-color: var(--ms-blue);
+    transform: translateY(-2px);
+}
+
+.separador-footer { color: #ccc; font-size: 1.2rem; margin: 0 5px; }
 .copy-text { font-weight: 500; }
 
 /* =========================================
-   INDEX PÚBLICO
+    FORMULARIOS Y COMPONENTES GLOBALES
    ========================================= */
-.header-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.grupo-input { margin-bottom: 15px; }
+
+.input-microsoft {
+    width: 100%;
+    height: 38px;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg-yellow);
+    border-radius: 0; 
+    outline: none;
+    transition: border 0.2s;
+}
+.input-microsoft:focus { border-bottom: 2px solid var(--ms-blue); }
+.input-microsoft::placeholder { color: #666; opacity: 0.7; }
+.input-microsoft[readonly], .input-microsoft:disabled {
+    background-color: #f3f2f1; cursor: not-allowed; border-color: #e1dfdd;
 }
 
-.idioma-buttons {
-    display: flex;
-    gap: 8px;
-    margin: 0;
-}
+.error-msg { color: var(--error-color); font-size: 0.85rem; margin-top: 5px; display: block; }
 
-.form-no-margin { margin: 0; }
-
-.btn-flag {
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: 4px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-flag:hover {
-    background-color: #f3f2f1;
-}
-
-.btn-flag.active {
-    background-color: #e1dfdd;
-    border-color: #d2d0ce;
-}
-
-.btn-flag img {
-    height: 20px;
-    width: auto;
-    display: block;
-}
-
-.home-image-container {
-    margin-top: 30px;
-    text-align: center;
-}
-
-
-.home-image-container img {
-    max-width: 100%;
-    height: auto;
-    max-height: 500px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-    border-radius: 8px;
-    display: inline-block; 
-}
-
-.home-image-container img[src=""], 
-.home-image-container img:not([src]){ opacity:0; }
-
-
-.btn-login-header {
+.btn-primary {
     background-color: var(--ms-blue);
     color: white;
     border: none;
-    padding: 8px 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.btn-login-header:hover {
-    background-color: var(--ms-blue-hover);
-}
-
-/* =========================================
-   ESTILOS PÁGINAS ESPECIALES (ERROR / WIP)
-   ========================================= */
-
-body.view-error, body.view-wip {
-    background-color: #ffffff;
-}
-
-.pantalla-completa {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-}
-
-.icono-grande {
-    font-size: 6rem;
-    margin-bottom: 25px;
-}
-
-.icono-rojo { color: #d13438; }
-.icono-amarillo { color: #ffc107; }
-
-.titulo-grande {
-    font-size: 5rem;
-    font-weight: 300;
-    margin: 0;
-    line-height: 1;
-    color: #323130;
-}
-
-.subtitulo-mensaje {
-    font-size: 1.5rem;
-    color: #323130;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.texto-descripcion {
-    color: #605e5c;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    max-width: 600px;
-    line-height: 1.5;
-}
-
-.caja-detalles-tecnicos {
-    background-color: #f3f2f1;
-    border-left: 5px solid #d13438;
-    padding: 20px;
-    width: 100%;
-    max-width: 600px;
-    text-align: left;
-    margin-bottom: 40px;
-    font-size: 0.95rem;
-    color: #605e5c;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-.caja-detalles-tecnicos p {
-    margin: 8px 0;
-}
-
-.caja-detalles-tecnicos strong {
-    color: #323130;
-}
-
-.btn-accion-especial {
-    padding: 12px 40px;
+    padding: 8px 36px;
     font-size: 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 100px;
 }
+.btn-primary:hover { background-color: var(--ms-blue-hover); }
+.btn-primary:disabled { background-color: #c8c6c4; cursor: not-allowed; }
 
-.bg-azul { background-color: #0078D4; }
-.bg-azul:hover { background-color: #005a9e; }
-
-.bg-rojo { background-color: #d13438; }
-.bg-rojo:hover { background-color: #a4262c; }
+.btn-link {
+    background: none; border: none; color: var(--ms-blue-hover);
+    font-weight: 700; cursor: pointer; font-size: 0.9rem; padding: 0;
+}
+.btn-link:hover { text-decoration: underline; color: #004d8a; }
 
 /* =========================================
-   ESTILOS VISTA REST
+    VISTAS PÚBLICAS (Login / Inicio)
    ========================================= */
+.card-central {
+    background-color: var(--card-bg);
+    padding: 44px;
+    width: 100%;
+    max-width: 440px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: left;
+}
 
+.titulo-login { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #1b1b1b; }
+.subtitulo-login { margin-bottom: 20px; font-size: 0.9rem; }
+.logo-app-img { height: 40px; margin-bottom: 1rem; }
+.acciones-login { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+.home-image-container img { max-width: 100%; height: auto; max-height: 500px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 8px; }
+
+/* =========================================
+    VISTAS PRIVADAS (Dashboard)
+   ========================================= */
+.card-dashboard { max-width: 900px; border-top: 4px solid var(--ms-blue); }
+.welcome-msg { margin-bottom: 20px; font-size: 1.1rem; }
+.welcome-msg strong { color: var(--ms-blue); }
+.info-conexion { background-color: #f0f6ff; padding: 15px; font-size: 0.95rem; margin-bottom: 20px; border-left: 3px solid var(--ms-blue); }
+
+.dashboard-menu { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+
+.btn-dashboard {
+    border: none; color: white; padding: 15px 25px;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+    min-width: 200px; display: flex; align-items: center; justify-content: center;
+    gap: 10px; border-radius: 2px; transition: transform 0.1s;
+}
+.btn-dashboard:active { transform: scale(0.98); }
+.btn-blue { background-color: var(--ms-blue); }
+.btn-blue:hover { background-color: var(--ms-blue-hover); }
+.btn-gray { background-color: #605e5c; }
+.btn-gray:hover { background-color: #484644; }
+.btn-red { background-color: #d13438; }
+.btn-red:hover { background-color: #a4262c; }
+
+/* =========================================
+    VISTA REST (Estilo Tarjetas)
+   ========================================= */
 .contenedor-rest {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 20px;       
-    width: 98%;      
-    max-width: 1800px;
-    justify-content: center; 
-    align-items: stretch;
-    padding-bottom: 40px;
-    margin-top: 10px;
+    display: flex; flex-wrap: wrap; gap: 20px;       
+    width: 98%; max-width: 1800px;
+    justify-content: center; align-items: stretch;
+    padding-bottom: 40px; margin-top: 10px;
 }
 
-/* Ajuste del botón volver */
-.contenedor-volver-rest {
-    width: 98%;
-    max-width: 1800px;
-    margin-top: 20px;
-    padding-left: 5px;
-}
+.columna-api { flex: 1; min-width: 320px; display: flex; flex-direction: column; }
 
-/* Columnas Flexibles */
-.columna-api {
-    flex: 1; /* Crecen para ocupar todo el espacio disponible */
-    min-width: 320px; 
-    display: flex;
-    flex-direction: column;
-}
-
-/* Tarjeta API */
 .tarjeta-api {
     background-color: var(--card-bg);
     box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,0.13), 0 0.3px 0.9px 0 rgba(0,0,0,0.11);
-    border-radius: 4px;
-    overflow: hidden;
-    height: 100%; 
-    border: 1px solid #edebe9;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.3s ease;
+    border-radius: 4px; overflow: hidden; height: 100%; 
+    border: 1px solid #edebe9; padding: 20px;
+    display: flex; flex-direction: column; transition: box-shadow 0.3s ease;
 }
+.tarjeta-api:hover { box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,0.13), 0 1.2px 3.6px 0 rgba(0,0,0,0.11); }
 
-.tarjeta-api:hover {
-    box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,0.13), 0 1.2px 3.6px 0 rgba(0,0,0,0.11);
-}
-
-/* 1. Sección Input (Arriba) */
-.seccion-input {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #f3f2f1;
-    padding-bottom: 15px;
-}
-
-.grupo-input-api {
-    display: flex;
-    gap: 5px;
-    height: 40px; 
-}
-
-.grupo-input-api .input-microsoft {
-    flex-grow: 1; 
-}
-
-.btn-api {
-    padding: 0 25px;
-    min-width: auto;
-}
+.seccion-input { margin-bottom: 20px; border-bottom: 1px solid #f3f2f1; padding-bottom: 15px; }
+.grupo-input-api { display: flex; gap: 5px; height: 40px; }
+.grupo-input-api .input-microsoft { flex-grow: 1; }
+.btn-api { padding: 0 25px; min-width: auto; }
 
 .seccion-titulo {
-    background-color: var(--ms-blue); 
-    color: white;
-    padding: 12px 15px;
-    text-align: center;
-    margin-bottom: 20px;
-    border-radius: 2px;
+    background-color: var(--ms-blue); color: white;
+    padding: 12px 15px; text-align: center; margin-bottom: 20px; border-radius: 2px;
 }
+.seccion-titulo h3 { margin: 0; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.seccion-titulo h3 {
-    margin: 0;
-    font-size: 1.1rem; 
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* 3. Sección Contenido/Imagen (Abajo) */
 .seccion-contenido {
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px; 
-    background-color: #faf9f8; 
-    border-radius: 2px;
+    flex-grow: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 400px; background-color: #faf9f8; border-radius: 2px;
+}
+.seccion-contenido.sin-fondo { background-color: transparent; }
+
+.media-nasa { width: 100%; height: 100%; min-height: 400px; max-height: 600px; object-fit: cover; border: 1px solid #e1dfdd; }
+.icono-api-vacia { font-size: 5rem; color: var(--ms-blue); opacity: 0.3; margin-bottom: 15px; }
+.texto-vacio { color: var(--ms-blue); font-size: 1.1rem; font-weight: 500; }
+
+/* =========================================
+    VISTAS ESPECIALES (Error / WIP / Tablas)
+   ========================================= */
+body.view-error, body.view-wip { background-color: #ffffff; }
+
+.pantalla-completa {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 70vh; width: 100%; text-align: center; padding: 20px;
+}
+.icono-grande { font-size: 6rem; margin-bottom: 25px; }
+.icono-rojo { color: #d13438; }
+.icono-amarillo { color: #ffc107; }
+.titulo-grande { font-size: 5rem; font-weight: 300; line-height: 1; color: #323130; }
+.subtitulo-mensaje { font-size: 1.5rem; color: #323130; font-weight: 600; margin: 10px 0 20px; }
+.texto-descripcion { color: #605e5c; margin-bottom: 30px; font-size: 1.1rem; max-width: 600px; line-height: 1.5; }
+
+.caja-detalles-tecnicos {
+    background-color: #f3f2f1; border-left: 5px solid #d13438;
+    padding: 20px; width: 100%; max-width: 600px; text-align: left;
+    margin-bottom: 40px; font-size: 0.95rem; color: #605e5c; box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.media-nasa {
-    width: 100%;
-    height: 100%;
-    min-height: 400px; 
-    max-height: 600px; 
-    object-fit: cover; 
-    border: 1px solid #e1dfdd;
-}
+.tabla-microsoft { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 0.9rem; }
+.tabla-microsoft th { text-align: left; padding: 12px; border-bottom: 1px solid #ccc; background-color: #f8f8f8; }
+.tabla-microsoft td { padding: 10px; border-bottom: 1px solid #e1dfdd; font-family: 'Consolas', monospace; word-break: break-all; }
 
-/* Iconos para las APIs vacías */
-.icono-api-vacia {
-    font-size: 5rem;
-    color: var(--ms-blue);
-    opacity: 0.3;
-    margin-bottom: 15px;
-}
-
-.texto-vacio {
-    color: var(--ms-blue);
-    font-size: 1.1rem;
-    font-weight: 500;
+/* =========================================
+    RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    /* Header */
+    .header-titulo-central { display: none; }
+    .logo-texto-ms { display: none; }
+    .btn-header .btn-text-responsive { display: none; }
+    .header-app { padding: 0 15px; }
+    
+    /* REST */
+    .columna-api { width: 100%; max-width: none; }
+    .contenedor-rest { flex-direction: column; align-items: center; }
 }

@@ -2,29 +2,9 @@
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 22/01/2026
- * @description: Vista del servicio REST
+ * @description: Vista del servicio REST (Sin CSS inline)
  */
 ?>
-
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Servicios REST</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post" style="display:inline;">
-             <button name="cuenta" class="btn-header" title="Mi Cuenta">
-                <i class="fa-solid fa-user-gear"></i> Cuenta
-             </button>
-        </form>
-        <form action="index.php" method="post" style="display:inline;">
-            <button name="cerrarSesion" class="btn-header">
-                <i class="fa-solid fa-power-off"></i> Cerrar sesión
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="contenedor-volver-rest">
         <form action="index.php" method="post">
@@ -46,7 +26,7 @@
                                    max="<?php echo date('Y-m-d'); ?>">
                             
                             <button type="submit" name="enviarNasa" class="btn-primary btn-api">
-                                Buscar
+                                Ver
                             </button>
                         </div>
                         <span class="error-msg"><?php echo $avRest['error']; ?></span>
@@ -57,7 +37,7 @@
                     <h3><?php echo $avRest['fotoNasa']->getTitulo(); ?></h3>
                 </div>
                 
-                <div class="seccion-contenido">
+                <div class="seccion-contenido sin-fondo">
                     <img src="<?php echo $avRest['fotoNasa']->getUrl(); ?>" alt="Foto NASA" class="media-nasa">
                 </div>
             </div>
@@ -67,17 +47,18 @@
             <div class="tarjeta-api">
                 <div class="seccion-input">
                     <div class="grupo-input-api">
-                        <input type="text" disabled class="input-microsoft input-disabled" placeholder="No disponible">
-                        <button disabled class="btn-primary btn-api btn-disabled">Buscar</button>
+                        <input type="text" class="input-microsoft" placeholder="Buscar..." readonly>
+                        <button class="btn-primary btn-api">Ver</button>
                     </div>
                 </div>
 
-                <div class="seccion-titulo gris">
-                    <h3>API</h3>
+                <div class="seccion-titulo">
+                    <h3>Próxima API</h3>
                 </div>
 
                 <div class="seccion-contenido">
-                    <p class="texto-vacio"></p>
+                    <i class="fa-solid fa-rocket icono-api-vacia"></i>
+                    <p class="texto-vacio">Próximamente</p>
                 </div>
             </div>
         </div>
@@ -86,17 +67,18 @@
             <div class="tarjeta-api">
                  <div class="seccion-input">
                      <div class="grupo-input-api">
-                         <input type="text" disabled class="input-microsoft input-disabled" placeholder="No disponible">
-                         <button disabled class="btn-primary btn-api btn-disabled">Buscar</button>
+                         <input type="text" class="input-microsoft" placeholder="Buscar datos..." readonly>
+                         <button class="btn-primary btn-api">Ver</button>
                      </div>
                  </div>
 
-                 <div class="seccion-titulo gris">
-                    <h3>API Propia</h3>
+                 <div class="seccion-titulo">
+                    <h3>Mi API Propia</h3>
                  </div>
 
                  <div class="seccion-contenido">
-                     <p class="texto-vacio"></p>
+                     <i class="fa-solid fa-server icono-api-vacia"></i>
+                     <p class="texto-vacio">En desarrollo</p>
                  </div>
             </div>
         </div>

@@ -5,20 +5,6 @@
  * @description: Vista de Login.
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Login</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post">
-            <button type="submit" name="cancelar" class="btn-header">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="card-central">
         <div class="logo-app-img">

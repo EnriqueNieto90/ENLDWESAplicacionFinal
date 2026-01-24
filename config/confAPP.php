@@ -46,4 +46,19 @@ $view = [
     'rest'             => 'view/vRest.php',
     'mtoDepartamentos' => 'view/vMtoDepartamentos.php'
 ];
+
+// ARRAY DE TÍTULOS DEL HEADER
+$titulos = [
+    'inicioPublico'    => 'Bienvenido',
+    'login'            => 'Login',
+    'registro'         => 'Registro de Usuario',
+    'inicioPrivado'    => 'Inicio Privado',
+    'rest'             => 'Servicios REST',
+    'mtoDepartamentos' => 'Mantenimiento de Departamentos',
+    'detalle'          => 'Detalles',
+    'cuenta'           => 'Mi Cuenta',
+    'wip'              => 'En Construcción',
+    'error'            => 'Error de Aplicación'
+];
 ?>
+

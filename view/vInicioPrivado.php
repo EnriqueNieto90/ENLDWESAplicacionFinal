@@ -5,26 +5,6 @@
  * @description: Vista de Inicio Privado.
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Portal Privado</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post" style="display:inline;">
-             <button name="cuenta" class="btn-header" title="Mi Cuenta">
-                <i class="fa-solid fa-user-gear"></i> Cuenta
-             </button>
-        </form>
-
-        <form action="index.php" method="post" style="display:inline;">
-            <button name="cerrarSesion" class="btn-header">
-                <i class="fa-solid fa-power-off"></i> Cerrar sesión
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="card-central card-dashboard">
         

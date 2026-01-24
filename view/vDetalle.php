@@ -5,18 +5,6 @@
  * @description: Vista de Detalle.
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Detalles</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post">
-            <button name="cerrarSesion" class="btn-header">Cerrar sesión</button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="contenedor-volver">
         <form action="index.php" method="post">
