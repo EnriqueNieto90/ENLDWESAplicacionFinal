@@ -6,14 +6,6 @@
  */
 ?>
 <main>
-    <div class="contenedor-volver">
-        <form action="index.php" method="post">
-            <button name="volver" class="btn-link btn-volver-color">
-                <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
-            </button>
-        </form>
-    </div>
-
     <div class="card-central card-dashboard card-wide">
         
         <h3 class="titulo-tabla titulo-tabla-first">Variables de Sesión</h3>

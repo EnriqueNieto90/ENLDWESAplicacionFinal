@@ -342,6 +342,12 @@ main {
 .btn-gray:hover { background-color: #484644; }
 .btn-red { background-color: #d13438; }
 .btn-red:hover { background-color: #a4262c; }
+.card-wide {
+    max-width: 1400px; 
+    width: 95%;      
+    padding: 30px;
+    margin-bottom: 20px; 
+}
 
 /* =========================================
     VISTA REST (Estilo Tarjetas)

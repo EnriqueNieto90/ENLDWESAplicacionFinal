@@ -5,13 +5,6 @@
  */
 ?>
 <main>
-    <div class="contenedor-volver">
-        <form action="index.php" method="post">
-            <button name="volver" class="btn-link btn-bold">
-                <i class="fa-solid fa-arrow-left"></i> Volver
-            </button>
-        </form>
-    </div>
     <div class="card-central card-dashboard">
         <div class="welcome-msg">
             Mantenimiento de Departamentos

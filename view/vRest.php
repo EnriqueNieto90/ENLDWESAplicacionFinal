@@ -6,14 +6,6 @@
  */
 ?>
 <main>
-    <div class="contenedor-volver-rest">
-        <form action="index.php" method="post">
-            <button name="volver" class="btn-link btn-bold">
-                <i class="fa-solid fa-arrow-left"></i> Volver
-            </button>
-        </form>
-    </div>
-
     <div class="contenedor-rest">
         
         <div class="columna-api">

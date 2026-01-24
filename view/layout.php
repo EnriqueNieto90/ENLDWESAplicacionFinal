@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author: Enrique Nieto Lorenzo
+ * @since: 24/01/2026
+ * @description: Layout de la aplicación.
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,12 +15,6 @@
     <link rel="stylesheet" href="webroot/css/estilosLogin.css">
 </head>
 <body>
-
-    <?php
-    // Obtener título dinámico (definido en confApp.php)
-    $tituloActual = $titulos[$_SESSION['paginaEnCurso']] ?? 'Aplicación Final';
-    ?>
-
     <header class="header-app">
         
         <div class="marca-corporativa-ms">
@@ -27,16 +28,16 @@
         </div>
 
         <div class="header-titulo-central">
-            <?php echo $tituloActual; ?>
+            <?php echo $titulos[$_SESSION['paginaEnCurso']] ?? 'Aplicación Final'; ?>
         </div>
 
         <div class="nav-derecha">
 
-            <?php if (isset($_SESSION['usuarioDAW205AppLoginLogoff'])): ?>
+            <?php if (isset($_SESSION['usuarioENLAplicacionFinal'])): ?>
                 
                 <?php if ($_SESSION['paginaEnCurso'] !== 'inicioPrivado'): ?>
                     <form action="index.php" method="post" class="form-header">
-                        <button name="volver" class="btn-header" title="Volver al Inicio">
+                        <button name="volver" class="btn-header" title="Volver al Panel">
                             <i class="fa-solid fa-arrow-left"></i> <span class="btn-text-responsive">Volver</span>
                         </button>
                     </form>
@@ -51,29 +52,29 @@
                 
                 <form action="index.php" method="post" class="form-header">
                     <button name="cerrarSesion" class="btn-header">
-                        <i class="fa-solid fa-power-off"></i> <span class="btn-text-responsive">Salir</span>
+                        <i class="fa-solid fa-power-off"></i> <span class="btn-text-responsive">Cerrar sesión</span>
                     </button>
                 </form>
 
             <?php else: ?>
 
-                <form action="index.php" method="post" class="idioma-buttons">
-                    <?php $lang = $_COOKIE['idioma'] ?? 'ES'; ?>
-                    
-                    <button type="submit" name="idioma" value="ES" class="btn-flag <?php echo ($lang=='ES')?'active':''; ?>" title="Español">
-                        <img src="webroot/images/esp.png" alt="ES">
-                    </button>
-                    <button type="submit" name="idioma" value="EN" class="btn-flag <?php echo ($lang=='EN')?'active':''; ?>" title="English">
-                        <img src="webroot/images/uk.png" alt="EN">
-                    </button>
-                    <button type="submit" name="idioma" value="FR" class="btn-flag <?php echo ($lang=='FR')?'active':''; ?>" title="Français">
-                        <img src="webroot/images/francia.png" alt="FR">
-                    </button>
-                </form>
-
-                <div class="separador-header"></div>
-
                 <?php if ($_SESSION['paginaEnCurso'] === 'inicioPublico'): ?>
+                    
+                    <form action="index.php" method="post" class="idioma-buttons">
+                        <?php $lang = $_COOKIE['idioma'] ?? 'ES'; ?>
+                        <button type="submit" name="idioma" value="ES" class="btn-flag <?php echo ($lang=='ES')?'active':''; ?>" title="Español">
+                            <img src="webroot/images/esp.png" alt="ES">
+                        </button>
+                        <button type="submit" name="idioma" value="EN" class="btn-flag <?php echo ($lang=='EN')?'active':''; ?>" title="English">
+                            <img src="webroot/images/uk.png" alt="EN">
+                        </button>
+                        <button type="submit" name="idioma" value="FR" class="btn-flag <?php echo ($lang=='FR')?'active':''; ?>" title="Français">
+                            <img src="webroot/images/francia.png" alt="FR">
+                        </button>
+                    </form>
+
+                    <div class="separador-header"></div>
+
                     <form action="index.php" method="post" class="form-header">
                         <button name="iniciarSesion" class="btn-login-header">
                             <i class="fa-solid fa-user"></i> Iniciar Sesión
@@ -83,8 +84,8 @@
 
                 <?php if ($_SESSION['paginaEnCurso'] === 'login'): ?>
                     <form action="index.php" method="post" class="form-header">
-                        <button name="volver" class="btn-header">
-                            <i class="fa-solid fa-xmark"></i> Cancelar
+                        <button name="cancelar" class="btn-header">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
                         </button>
                     </form>
                 <?php endif; ?>
@@ -114,7 +115,7 @@
                 <a href="https://github.com/EnriqueNieto90/ENLDWESAplicacionFinal" target="_blank" title="Repositorio GitHub">
                     <i class="fa-brands fa-github"></i>
                 </a>
-                <a href="../index.html" target="_blank" title="Web Personal">
+                <a href="../index.html" title="Web Personal">
                     <i class="fa-solid fa-house"></i>
                 </a>
             </div>
