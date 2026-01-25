@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 18/01/2026
+ * @since: 25/01/2026
  * @description: Vista de Detalle.
  */
 ?>
@@ -12,11 +12,13 @@
         <table class="tabla-microsoft">
             <tr><th>Clave</th><th>Valor</th></tr>
             <?php
-            if (!empty($_SESSION)) {
-                foreach ($_SESSION as $variable => $resultado) {
+            if (!empty($avDetalle['session'])) {
+                foreach ($avDetalle['session'] as $variable => $resultado) {
                     echo "<tr><td>".$variable."</td><td><pre>" . print_r($resultado, true) . "</pre></td></tr>";
                 }
-            } else { echo "<tr><td colspan='2'>Vacía</td></tr>"; }
+            } else { 
+                echo "<tr><td colspan='2'>Vacía</td></tr>"; 
+            }
             ?>
         </table>
 
@@ -24,11 +26,13 @@
         <table class="tabla-microsoft">
             <tr><th>Clave</th><th>Valor</th></tr>
             <?php
-            if (!empty($_COOKIE)) {
-                foreach ($_COOKIE as $variable => $resultado) {
-                    echo "<tr><td>".$variable."</td><td><pre>" . $resultado . "</pre></td></tr>";
+            if (!empty($avDetalle['cookie'])) {
+                foreach ($avDetalle['cookie'] as $variable => $resultado) {
+                    echo "<tr><td>".$variable."</td><td><pre>" . print_r($resultado, true) . "</pre></td></tr>";
                 }
-            } else { echo "<tr><td colspan='2'>Vacía</td></tr>"; }
+            } else { 
+                echo "<tr><td colspan='2'>Vacía</td></tr>"; 
+            }
             ?>
         </table>
 
@@ -37,7 +41,8 @@
             <table class="tabla-microsoft">
                 <tr><th>Clave</th><th>Valor</th></tr>
                 <?php
-                foreach ($_SERVER as $variable => $resultado) {
+                // Usamos $avDetalle['server']
+                foreach ($avDetalle['server'] as $variable => $resultado) {
                     echo "<tr><td>".$variable."</td><td><pre>" . print_r($resultado, true) . "</pre></td></tr>";
                 }
                 ?>
@@ -46,7 +51,9 @@
         
         <h3 class="titulo-tabla">PHP Info</h3>
         <div class="phpinfo-container">
-            <?php phpinfo(); ?>
+            <?php 
+                echo $avDetalle['phpInfo']; 
+            ?>
         </div>
 
     </div>
