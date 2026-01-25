@@ -7,20 +7,18 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación Final</title>
-    <link rel="stylesheet" href="webroot/css/all.min.css">
-    <link rel="stylesheet" href="webroot/css/estilosLogin.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Aplicación Final</title>
+        <link rel="stylesheet" href="webroot/css/all.min.css">
+        <link rel="stylesheet" href="webroot/css/estilosLogin.css">
+    </head>
+    <body class="view-<?php echo $_SESSION['paginaEnCurso']; ?>">
+
     <header class="header-app">
-        
         <div class="marca-corporativa-ms">
-            <div class="logo-icono-ms">
-                <i class="fa-brands fa-microsoft"></i> 
-            </div>
+            <div class="logo-icono-ms"><i class="fa-brands fa-microsoft"></i></div>
             <div class="logo-texto-ms">
                 <span class="texto-principal">APLICACIÓN</span>
                 <span class="texto-secundario">FINAL</span>
@@ -28,64 +26,45 @@
         </div>
 
         <div class="header-titulo-central">
-            <?php echo $titulos[$_SESSION['paginaEnCurso']] ?? 'Aplicación Final'; ?>
+            <?php echo $tituloActual; ?>
         </div>
 
         <div class="nav-derecha">
-
-            <?php if (isset($_SESSION['usuarioENLAplicacionFinal'])): ?>
-                
-                <?php if ($_SESSION['paginaEnCurso'] !== 'inicioPrivado'): ?>
+            <?php if ($oUsuarioActivo): ?> 
+                <?php if ($mostrarBotonVolver): ?>
                     <form action="index.php" method="post" class="form-header">
-                        <button name="volver" class="btn-header" title="Volver al Panel">
-                            <i class="fa-solid fa-arrow-left"></i> <span class="btn-text-responsive">Volver</span>
+                        <button name="volver" class="btn-header" title="Volver">
+                            <i class="fa-solid fa-arrow-left"></i> Volver
                         </button>
                     </form>
-                    <div class="separador-header"></div>
                 <?php endif; ?>
+            
+                <form action="index.php" method="post" class="form-header">
+                    <button name="cuenta" class="btn-header btn-cuenta-circular" title="<?php echo $descUsuario; ?>">
+                        <span class="letra-inicial"><?php echo $inicialUsuario; ?></span>
+                    </button>
+                </form>
 
                 <form action="index.php" method="post" class="form-header">
-                     <button name="cuenta" class="btn-header" title="Mi Cuenta">
-                        <i class="fa-solid fa-user-gear"></i> <span class="btn-text-responsive">Cuenta</span>
-                     </button>
-                </form>
-                
-                <form action="index.php" method="post" class="form-header">
                     <button name="cerrarSesion" class="btn-header">
-                        <i class="fa-solid fa-power-off"></i> <span class="btn-text-responsive">Cerrar sesión</span>
+                        <i class="fa-solid fa-power-off"></i> Cerrar sesión
                     </button>
                 </form>
 
             <?php else: ?>
 
-                <?php if ($_SESSION['paginaEnCurso'] === 'inicioPublico'): ?>
-                    
-                    <form action="index.php" method="post" class="idioma-buttons">
-                        <?php $lang = $_COOKIE['idioma'] ?? 'ES'; ?>
-                        <button type="submit" name="idioma" value="ES" class="btn-flag <?php echo ($lang=='ES')?'active':''; ?>" title="Español">
-                            <img src="webroot/images/esp.png" alt="ES">
-                        </button>
-                        <button type="submit" name="idioma" value="EN" class="btn-flag <?php echo ($lang=='EN')?'active':''; ?>" title="English">
-                            <img src="webroot/images/uk.png" alt="EN">
-                        </button>
-                        <button type="submit" name="idioma" value="FR" class="btn-flag <?php echo ($lang=='FR')?'active':''; ?>" title="Français">
-                            <img src="webroot/images/francia.png" alt="FR">
-                        </button>
-                    </form>
-
-                    <div class="separador-header"></div>
-
+                <?php if ($_SESSION['paginaEnCurso'] !== 'login' && $_SESSION['paginaEnCurso'] !== 'registro'): ?>
                     <form action="index.php" method="post" class="form-header">
-                        <button name="iniciarSesion" class="btn-login-header">
+                        <button name="login" class="btn-login-header">
                             <i class="fa-solid fa-user"></i> Iniciar Sesión
                         </button>
                     </form>
                 <?php endif; ?>
-
+                
                 <?php if ($_SESSION['paginaEnCurso'] === 'login'): ?>
                     <form action="index.php" method="post" class="form-header">
-                        <button name="cancelar" class="btn-header">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+                        <button name="cancelar" class="btn-header" title="Volver al Inicio">
+                            <i class="fa-solid fa-house"></i> Volver a Inicio
                         </button>
                     </form>
                 <?php endif; ?>
@@ -94,13 +73,13 @@
         </div>
     </header>
 
-    <?php require_once $view[$_SESSION['paginaEnCurso']]; ?>
+        <?php require_once $view[$_SESSION['paginaEnCurso']]; ?>
 
     <footer class="footer-microsoft">
         <div class="footer-content">
             <p class="copy-text">2025-26 IES LOS SAUCES. © Todos los derechos reservados.</p>
             <p>Enrique Nieto Lorenzo</p>
-            
+
             <div class="footer-links">
                 <a href="#" class="link-destacado" title="Documentación PHPDoc">
                     <i class="fa-solid fa-book"></i> <span>PHPDoc</span>
@@ -122,5 +101,5 @@
         </div>
     </footer>
 
-</body>
+    </body>
 </html>

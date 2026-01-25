@@ -18,5 +18,29 @@ if (!isset($_SESSION['paginaEnCurso'])) {
 }
 
 // CARGAR EL CONTROLADOR CORRESPONDIENTE
-require_once $controller[$_SESSION['paginaEnCurso']];
+if (isset($controller[$_SESSION['paginaEnCurso']])) {
+    require_once $controller[$_SESSION['paginaEnCurso']];
+} else {
+    require_once $controller['inicioPublico'];
+}
+
+// PREPARAR DATOS COMUNES PARA EL LAYOUT
+//Inicial y nombre del Usuario
+$oUsuarioActivo = $_SESSION['usuarioENLAplicacionFinal'] ?? null;
+$inicialUsuario = '?';
+$descUsuario = '';
+
+if ($oUsuarioActivo) {
+    $inicialUsuario = $oUsuarioActivo->getInicialNombre();
+    $descUsuario    = $oUsuarioActivo->getDescUsuario();
+}
+
+//Título de la página
+$tituloActual = $titulos[$_SESSION['paginaEnCurso']] ?? 'Aplicación Final';
+
+//Botón volver
+$mostrarBotonVolver = !in_array($_SESSION['paginaEnCurso'], $aVistasSinBotonVolver);
+
+//CARGAR LA VISTA PRINCIPAL (Layout)
+require_once $view['layout'];
 ?>

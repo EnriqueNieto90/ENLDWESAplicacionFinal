@@ -90,7 +90,4 @@ if ($entradaOK) {
         exit;
     }
 }
-
-// Cargar vista
-require_once $view['layout'];
 ?>

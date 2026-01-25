@@ -106,7 +106,4 @@ $avRest = [
     'fotoNasa'  => $oFotoNasa,
     'error'     => $aErrores['fechaNasa']
 ];
-
-// Cargamos el layout
-require_once $view['layout'];
 ?>

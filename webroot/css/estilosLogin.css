@@ -169,6 +169,37 @@ main {
     align-items: center;
 }
 
+.btn-cuenta-circular {
+    background-color: var(--ms-blue); 
+    color: white !important;          
+    border: none !important;          
+    border-radius: 50%;               
+    width: 32px;                      
+    height: 32px;                   
+    padding: 0;                       
+    display: flex;                 
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;                
+    transition: background-color 0.2s;
+}
+
+.btn-cuenta-circular:hover {
+    background-color: var(--ms-blue-hover);
+    opacity: 1;
+}
+
+.letra-inicial {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;     
+    text-transform: uppercase;
+}
+
+.btn-cuenta-circular:hover .letra-inicial {
+    color: white;
+}
+
 /* Botón individual de bandera */
 .btn-flag {
     background-color: transparent;

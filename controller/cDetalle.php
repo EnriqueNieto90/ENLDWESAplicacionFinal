@@ -27,8 +27,5 @@ if (isset($_REQUEST['volver'])) {
     header('Location: index.php');
     exit;
 }
-
-//CARGAR VISTA
-require_once $view['layout'];
 ?>
 

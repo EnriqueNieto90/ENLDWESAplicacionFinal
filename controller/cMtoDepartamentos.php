@@ -12,7 +12,4 @@ if (isset($_REQUEST['volver'])) {
     header('Location: index.php');
     exit;
 }
-
-// Cargamos la vista común
-require_once $view['layout'];
 ?>

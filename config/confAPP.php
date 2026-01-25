@@ -60,5 +60,8 @@ $titulos = [
     'wip'              => 'En Construcción',
     'error'            => 'Error de Aplicación'
 ];
+
+// ARRAY VISTAS QUE NO LLEVAN BOTÓN VOLVER
+$aVistasSinBotonVolver = ['inicioPrivado', 'login', 'inicioPublico', 'registro'];
 ?>
 

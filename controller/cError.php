@@ -37,8 +37,5 @@ if (isset($_REQUEST['volver'])) {
     header('Location: index.php');
     exit;
 }
-
-// Cargamos el layout principal
-require_once $view['layout'];
 ?>
 

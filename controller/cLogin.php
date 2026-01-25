@@ -56,7 +56,4 @@ if ($entradaOK) {
     header('Location: index.php');
     exit;
 }
-
-//CARGAR LA VISTA
-require_once $view['layout'];
 ?>

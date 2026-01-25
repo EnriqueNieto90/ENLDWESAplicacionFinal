@@ -63,7 +63,7 @@ if (isset($_REQUEST['error'])) {
     exit;
 }
 
-// PREPARAR DATOS
+// PREPARAR DATOS PARA LA VISTA EN UN ARRAY
 $oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
 $avInicioPrivado = [
     'descUsuario' => $oUsuario->getDescUsuario(),
@@ -71,5 +71,4 @@ $avInicioPrivado = [
     'fechaHoraUltimaConexionAnterior' => $oUsuario->getFechaHoraUltimaConexionAnterior(),
 ];
 
-require_once $view['layout'];
 ?>

@@ -21,7 +21,7 @@ if (isset($_REQUEST['idioma'])) {
 }
 
 // GESTIÓN DEL BOTÓN "INICIAR SESIÓN"
-if (isset($_REQUEST['iniciarSesion'])) {
+if (isset($_REQUEST['login'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     
     // Si ya hay sesión activa, ir directamente a inicio privado
@@ -34,7 +34,4 @@ if (isset($_REQUEST['iniciarSesion'])) {
     header('Location: index.php');
     exit;
 }
-
-// CARGAR VISTA
-require_once $view['layout'];
 ?>
