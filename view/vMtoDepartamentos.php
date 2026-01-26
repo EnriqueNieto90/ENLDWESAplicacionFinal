@@ -28,10 +28,11 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Descripción</th>
+                            <th>Descripción<i class="fa-solid fa-long-arrow-down"></i></th>
                             <th>Fecha Alta</th>
                             <th>Volumen Negocio</th>
                             <th>Fecha Baja</th>
+                            <th style="text-align: right;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,13 @@
                                 <td><?php echo $dep['volumen']; ?></td>
                                 <td class="<?php echo ($dep['fechaBaja'] !== '-') ? 'texto-rojo' : ''; ?>">
                                     <?php echo $dep['fechaBaja']; ?>
+                                </td>
+                                <td style="text-align: right;">
+                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-long-arrow-down"></i></button>
+                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-long-arrow-up"></i></button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
