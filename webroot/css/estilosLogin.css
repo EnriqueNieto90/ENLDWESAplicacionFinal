@@ -970,6 +970,9 @@ body.view-error, body.view-wip {
     font-weight: 600;
     color: #323130;
 }
+.tabla-microsoft th i{
+    text-align: right;
+}
 
 .tabla-microsoft td {
     padding: 12px 10px;
