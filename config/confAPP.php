@@ -31,6 +31,7 @@ $controller = [
     'registro'         => 'controller/cRegistro.php',
     'wip'              => 'controller/cWIP.php',
     'error'            => 'controller/cError.php',
+    'cuenta'            => 'controller/cMiCuenta.php',
     'rest'             => 'controller/cRest.php',
     'mtoDepartamentos' => 'controller/cMtoDepartamentos.php'
 ];
@@ -45,6 +46,7 @@ $view = [
     'registro'         => 'view/vRegistro.php',
     'wip'              => 'view/vWIP.php',
     'error'            => 'view/vError.php',
+    'cuenta'            => 'view/vMiCuenta.php',
     'rest'             => 'view/vRest.php',
     'mtoDepartamentos' => 'view/vMtoDepartamentos.php'
 ];

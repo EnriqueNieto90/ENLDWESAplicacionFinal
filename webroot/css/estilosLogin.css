@@ -860,4 +860,68 @@ body.view-error, body.view-wip {
         align-items: center;
     }
 }
+/* =========================================
+   ESTILOS PERFIL / MI CUENTA
+   ========================================= */
 
+.perfil-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.avatar-grande {
+    width: 80px;
+    height: 80px;
+    background-color: var(--ms-blue);
+    color: white;
+    font-size: 3rem;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #323130;
+    border: 1px solid #8a8886;
+    padding: 8px 24px; 
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+}
+
+.btn-secondary:hover {
+    background-color: #edebe9;
+    border-color: #323130;
+}
+
+.acciones-login {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 15px; 
+    margin-top: 25px;
+    align-items: center;
+}
+
+.input-disabled {
+    background-color: #f3f2f1;
+    color: #605e5c;
+    border-color: #e1dfdd;
+}
+
+.opciones-seguridad {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e1dfdd;
+}

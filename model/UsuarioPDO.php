@@ -144,7 +144,35 @@ final class UsuarioPDO {
         
         return $bNoExiste;
     }
+    
+    /**
+     * Modifica la descripción (Nombre y Apellidos) de un usuario.
+     * @param Usuario $oUsuario El objeto usuario con los datos actuales.
+     * @param string $nuevoDescUsuario La nueva descripción.
+     * @return Usuario|null Devuelve el objeto actualizado o null si falla.
+     */
+    public static function modificarUsuario($oUsuario, $nuevoDescUsuario) {
+        
+        // En la consulta a la DB solo actualizamos la descripción
+        $sql = <<<SQL
+            UPDATE T01_Usuario SET 
+                T01_DescUsuario = :nuevoDescUsuario
+            WHERE T01_CodUsuario = :codUsuario
+        SQL;
 
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':nuevoDescUsuario' => $nuevoDescUsuario,
+            ':codUsuario'       => $oUsuario->getCodUsuario()
+        ]);
+
+        // Actualizar en la memoria
+        if ($consulta) {
+            $oUsuario->setDescUsuario($nuevoDescUsuario);
+            return $oUsuario;
+        }
+
+        return null;
+    }
 }
 ?>
 

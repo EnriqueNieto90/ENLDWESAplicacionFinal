@@ -24,7 +24,7 @@ if (isset($_REQUEST['cerrarSesion'])) {
 // BOTÓN CUENTA
 if (isset($_REQUEST['cuenta'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip'; 
+    $_SESSION['paginaEnCurso'] = 'cuenta'; 
     header('Location: index.php');
     exit;
 }

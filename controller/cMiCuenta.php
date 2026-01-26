@@ -1,73 +1,102 @@
 <?php
 /**
- * @author Enrique Nieto Lorenzo
- * @since 22/01/2026
- * @description Controlador para mi cuenta de usuario.
+ * @author: Enrique Nieto Lorenzo
+ * @since: 26/01/2026
+ * @description: Controlador de Mi Cuenta.
  */
 
-// SI SE PULSA CANCELAR
-if (isset($_REQUEST['cancelar'])) {
+// Si no hay usuario logueado, mandar al login
+if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     $_SESSION['paginaEnCurso'] = 'login';
     header('Location: index.php');
     exit;
 }
 
-$entradaOK = true;
-$aErrores = [
-    'codUsuario'  => null,
-    'descUsuario' => null,
-    'password'    => null
-];
+// BOTÓN CERRAR SESIÓN
+if (isset($_REQUEST['cerrarSesion'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['paginaEnCurso'] = 'inicioPublico';
+    header('Location: index.php');
+    exit;
+}
 
-// SI SE PULSA CREAR CUENTA
-if (isset($_REQUEST['registrarse'])) {
-    
-    // Validar formato de los campos
-    $aErrores['codUsuario']  = validacionFormularios::comprobarAlfabetico($_REQUEST['codUsuario'], 10, 4, 1);
-    $aErrores['descUsuario'] = validacionFormularios::comprobarAlfabetico($_REQUEST['descUsuario'], 255, 4, 1);
-    $aErrores['password']    = validacionFormularios::validarPassword($_REQUEST['password'], 8, 4, 1, 1);
-    
-    // Comprobar si hay errores de formato
+// Control de botón Volver
+if (isset($_REQUEST['volver'])) {
+    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN CANCELAR
+if (isset($_REQUEST['cancelar'])) {
+    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['cambiarPassword'])) {
+    $_SESSION['paginaAnterior'] = 'cuenta';
+//    $_SESSION['paginaEnCurso'] = 'cambiarPassword';
+    $_SESSION['paginaEnCurso'] = 'wip';
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['borrarCuenta'])) {
+    $_SESSION['paginaAnterior'] = 'cuenta';
+//    $_SESSION['paginaEnCurso'] = 'borrarCuenta';
+    $_SESSION['paginaEnCurso'] = 'wip';
+    header('Location: index.php');
+    exit;
+}
+
+// RECUPERAR DATOS DEL USUARIO ACTUAL
+$oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
+$entradaOK = true;
+$aErrores = ['descUsuario' => null];
+
+// Si pulsamos guardar modificamos el usuario
+if (isset($_REQUEST['aceptar'])) {
+
+    // Validar el nombre que introducimos para la modificación
+    $aErrores['descUsuario'] = validacionFormularios::comprobarAlfabetico($_REQUEST['descUsuario'], 255, 3, 1);
+
+    // Comprobar errores
     foreach ($aErrores as $campo => $error) {
         if ($error != null) {
             $entradaOK = false;
-            $_REQUEST['password'] = ""; // Limpiar contraseña
-        }
-    }
-    
-    // Validar lógica de negocio (Usuario duplicado)
-    if ($entradaOK) {
-        if (!UsuarioPDO::validarCodNoExiste($_REQUEST['codUsuario'])) {
-            $aErrores['codUsuario'] = "Ese código de usuario ya está en uso.";
-            $entradaOK = false;
         }
     }
 
-    // Si todo está OK, insertar en BBDD
     if ($entradaOK) {
-        $oUsuarioNuevo = UsuarioPDO::altaUsuario(
-            $_REQUEST['codUsuario'], 
-            $_REQUEST['password'], 
-            $_REQUEST['descUsuario']
-        );
+        // Llamada al Modelo para actualizar
+        $oUsuarioActualizado = UsuarioPDO::modificarUsuario($oUsuario, $_REQUEST['descUsuario']);
 
-        if ($oUsuarioNuevo) {
-            // Login automático tras registro
-            $_SESSION['usuarioENLAplicacionFinal'] = $oUsuarioNuevo;
+        if ($oUsuarioActualizado) {
+            // Actualizamos la sesión con el objeto nuevo
+            $_SESSION['usuarioENLAplicacionFinal'] = $oUsuarioActualizado;
+            
+            // Volvemos al inicio privado
             $_SESSION['paginaEnCurso'] = 'inicioPrivado';
             header('Location: index.php');
             exit;
         } else {
-            // Error en base de datos
-            $_SESSION['paginaEnCurso'] = 'error'; // O manejar el error aquí
-            exit;
+             $aErrores['descUsuario'] = "No se ha podido modificar el usuario.";
         }
     }
-
 } else {
     $entradaOK = false;
 }
 
-require_once $view['layout'];
-?>
+// PREPARAR DATOS PARA LA VISTA
+$avMiCuenta = [
+    'codUsuario' => $oUsuario->getCodUsuario(),
+    'descUsuario' => $_REQUEST['descUsuario'] ?? $oUsuario->getDescUsuario(),
+    'perfil' => $oUsuario->getPerfil(),
+    'numConexiones' => $oUsuario->getNumConexiones(),
+    'fechaUltimaConexion' => $oUsuario->getFechaHoraUltimaConexion()->format('d/m/Y H:i'),
+    'inicial' => $oUsuario->getInicialNombre()
+];
 
+?>

@@ -1,55 +1,72 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 22/01/2026
- * @description: Vista de Mi Cuenta de Usuario.
+ * @since: 26/01/2026
+ * @description: Vista de Mi Cuenta / Perfil.
  */
 ?>
 <main>
-    <div class="card-central">
-        <div class="logo-app-img">
-            <i class="fa-solid fa-user-plus" style="font-size: 2.5rem; color: #0078D4;"></i>
+    <div class="card-central card-dashboard">
+        
+        <div class="perfil-header">
+            <div class="avatar-grande">
+                <?php echo $avMiCuenta['inicial']; ?>
+            </div>
+            <h2 class="titulo-login">Tu perfil</h2>
+            <p class="subtitulo-login">Gestiona tu información personal y seguridad.</p>
         </div>
 
-        <h2 class="titulo-login">Crear cuenta</h2>
-        <p class="subtitulo-login">Rellene los datos para acceder a la aplicación.</p>
-        
-        <form action="index.php" method="post"> 
-            
-            <div class="grupo-input">
-                <input type="text" class="input-microsoft" name="codUsuario" 
-                       value="<?php echo $_REQUEST['codUsuario'] ?? ''; ?>" 
-                       placeholder="Código Usuario (mín 4 caracteres)">
-                <?php if (!empty($aErrores['codUsuario'])): ?>
-                    <span class="error-msg"><?php echo $aErrores['codUsuario']; ?></span>
-                <?php endif; ?>
+        <form action="index.php" method="post" class="form-micuenta">
+
+            <div class="fila-datos">
+                <div class="grupo-input">
+                    <label class="label-microsoft">Usuario</label>
+                    <input type="text" class="input-microsoft input-disabled" 
+                           value="<?php echo $avMiCuenta['codUsuario']; ?>" readonly disabled>
+                </div>
+                
+                <div class="grupo-input">
+                    <label class="label-microsoft">Perfil</label>
+                    <input type="text" class="input-microsoft input-disabled" 
+                           value="<?php echo $avMiCuenta['perfil']; ?>" readonly disabled>
+                </div>
             </div>
-            
+
             <div class="grupo-input">
-                <input type="text" class="input-microsoft" name="descUsuario" 
-                       value="<?php echo $_REQUEST['descUsuario'] ?? ''; ?>" 
-                       placeholder="Nombre y Apellidos">
-                <?php if (!empty($aErrores['descUsuario'])): ?>
+                <label class="label-microsoft">Nombre y Apellidos</label>
+                <input type="text" class="input-microsoft <?php echo ($aErrores['descUsuario']) ? 'input-error' : ''; ?>" 
+                       name="descUsuario" 
+                       value="<?php echo $avMiCuenta['descUsuario']; ?>" 
+                       placeholder="Tu nombre completo">
+                
+                <?php if ($aErrores['descUsuario']): ?>
                     <span class="error-msg"><?php echo $aErrores['descUsuario']; ?></span>
                 <?php endif; ?>
             </div>
-            
-            <div class="grupo-input">
-                <input type="password" class="input-microsoft" name="password" 
-                       value="<?php echo $_REQUEST['password'] ?? ''; ?>" 
-                       placeholder="Contraseña (mín 4 caracteres)">
-                <?php if (!empty($aErrores['password'])): ?>
-                    <span class="error-msg"><?php echo $aErrores['password']; ?></span>
-                <?php endif; ?>
+
+            <div class="info-bloque-gris">
+                <p><i class="fa-solid fa-chart-simple"></i> Conexiones: <strong><?php echo $avMiCuenta['numConexiones']; ?></strong></p>
+                <p><i class="fa-regular fa-clock"></i> Último acceso: <strong><?php echo $avMiCuenta['fechaUltimaConexion']; ?></strong></p>
             </div>
 
-            <div class="acciones-login" style="justify-content: flex-end;"> 
-                <button type="submit" name="registrarse" class="btn-primary">Registrarse</button>
+            <div class="acciones-login" style="margin-top: 20px;">
+                <button type="submit" name="aceptar" class="btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar
+                </button>
+                
+                <button type="submit" name="cancelar" class="btn-secondary">
+                    Cancelar
+                </button>
             </div>
-            
-            <div style="margin-top: 20px; text-align: center; font-size: 0.9rem;">
-                <span class="btn-link">¿Ya tienes cuenta? </span>
-                <button type="submit" name="cancelar" class="btn-link btn-bold">Inicia sesión</button>
+
+            <div class="opciones-seguridad">
+                <button type="submit" name="cambiarPassword" class="btn-link">
+                    <i class="fa-solid fa-key"></i> Cambiar contraseña
+                </button>
+                
+                <button type="submit" name="borrarCuenta" class="btn-link btn-danger">
+                    <i class="fa-solid fa-trash"></i> Eliminar cuenta
+                </button>
             </div>
 
         </form>
