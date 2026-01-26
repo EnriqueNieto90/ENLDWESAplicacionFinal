@@ -12,6 +12,9 @@ require_once 'core/231018libreriaValidacion.php';
 require_once 'model/Usuario.php';
 require_once 'model/UsuarioPDO.php';
 require_once 'model/DBPDO.php';
+require_once 'model/Departamento.php';
+require_once 'model/DepartamentoPDO.php';
+
 
 require_once 'model/ErrorApp.php';
 

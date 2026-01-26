@@ -18,7 +18,7 @@
                                    max="<?php echo date('Y-m-d'); ?>">
                             
                             <button type="submit" name="enviarNasa" class="btn-primary btn-api">
-                                Ver
+                                Buscar
                             </button>
                         </div>
                         <span class="error-msg"><?php echo $avRest['error']; ?></span>
@@ -39,18 +39,17 @@
             <div class="tarjeta-api">
                 <div class="seccion-input">
                     <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Buscar..." readonly>
-                        <button class="btn-primary btn-api">Ver</button>
+                        <input type="text" class="input-microsoft" placeholder="" readonly>
+                        <button class="btn-primary btn-api">Buscar</button>
                     </div>
                 </div>
 
                 <div class="seccion-titulo">
-                    <h3>Próxima API</h3>
+                    <h3>API</h3>
                 </div>
 
                 <div class="seccion-contenido">
-                    <i class="fa-solid fa-rocket icono-api-vacia"></i>
-                    <p class="texto-vacio">Próximamente</p>
+                    
                 </div>
             </div>
         </div>
@@ -59,18 +58,17 @@
             <div class="tarjeta-api">
                  <div class="seccion-input">
                      <div class="grupo-input-api">
-                         <input type="text" class="input-microsoft" placeholder="Buscar datos..." readonly>
-                         <button class="btn-primary btn-api">Ver</button>
+                         <input type="text" class="input-microsoft" placeholder="" readonly>
+                         <button class="btn-primary btn-api">Buscar</button>
                      </div>
                  </div>
 
                  <div class="seccion-titulo">
-                    <h3>Mi API Propia</h3>
+                    <h3>Mi API</h3>
                  </div>
 
                  <div class="seccion-contenido">
-                     <i class="fa-solid fa-server icono-api-vacia"></i>
-                     <p class="texto-vacio">En desarrollo</p>
+                     
                  </div>
             </div>
         </div>
