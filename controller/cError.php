@@ -31,9 +31,26 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 
+// BOTÓN CERRAR SESIÓN
+if (isset($_REQUEST['cerrarSesion'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['paginaEnCurso'] = 'inicioPublico';
+    header('Location: index.php');
+    exit;
+}
+
+// Control de botón Volver
 if (isset($_REQUEST['volver'])) {
-    // Si se pulsa le damos el valor de la página anterior a la variable en curso
-    $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'];
+    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN CUENTA
+if (isset($_REQUEST['cuenta'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip'; 
     header('Location: index.php');
     exit;
 }

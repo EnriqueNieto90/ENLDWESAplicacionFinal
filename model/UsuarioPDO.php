@@ -5,15 +5,12 @@
  * @description: Clase UsuarioPDO que gestiona las operaciones de usuario en la base de datos.
  */
 
-require_once 'DBPDO.php';
-require_once 'Usuario.php';
-
-class UsuarioPDO {
+final class UsuarioPDO {
 
     /**
      * Valida si un usuario existe y la contraseña es correcta.
      * Si es válido, actualiza la información de conexión y devuelve un objeto Usuario.
-     * * @param string $codUsuario Código del usuario.
+     * @param string $codUsuario Código del usuario.
      * @param string $password Contraseña del usuario.
      * @return Usuario|null Devuelve el objeto Usuario si las credenciales son correctas, null en caso contrario.
      */
@@ -27,38 +24,33 @@ class UsuarioPDO {
             AND T01_Password = SHA2(:password, 256)
         SQL;
 
-        $parametros = [
-            ':codUsuario' => $codUsuario,
-            ':password'   => $codUsuario . $password
-        ];
-
         // Ejecutamos la consulta
-        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
-
-        // Procesamos el resultado
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':codUsuario'  => $codUsuario,
+            ':password' => $codUsuario . $password
+        ]);
+        
         if ($consulta && $consulta->rowCount() > 0) {
-            
             $usuarioBD = $consulta->fetchObject();
+        
+            // Procesamos el resultado
+            if ($usuarioBD) {
+                // Convertimos fecha de string a DateTime
+                $fechaBD = $usuarioBD->T01_FechaHoraUltimaConexion;
+                $oFechaValida = ($fechaBD) ? new DateTime($fechaBD) : null;
 
-            // Gestionamos la fecha anterior (puede ser null si es la primera vez)
-            $fechaAnterior = $usuarioBD->T01_FechaHoraUltimaConexion 
-                ? new DateTime($usuarioBD->T01_FechaHoraUltimaConexion) 
-                : null;
-
-            // Instanciamos el objeto Usuario
-            $oUsuario = new Usuario(
-                $usuarioBD->T01_CodUsuario,
-                $usuarioBD->T01_Password,
-                $usuarioBD->T01_DescUsuario,
-                $usuarioBD->T01_NumConexiones + 1, // Sumamos la conexión actual
-                new DateTime(),                    // Fecha actual
-                $fechaAnterior,                    // Fecha guardada en BD antes de actualizar
-                $usuarioBD->T01_Perfil,
-                $usuarioBD->T01_ImagenUsuario ?? null
-            );
-
-            // Actualizamos la BBDD llamando al otro método
-            self::registrarUltimaConexion($codUsuario);
+                // Instanciamos el objeto Usuario
+                $oUsuario = new Usuario(
+                    $usuarioBD->T01_CodUsuario,
+                    $usuarioBD->T01_Password,
+                    $usuarioBD->T01_DescUsuario,
+                    $usuarioBD->T01_NumConexiones,
+                    $oFechaValida,           // FechaHoraUltimaConexion (La que hay en BD)
+                    null,                    // FechaHoraUltimaConexionAnterior (NULL al validar)
+                    $usuarioBD->T01_Perfil,
+                    $usuarioBD->T01_ImagenUsuario ?? null
+                );
+            }
         }
 
         return $oUsuario;
@@ -66,10 +58,11 @@ class UsuarioPDO {
 
     /**
      * Actualiza la fecha de última conexión y el contador de accesos en la base de datos.
-     * * @param string $codUsuario Código del usuario a actualizar.
-     * @return bool True si la actualización fue correcta.
+     * @param Usuario $oUsuario Objeto Usuario a actualizar.
+     * @return Usuario|null Objeto Usuario con la fecha de última conexión actualizada.
      */
-    public static function registrarUltimaConexion($codUsuario) {
+    public static function registrarUltimaConexion($oUsuario) {
+        //Actualizamos la BD
         $sql = <<<SQL
             UPDATE T01_Usuario SET 
                 T01_FechaHoraUltimaConexion = NOW(),
@@ -77,7 +70,23 @@ class UsuarioPDO {
             WHERE T01_CodUsuario = :codUsuario
         SQL;
 
-        $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':codUsuario' => $oUsuario->getCodUsuario()
+        ]);
+        
+        if ($consulta) {
+            // Actualizar Objeto en memoria
+            // Lo que era la fecha actual, ahora es fecha anterior
+            $oUsuario->setFechaHoraUltimaConexionAnterior($oUsuario->getFechaHoraUltimaConexion());
+
+            // Sumamos 1 conexión
+            $oUsuario->setNumConexiones($oUsuario->getNumConexiones() + 1);
+            
+            // Ponemos la actual fecha de conexión
+            $oUsuario->setFechaHoraUltimaConexion(new DateTime());
+        }
+
+        return $oUsuario;
     }
     
     /**

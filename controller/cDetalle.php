@@ -28,6 +28,14 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
+// BOTÓN CUENTA
+if (isset($_REQUEST['cuenta'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip'; 
+    header('Location: index.php');
+    exit;
+}
+
 // PREPARAR DATOS PARA LA VISTA EN UN ARRAY
 // Capturamos phpinfo usando Output Buffering para que no se imprima directamente
 ob_start();             // Abrimos el buffer

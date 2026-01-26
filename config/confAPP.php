@@ -11,6 +11,8 @@ require_once 'core/231018libreriaValidacion.php';
 // CARGA DEL MODELO
 require_once 'model/Usuario.php';
 require_once 'model/UsuarioPDO.php';
+require_once 'model/DBPDO.php';
+
 require_once 'model/ErrorApp.php';
 
 // Modelos de la API

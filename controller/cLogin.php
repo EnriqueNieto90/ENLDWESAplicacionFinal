@@ -20,7 +20,12 @@ if (isset($_REQUEST['registrarse'])) {
 
 //PROCESO DE LOGIN
 $entradaOK = true;
-$aErrores = ['usuario' => null, 'password' => null];
+$oUsuarioValido = null;
+
+$aErrores = [
+    'usuario' => null,
+    'password' => null
+];
 
 if (isset($_REQUEST['entrar'])) {
     // Validar el formato de campos
@@ -50,6 +55,9 @@ if (isset($_REQUEST['entrar'])) {
 
 // LOGIN CORRECTO. Guardamos usuario en sesión y redirigimos
 if ($entradaOK) {
+    // Registrar la conexión en la BD
+    $oUsuarioValido = UsuarioPDO::registrarUltimaConexion($oUsuarioValido);
+    
     $_SESSION['usuarioENLAplicacionFinal'] = $oUsuarioValido;
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
         
