@@ -28,13 +28,21 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
-// LÓGICA DE LA BÚSQUEDA
 // Por defecto buscamos todo
 $descripcionBuscada = "";
+
+if (isset($_SESSION["descripcionBuscadaEnCurso"])) {
+    $descripcionBuscada = $_SESSION["descripcionBuscadaEnCurso"];
+}
 
 // Si se ha pulsado buscar y hay texto
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
+    $_SESSION['descripcionBuscadaEnCurso'] = $descripcionBuscada;
+}
+//Si NO ha pulsado buscar, miramos si tenía algo guardado de antes
+elseif (isset($_SESSION['descripcionBuscadaEnCurso'])) {
+    $descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'];
 }
 
 // Recuperar los datos de la DB
@@ -57,5 +65,4 @@ if ($aDepartamentosEncontrados) {
 
 // Guardamos el término buscado para que se mantenga en el input
 $valorBuscar = $descripcionBuscada;
-
 ?>

@@ -8,7 +8,7 @@
 <main>
     <div class="card-central">
         <div class="logo-app-img">
-            <i class="fa-brands fa-microsoft"></i>
+            <i class="fas fa-layer-group"></i>
         </div>
 
         <h2 class="titulo-login">Iniciar sesión</h2>

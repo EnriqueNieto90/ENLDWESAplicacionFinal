@@ -18,7 +18,7 @@
 
     <header class="header-app">
         <div class="marca-corporativa-ms">
-            <div class="logo-icono-ms"><i class="fa-brands fa-microsoft"></i></div>
+            <div class="logo-icono-ms"><i class="fas fa-layer-group"></i></div>
             <div class="logo-texto-ms">
                 <span class="texto-principal">APLICACIÓN</span>
                 <span class="texto-secundario">FINAL</span>
