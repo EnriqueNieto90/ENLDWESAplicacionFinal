@@ -7,8 +7,7 @@
 ?>
 <main>
     <div class="intro-inicio text-center">
-        <h2 class="titulo-grande-ms">Bienvenido a la Aplicación Final</h2>
-        <p class="subtitulo-ms">Documentación técnica y diagramas de la arquitectura</p>
+        <h2 class="titulo-grande-ms">Documentación técnica y diagramas de la arquitectura</h2>
     </div>
 
     <div class="contenedor-carrusel-ms">

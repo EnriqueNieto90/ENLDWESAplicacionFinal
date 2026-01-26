@@ -56,7 +56,7 @@ $view = [
 
 // ARRAY DE TÍTULOS DEL HEADER
 $titulos = [
-    'inicioPublico'    => 'Bienvenido',
+    'inicioPublico'    => 'Bienvenido a la Aplicación Final',
     'login'            => 'Login',
     'registro'         => 'Registro de Usuario',
     'inicioPrivado'    => 'Inicio Privado',
