@@ -24,6 +24,8 @@ require_once 'model/FotoNasa.php';
 
 //Constante con la APIKEY de la NASA
 const API_KEY_NASA = 'VArtVZZeOSBGcSkPjTl7VzP0gX2olfPh8kdQgz3b';
+//Constante con la palabra de seguridad de la aplicación
+const PALABRA_SEGURIDAD = 'pimentel';
 
 // ARRAY DE CONTROLADORES
 $controller = [

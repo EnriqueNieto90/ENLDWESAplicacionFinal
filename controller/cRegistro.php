@@ -18,14 +18,16 @@ $aErrores = [
     'codUsuario' => null,
     'descUsuario' => null,
     'password' => null,
-    'repetirPassword' => null
+    'repetirPassword' => null,
+    'preguntaSeguridad' => null
 ];
 
 $aRespuestas = [
     'codUsuario' => '',
     'descUsuario' => '',
     'password' => '',
-    'repetirPassword' => ''
+    'repetirPassword' => '',
+    'preguntaSeguridad' => ''
 ];
 
 // SI SE PULSA REGISTRARSE
@@ -41,6 +43,14 @@ if (isset($_REQUEST['registrarse'])) {
         $aErrores['repetirPassword'] = "Debe repetir la contraseña.";
     } else if ($_REQUEST['password'] !== $_REQUEST['repetirPassword']) { // Comprobar si las contraseñas coinciden
         $aErrores['repetirPassword'] = "Las contraseñas no coinciden.";
+        $entradaOK = false;
+    }
+    
+    // Comporbar que el campo respuesta de seguridad no esté vacío
+    if (empty($_REQUEST['preguntaSeguridad'])) {
+        $aErrores['preguntaSeguridad'] = "Debe escribir la respuesta.";
+    } else if ($_REQUEST['preguntaSeguridad'] !== PALABRA_SEGURIDAD) { // Comprobar si la respuesta coincide
+        $aErrores['preguntaSeguridad'] = "La respuesta de seguridad no es correcta";
         $entradaOK = false;
     }
     

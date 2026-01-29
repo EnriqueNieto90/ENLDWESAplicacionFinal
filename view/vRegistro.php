@@ -53,6 +53,15 @@
 
                 <?php echo !empty($aErrores['repetirPassword']) ? '<span class="error-msg">'.$aErrores['repetirPassword'].'</span>' : ''; ?>
             </div>
+            
+            <div class="grupo-input">
+                <input type="password" 
+                       class="input-microsoft" 
+                       name="preguntaSeguridad" 
+                       placeholder="Escriba la respuesta de seguridad">
+
+                <?php echo !empty($aErrores['preguntaSeguridad']) ? '<span class="error-msg">'.$aErrores['preguntaSeguridad'].'</span>' : ''; ?>
+            </div>
 
             <div class="acciones-registro">
                 <button type="submit" name="registrarse" class="btn-primary">Registrarse</button>
