@@ -2,7 +2,7 @@
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 22/01/2026
- * @description: Vista del servicio REST (API NASA y otras)
+ * @description: Vista del servicio REST
  */
 ?>
 <main>
@@ -42,7 +42,7 @@
                              style="width: 100%; height: 100%; object-fit: cover;">
                         
                         <a href="<?php echo $avRest['fotoNasaEnCursoUrlHD']; ?>" target="_blank" class="btn-hd-overlay">
-                            Ver en HD
+                            Detalles
                         </a>
                     </div>
 
@@ -62,13 +62,12 @@
                 </div>
                 <div class="seccion-input">
                     <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Parámetro..." readonly>
+                        <input type="text" class="input-microsoft" placeholder="Buscar..." readonly>
                         <button class="btn-primary btn-api">Buscar</button>
                     </div>
                 </div>
                 <div class="seccion-contenido">
-                    <span class="icono-api-vacia">☁️</span>
-                    <span class="texto-vacio">Sin datos cargados</span>
+                    
                 </div>
             </div>
         </div>
@@ -80,13 +79,12 @@
                  </div>
                  <div class="seccion-input">
                       <div class="grupo-input-api">
-                          <input type="text" class="input-microsoft" placeholder="ID..." readonly>
+                          <input type="text" class="input-microsoft" placeholder="Buscar..." readonly>
                           <button class="btn-primary btn-api">Buscar</button>
                       </div>
                  </div>
                  <div class="seccion-contenido">
-                      <span class="icono-api-vacia">⚙️</span>
-                      <span class="texto-vacio">Sin servicio activo</span>
+                      
                  </div>
             </div>
         </div>
