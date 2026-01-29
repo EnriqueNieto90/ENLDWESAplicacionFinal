@@ -7,6 +7,7 @@
 
 // Control de sesión (Si no está logueado, al login)
 if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'login';
     header('Location: index.php');
     exit;
