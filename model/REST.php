@@ -89,47 +89,5 @@ class REST {
         return $oFotoNasa;
     }
 
-    /**
-     * Descarga una imagen desde una URL y la guarda en una carpeta temporal.
-     * @param string $sUrl La URL de la imagen a descargar.
-     * @return string La ruta local si se descargó bien, o la URL original si falló.
-     */
-    private static function descargarImagen($sUrl) {
-        $sRutaDestino = "tmp/imagenNasaHD.jpg";
-        
-        // Intentamos abrir el fichero para escribir ('wb' = write binary)
-        // Usamos @ para que no salga el Warning en pantalla si falla
-        $oFp = @fopen($sRutaDestino, 'wb');
-
-        // SI FALLA (por permisos o porque no existe la carpeta):
-        if ($oFp === false) {
-            // Devolvemos la URL remota original para que la web siga funcionando
-            // mostrando la foto directamente desde los servidores de la NASA.
-            return $sUrl; 
-        }
-        
-        // Si el archivo se abrió correctamente, procedemos con cURL
-        $oCurl = curl_init($sUrl);
-        curl_setopt($oCurl, CURLOPT_FILE, $oFp);
-        curl_setopt($oCurl, CURLOPT_HEADER, 0);
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($oCurl, CURLOPT_TIMEOUT, 5); // Timeout corto para descarga
-        
-        curl_exec($oCurl);
-        
-        // Verificamos si hubo error en cURL
-        if(curl_errno($oCurl)) {
-            // Si falla la descarga, cerramos todo y devolvemos la URL original
-            curl_close($oCurl);
-            fclose($oFp);
-            return $sUrl;
-        }
-
-        curl_close($oCurl);
-        fclose($oFp);
-
-        return $sRutaDestino;
-    }
 }
 ?>

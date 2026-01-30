@@ -1,9 +1,4 @@
 <?php
-// --- MODO DEPURACIÓN (Borrar al terminar) ---
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// --------------------------------------------
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 21/01/2026
