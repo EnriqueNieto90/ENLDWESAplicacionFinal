@@ -1,11 +1,17 @@
 <?php
+// --- MODO DEPURACIÓN (Borrar al terminar) ---
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// --------------------------------------------
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 21/01/2026
- * @description: Controlador para la API REST
+ * @description: Controlador para la API REST de la NASA.
+ * Gestiona la sesión para minimizar llamadas a la API.
  */
 
-// Control de sesión (Si no está logueado, al login)
+// 1. SEGURIDAD: Control de sesión
 if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'login';
@@ -13,7 +19,7 @@ if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
     exit;
 }
 
-// BOTÓN CERRAR SESIÓN
+// 2. NAVEGACIÓN: Botones de salir y volver
 if (isset($_REQUEST['cerrarSesion'])) {
     session_destroy();
     session_start();
@@ -22,72 +28,90 @@ if (isset($_REQUEST['cerrarSesion'])) {
     exit;
 }
 
-// Comprobamos si la sesión "fotoNasa" está vacia.
-if(empty($_SESSION['fotoNasa'])){
-    // Se obtiene la fecha de hoy para valores.
-    $fechaHoy = new DateTime();
-    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
-    $_SESSION['fotoNasa'] = REST::apiNasa($fechaHoyFormateada);
-}
-
-// Control de botón Volver
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
     header('Location: index.php');
     exit;
 }
 
-// BOTÓN CUENTA
-if (isset($_REQUEST['cuenta'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip'; 
-    header('Location: index.php');
-    exit;
+// 3. GESTIÓN DEL FORMULARIO (POST)
+// ==========================================================
+$entradaOK = true;
+$aErrores = ['fechaNasaEnCurso' => null];
+
+if (isset($_REQUEST['entrar'])) { // Botón "Buscar" de tu vista
+    
+    // Obtenemos fecha actual para validación
+    $fechaHoy = new DateTime();
+    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
+
+    // Validación: No vacía, formato fecha, y rango (entre 1995 y hoy)
+    // Nota: Ajusta validacionFormularios según tu librería (algunas piden d/m/Y otras Y-m-d)
+    $aErrores['fechaNasaEnCurso'] = validacionFormularios::validarFecha(
+        $_REQUEST['fechaNasaEnCurso'], 
+        $fechaHoyFormateada, 
+        '1995-06-16', 
+        1
+    );
+
+    if ($aErrores['fechaNasaEnCurso'] != null) {
+        $entradaOK = false;
+    }
+
+    if ($entradaOK) {
+        // SI ES VÁLIDO:
+        // 1. Guardamos la fecha deseada en sesión.
+        $_SESSION['fechaNasaEnCurso'] = $_REQUEST['fechaNasaEnCurso'];
+        
+        // 2. IMPORTANTE: Borramos la foto anterior de la sesión.
+        // Al borrarla, forzamos a que en la recarga (GET) se baje la nueva.
+        unset($_SESSION['fotoNasaEnCurso']);
+
+        // 3. Recargamos la página (Patrón PRG) para evitar reenvíos de formulario.
+        header('Location: index.php');
+        exit;
+    }
 }
 
-$entradaOk = true;
-// Inicializamos las variables de control.
-$aErrores = [
-    'fechaNasa' => null
-];
+// 4. LÓGICA DE RECUPERACIÓN DE DATOS (GET)
+// ==========================================================
 
+// A. Determinar la Fecha:
+// Si no hay fecha en sesión (primera vez que entra), usamos HOY.
+if (!isset($_SESSION['fechaNasaEnCurso'])) {
+    $fechaHoy = new DateTime();
+    $_SESSION['fechaNasaEnCurso'] = $fechaHoy->format('Y-m-d');
+}
+$fechaSolicitada = $_SESSION['fechaNasaEnCurso'];
+
+
+// B. Determinar el Objeto Foto (Sistema de Caché):
 $oFotoNasa = null;
 
-// Se obtiene la fecha de hoy para valores.
-$fechaHoy = new DateTime();
-$fechaHoyFormateada = $fechaHoy->format('Y-m-d');
-$fechaNasa = $fechaHoyFormateada; // Fecha formateada del día de hoy.
+// ¿Tenemos una foto guardada en sesión Y coincide con la fecha que queremos ver?
+if (isset($_SESSION['fotoNasaEnCurso']) && 
+    $_SESSION['fotoNasaEnCurso']->getFecha() === $fechaSolicitada) {
+    
+    // Si coincide, la usamos (Ahorramos llamada a la API)
+    $oFotoNasa = $_SESSION['fotoNasaEnCurso'];
 
-// Comprobamos si el botón "btnFecha" ha sido pulsado.
-if(isset($_REQUEST['enviarNasa'])){
-    $entradaOk = true;
-    $aErrores['fechaNasaEnCurso'] = validacionFormularios::validarFecha($_REQUEST['fechaNasaEnCurso'], $fechaHoyFormateada, '1995-06-16', 1);
+} else {
+    // Si no existe o la fecha es distinta, llamamos a la API
+    // Tu clase REST ya se encarga de devolver un objeto válido (con datos o con error)
+    $oFotoNasa = REST::apiNasa($fechaSolicitada);
     
-    if($aErrores['fechaNasaEnCurso'] != null){
-        $entradaOk = false;
-    }
-    
-        
-    
-    if($entradaOk){
-        $fechaNasa = $_REQUEST['fechaNasaEnCurso'];
-        $oFotoNasa = REST::apiNasa($fechaNasa);
-        $_SESSION['fotoNasa'] = $oFotoNasa;
-    }
+    // Guardamos el resultado en sesión para la próxima vez
+    $_SESSION['fotoNasaEnCurso'] = $oFotoNasa;
 }
 
 
-
-
-
-// Se crea un array con todos los datos que se le pasan a la vista.
+// 5. PREPARAR ARRAY PARA LA VISTA
+// ==========================================================
 $avRest = [
-    'fotoNasaEnCursoTitulo' => $_SESSION['fotoNasa']->getTitulo(),
-    'fotoNasaEnCursoUrl' => $_SESSION['fotoNasa']->getUrl(),
-    'fotoNasaEnCursoUrlHD' => $_SESSION['fotoNasa']->getUrlHD(),
-    'fotoNasaEnCursoDescripcion' => $_SESSION['fotoNasa']->getDescripcion(),
-    'fechaNasaEnCurso' => $_SESSION['fotoNasa']->getFecha(),
-    'errorNasa' => $aErrores['fechaNasa']
+    'fechaNasaEnCurso'           => $fechaSolicitada,
+    'fotoNasaEnCursoTitulo'      => $oFotoNasa->getTitulo(),
+    'fotoNasaEnCursoUrl'         => $oFotoNasa->getUrl(),
+    'fotoNasaEnCursoUrlHD'       => $oFotoNasa->getUrlHD(),
+    'fotoNasaEnCursoDescripcion' => $oFotoNasa->getDescripcion()
 ];
-
 ?>

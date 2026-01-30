@@ -38,7 +38,9 @@ $controller = [
     'error'            => 'controller/cError.php',
     'cuenta'            => 'controller/cMiCuenta.php',
     'rest'             => 'controller/cRest.php',
-    'mtoDepartamentos' => 'controller/cMtoDepartamentos.php'
+    'mtoDepartamentos' => 'controller/cMtoDepartamentos.php',
+    'editarDepartamento' => 'controller/cConsultarModificarDepartamento.php',
+    'consultarDepartamento' => 'controller/cConsultarModificarDepartamento.php'
 ];
 
 // ARRAY DE VISTAS
@@ -53,7 +55,9 @@ $view = [
     'error'            => 'view/vError.php',
     'cuenta'            => 'view/vMiCuenta.php',
     'rest'             => 'view/vRest.php',
-    'mtoDepartamentos' => 'view/vMtoDepartamentos.php'
+    'mtoDepartamentos' => 'view/vMtoDepartamentos.php',
+    'editarDepartamento' => 'view/vConsultarModificarDepartamento.php',
+    'consultarDepartamento' => 'view/vConsultarModificarDepartamento.php'
 ];
 
 // ARRAY DE TÍTULOS DEL HEADER

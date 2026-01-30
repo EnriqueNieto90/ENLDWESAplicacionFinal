@@ -28,6 +28,28 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
+if (isset($_REQUEST['editar'])) {
+    // Guardamos el código del departamento seleccionado en la sesión
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    
+    // Cambiamos la página actual para que index.php cargue el controlador de edición
+    $_SESSION['paginaEnCurso'] = 'wip'; 
+    
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['ver'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    
+    // Cambiamos la página a modo consulta (esto activará los 'disabled' en la vista de destino)
+    $_SESSION['paginaEnCurso'] = 'wip';
+    
+    header('Location: index.php');
+    exit;
+}
+
 // Por defecto buscamos todo
 $descripcionBuscada = "";
 

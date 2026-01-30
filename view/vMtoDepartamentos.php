@@ -46,11 +46,22 @@
                                     <?php echo $dep['fechaBaja']; ?>
                                 </td>
                                 <td style="text-align: right;">
-                                    <button class="btn-icon" title="Editar"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-trash"></i></button>
-                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-long-arrow-down"></i></button>
-                                    <button class="btn-icon" title="Ver"><i class="fa-solid fa-long-arrow-up"></i></button>
+                                    <form method="post" style="display: inline;">
+                                        
+                                        <input type="hidden" name="codDepartamento" value="<?php echo $dep['cod']; ?>">
+                                        
+                                        <button type="submit" name="editar" class="btn-icon" title="Editar">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        
+                                        <button type="submit" name="ver" class="btn-icon" title="Ver">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        
+                                        <button type="button" class="btn-icon" title="Borrar/Baja">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
