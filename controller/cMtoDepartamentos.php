@@ -33,7 +33,7 @@ if (isset($_REQUEST['editar'])) {
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
     
     // Cambiamos la página actual para que index.php cargue el controlador de edición
-    $_SESSION['paginaEnCurso'] = 'wip'; 
+    $_SESSION['paginaEnCurso'] = 'editarDepartamento'; 
     
     header('Location: index.php');
     exit;
@@ -44,7 +44,7 @@ if (isset($_REQUEST['ver'])) {
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
     
     // Cambiamos la página a modo consulta (esto activará los 'disabled' en la vista de destino)
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'consultarDepartamento';
     
     header('Location: index.php');
     exit;

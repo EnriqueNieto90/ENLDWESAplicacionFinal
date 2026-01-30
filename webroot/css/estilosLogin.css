@@ -469,9 +469,9 @@ main {
     background-color: white;
     box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,0.13), 0 1.2px 3.6px 0 rgba(0,0,0,0.11);
     border-radius: 4px;
-    overflow: hidden;       
+    overflow: hidden;
     border: 1px solid #edebe9;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
 }
 
 .contenedor-carrusel-ms input[type="radio"] {
@@ -559,19 +559,93 @@ main {
     transform: scale(1.2);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .contenedor-carrusel-ms {
-        height: 50vh;
-    }
-    .slide-item img {
-        padding: 10px;
-    }
-    .etiqueta-diagrama {
-        font-size: 0.8rem;
-        padding: 5px 10px;
-        bottom: 60px;
-    }
+/* Asegurar que el slide item es el contenedor de referencia */
+.slide-item {
+    position: relative;
+    width: 20%;
+    height: 100%;
+}
+
+/* Flechas laterales */
+.flechas-grupo {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 100;
+    pointer-events: none; /* Para no bloquear el click en la imagen */
+}
+
+/* Solo mostramos el grupo de flechas que coincide con el slide activo */
+#slide1:checked ~ .capa-flechas #flechas1,
+#slide2:checked ~ .capa-flechas #flechas2,
+#slide3:checked ~ .capa-flechas #flechas3,
+#slide4:checked ~ .capa-flechas #flechas4,
+#slide5:checked ~ .capa-flechas #flechas5 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flecha {
+    pointer-events: auto; /* Reactivamos el click */
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--ms-blue);
+    width: 50px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid #ddd;
+}
+
+.flecha.prev { border-radius: 0 4px 4px 0; }
+.flecha.next { border-radius: 4px 0 0 4px; }
+
+.flecha:hover {
+    background: var(--ms-blue);
+    color: white;
+}
+
+/* Ajuste del enlace de zoom */
+.enlace-zoom {
+    cursor: zoom-in;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Lightbox - Corregido para que no ocupe espacio */
+.lightbox {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+.lightbox:target { display: flex; }
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 4px;
+    user-select: none;
+    pointer-events: none; 
+}
+
+.lb-close {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: zoom-out;
 }
 
 /* =========================================
