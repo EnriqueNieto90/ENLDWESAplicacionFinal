@@ -1,73 +1,61 @@
-<?php
-/**
- * @author: Enrique Nieto Lorenzo
- * @since: 30/01/2026
- * @description: Vista para consultar y modificar un departamento.
- */
-?>
 <main>
-    <div class="contenedor-rest" style="justify-content: center;"> <div class="tarjeta-api" style="width: 100%; max-width: 600px; min-height: auto;">
+    <div class="contenedor-centrado">
+        <section class="tarjeta-plana tarjeta-formulario">
             
-            <div class="seccion-titulo">
-                <h3><?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'CONSULTAR' : 'EDITAR'; ?> DEPARTAMENTO</h3>
-            </div>
+            <header class="cabecera-seccion-ms">
+                <h3>
+                    <i class="fa-solid <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'fa-eye' : 'fa-pen-to-square'; ?>"></i>
+                    <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'Consultar' : 'Editar'; ?> Departamento
+                </h3>
+            </header>
 
-            <div class="seccion-contenido">
+            <div class="cuerpo-tarjeta">
                 <form method="post">
-                    
-                    <div class="grupo-input-api" style="margin-bottom: 15px; display: block;">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 600; color: var(--ms-blue);">Código</label>
+                    <div class="grupo-input">
+                        <label class="label-microsoft">Código</label>
                         <input type="text" class="input-microsoft input-disabled" 
                                value="<?php echo $avDepartamento['codDepartamento']; ?>" readonly disabled>
                     </div>
 
-                    <div class="grupo-input-api" style="margin-bottom: 15px; display: block;">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 600;">Descripción</label>
-                        <input type="text" name="descDepartamento" class="input-microsoft" 
+                    <div class="grupo-input">
+                        <label class="label-microsoft">Descripción</label>
+                        <input type="text" name="descDepartamento" class="input-microsoft input-busc" 
                                value="<?php echo $avDepartamento['descDepartamento']; ?>"
                                <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'readonly' : ''; ?>>
-                        <span class="error-msg" style="color: var(--error-color); font-size: 0.85em;">
-                            <?php echo $aErrores['descDepartamento']; ?>
-                        </span>
                     </div>
 
-                    <div class="grupo-input-api" style="margin-bottom: 15px; display: block;">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 600; color: #605e5c;">Fecha de Alta</label>
+                    <div class="grupo-input">
+                        <label class="label-microsoft label-tenue">Fecha Alta</label>
                         <input type="text" class="input-microsoft input-disabled" 
                                value="<?php echo $avDepartamento['fechaCreacion']; ?>" readonly disabled>
                     </div>
-
-                    <div class="grupo-input-api" style="margin-bottom: 15px; display: block;">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 600;">Volumen de Negocio (€)</label>
-                        <input type="text" name="volumenDeNegocio" class="input-microsoft" 
+                    
+                    <div class="grupo-input">
+                        <label class="label-microsoft">Volumen Negocio</label>
+                        <input type="text" name="volumenDeNegocio" class="input-microsoft input-busc" 
                                value="<?php echo $avDepartamento['volumenDeNegocio']; ?>"
                                <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'readonly' : ''; ?>>
-                        <span class="error-msg" style="color: var(--error-color); font-size: 0.85em;">
-                            <?php echo $aErrores['volumenDeNegocio']; ?>
-                        </span>
                     </div>
-
-                    <div class="grupo-input-api" style="margin-bottom: 25px; display: block;">
-                        <label style="display:block; margin-bottom: 5px; font-weight: 600; color: #605e5c;">Fecha de Baja</label>
+                    
+                    <div class="grupo-input">
+                        <label class="label-microsoft label-tenue">Fecha Baja</label>
                         <input type="text" class="input-microsoft input-disabled" 
                                value="<?php echo $avDepartamento['fechaBaja']; ?>" readonly disabled>
                     </div>
 
-                    <div style="display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid #edebe9; padding-top: 20px;">
+                    <div class="acciones-formulario">
                         <?php if ($_SESSION['paginaEnCurso'] != 'consultarDepartamento'): ?>
-                            <button type="submit" name="aceptar" class="btn-primary btn-api" style="flex: 1;">
+                            <button type="submit" name="aceptar" class="btn-primary">
                                 Aceptar
                             </button>
                         <?php endif; ?>
 
-                        <button type="submit" name="cancelar" class="btn-primary btn-api" style="background-color: #a4262c; border-color: #a4262c; flex: 1;">
+                        <button type="submit" name="cancelar" class="btn-secondary">
                             <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'Volver' : 'Cancelar'; ?>
                         </button>
                     </div>
-
                 </form>
             </div>
-        </div>
+        </section>
     </div>
 </main>
-

@@ -12,7 +12,7 @@
         
         <form action="index.php" method="post" class="form-busqueda">
             <div class="grupo-busqueda">
-                <input type="text" class="input-microsoft" name="descDepartamento" 
+                <input type="text" class="input-microsoft input-busc" name="descDepartamento" 
                        value="<?php echo $valorBuscar; ?>" 
                        placeholder="Buscar departamento por descripción">
                 

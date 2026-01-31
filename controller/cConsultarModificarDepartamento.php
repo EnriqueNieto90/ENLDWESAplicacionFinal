@@ -94,8 +94,5 @@ $avDepartamento = [
     'volumenDeNegocio' => $volumenMostrar,
     'fechaBaja' => $fechaBajaStr
 ];
-
-// Cargar Layout
-require_once $view['layout'];
 ?>
 
