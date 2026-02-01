@@ -40,7 +40,15 @@ if (isset($_REQUEST['detalle'])) {
 // BOTÓN MTO DEPARTAMENTOS
 if (isset($_REQUEST['mtoDepartamentos'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
+    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';    
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN MTO USUARIOS (Solo para perfil administrador)
+if (isset($_REQUEST['mtoUsuarios'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'wip'; 
     header('Location: index.php');
     exit;
 }
@@ -69,6 +77,7 @@ $avInicioPrivado = [
     'descUsuario' => $oUsuario->getDescUsuario(),
     'numConexiones' => $oUsuario->getNumConexiones(),
     'fechaHoraUltimaConexionAnterior' => $oUsuario->getFechaHoraUltimaConexionAnterior(),
+    'perfil' => $oUsuario->getPerfil()
 ];
 
 ?>

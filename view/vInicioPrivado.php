@@ -37,6 +37,14 @@
                     <i class="fa-solid fa-building-user"></i> Mto. Departamentos
                 </button>
             </form>
+            
+            <?php if ($avInicioPrivado['perfil'] === 'administrador'): ?>
+                <form action="index.php" method="post">
+                    <button name="mtoUsuarios" class="btn-dashboard btn-blue">
+                        <i class="fa-solid fa-users-gear"></i> Mto. Usuarios
+                    </button>
+                </form>
+            <?php endif; ?>
 
             <form action="index.php" method="post">
                 <button name="rest" class="btn-dashboard btn-blue">
