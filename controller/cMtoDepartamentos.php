@@ -33,7 +33,7 @@ if (isset($_REQUEST['editar'])) {
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
     
     // Cambiamos la página actual para que index.php cargue el controlador de edición
-    $_SESSION['paginaEnCurso'] = 'editarDepartamento'; 
+    $_SESSION['paginaEnCurso'] = 'modificarDepartamento'; 
     
     header('Location: index.php');
     exit;
