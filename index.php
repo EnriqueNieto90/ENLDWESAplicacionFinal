@@ -41,6 +41,20 @@ $tituloActual = $titulos[$_SESSION['paginaEnCurso']] ?? 'Aplicación Final';
 //Botón volver
 $mostrarBotonVolver = !in_array($_SESSION['paginaEnCurso'], $aVistasSinBotonVolver);
 
+//Botones de Inicio Público y Login
+$mostrarBotonLogin = false;
+$mostrarBotonVolverInicio = false;
+
+if (!$oUsuarioActivo) {
+    $pagina = $_SESSION['paginaEnCurso'];
+
+    // Si NO estamos ya en login ni en registro
+    $mostrarBotonLogin = ($pagina !== 'login' && $pagina !== 'registro');
+
+    // Si estamos en login
+    $mostrarBotonVolverInicio = ($pagina === 'login');
+}
+
 //CARGAR LA VISTA PRINCIPAL (Layout)
 require_once $view['layout'];
 ?>
