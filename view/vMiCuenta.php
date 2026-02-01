@@ -51,7 +51,7 @@
 
             <div class="acciones-login" style="margin-top: 20px;">
                 <button type="submit" name="aceptar" class="btn-primary">
-                    <i class="fa-solid fa-floppy-disk"></i> Guardar
+                    Aceptar
                 </button>
                 
                 <button type="submit" name="cancelar" class="btn-secondary">
