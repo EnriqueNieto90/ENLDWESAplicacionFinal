@@ -5,22 +5,14 @@
  * @description: Controlador para Consultar y Modificar un Departamento.
  */
 
-// 1. Control de sesión
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// 2. Control del botón CANCELAR (Volver atrás sin guardar)
+// Control del botón CANCELAR (Volver atrás sin guardar)
 if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
     header('Location: index.php');
     exit;
 }
 
-// 3. Recuperar el objeto departamento que vamos a editar
+// Recuperar el objeto departamento que vamos a editar
 // Usamos el código guardado en la sesión desde la vista anterior
 if (!isset($_SESSION['codDepartamentoEnCurso'])) {
     $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
@@ -31,14 +23,14 @@ if (!isset($_SESSION['codDepartamentoEnCurso'])) {
 $codDepartamento = $_SESSION['codDepartamentoEnCurso'];
 $oDepartamento = DepartamentoPDO::buscaDepartamentoPorCod($codDepartamento);
 
-// 4. Inicialización de variables y errores
+// Inicialización de variables y errores
 $entradaOK = true;
 $aErrores = [
     'descDepartamento' => null,
     'volumenDeNegocio' => null
 ];
 
-// 5. Procesar formulario si se pulsa ACEPTAR
+// Procesar formulario si se pulsa ACEPTAR
 if (isset($_REQUEST['aceptar'])) {
     
     // Validación: Descripción (Alfabético, obligatorio)
@@ -75,7 +67,7 @@ if (isset($_REQUEST['aceptar'])) {
     $entradaOK = false;
 }
 
-// 6. Preparar datos para la Vista
+// Preparar datos para la Vista
 // Si venimos de un error de validación, mostramos lo que escribió el usuario ($_REQUEST)
 // Si cargamos la página por primera vez, mostramos los datos del objeto ($oDepartamento)
 

@@ -76,6 +76,9 @@ $titulos = [
     'consultarDepartamento' => 'Consultar Departamento'
 ];
 
+//ARRAY PARA DEFINIR VISTAS PÚBLICAS
+$aPaginasPublicas = ['inicioPublico', 'login', 'registro', 'wip', 'error'];
+
 // ARRAY VISTAS QUE NO LLEVAN BOTÓN VOLVER
 $aVistasSinBotonVolver = ['inicioPrivado', 'login', 'inicioPublico', 'registro'];
 ?>

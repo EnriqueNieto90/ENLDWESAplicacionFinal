@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Enrique Nieto Lorenzo
- * @since 18/01/2026
+ * @since 01/02/2026
  * @description Punto de entrada de la aplicación.
  */
 
@@ -12,9 +12,35 @@ require_once 'config/EDconfDBPDO.php';
 // INICIAR O RECUPERAR SESIÓN
 session_start();
 
+// INICIAR PÁGINA
 // Si no hay página definida, cargamos el inicio público
 if (!isset($_SESSION['paginaEnCurso'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
+}
+
+// GESTIÓN CENTRALIZADA DE CERRAR SESIÓN Y MI CUENTA
+if (isset($_REQUEST['cerrarSesion'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['paginaEnCurso'] = 'inicioPublico';
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['cuenta'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'cuenta';
+    header('Location: index.php');
+    exit;
+}
+
+// CONTROL DE ACCESO CENTRALIZADO
+if (!in_array($_SESSION['paginaEnCurso'], $aPaginasPublicas) && 
+    !isset($_SESSION['usuarioENLAplicacionFinal'])) {
+    
+    $_SESSION['paginaEnCurso'] = 'login';
+    header('Location: index.php');
+    exit;
 }
 
 // CARGAR EL CONTROLADOR CORRESPONDIENTE
@@ -25,6 +51,7 @@ if (isset($controller[$_SESSION['paginaEnCurso']])) {
 }
 
 // PREPARAR DATOS COMUNES PARA EL LAYOUT
+
 //Inicial y nombre del Usuario
 $oUsuarioActivo = $_SESSION['usuarioENLAplicacionFinal'] ?? null;
 $inicialUsuario = '?';

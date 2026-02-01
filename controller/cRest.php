@@ -6,23 +6,6 @@
  * Gestiona la sesión para minimizar llamadas a la API.
  */
 
-// 1. SEGURIDAD: Control de sesión
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// 2. NAVEGACIÓN: Botones de salir y volver
-if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy();
-    session_start();
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
-
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
     header('Location: index.php');

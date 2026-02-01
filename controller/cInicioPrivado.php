@@ -5,30 +5,6 @@
  * @description: Controlador de Inicio Privado.
  */
 
-// Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CERRAR SESIÓN
-if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy();
-    session_start();
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CUENTA
-if (isset($_REQUEST['cuenta'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'cuenta'; 
-    header('Location: index.php');
-    exit;
-}
-
 // BOTÓN DETALLE
 if (isset($_REQUEST['detalle'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
@@ -79,5 +55,4 @@ $avInicioPrivado = [
     'fechaHoraUltimaConexionAnterior' => $oUsuario->getFechaHoraUltimaConexionAnterior(),
     'perfil' => $oUsuario->getPerfil()
 ];
-
 ?>
