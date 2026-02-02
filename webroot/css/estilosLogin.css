@@ -623,20 +623,30 @@ main {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
     display: none;
     z-index: 9999;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
+    overflow: auto; 
+    padding: 50px 0; 
+    box-sizing: border-box;
 }
-.lightbox:target { display: flex; }
+
+.lightbox:target { 
+    display: flex; 
+}
 
 .lightbox img {
-    max-width: 90vw;
-    max-height: 85vh;
+    width: 80%; 
+    max-width: 1200px;
+    height: auto;
+    max-height: none; 
     border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    margin: auto; 
     user-select: none;
-    pointer-events: none; 
+    pointer-events: auto; 
 }
 
 .lb-close {
@@ -646,6 +656,7 @@ main {
     top: 0;
     left: 0;
     cursor: zoom-out;
+    z-index: -1;
 }
 
 /* =========================================

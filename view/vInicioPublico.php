@@ -30,12 +30,12 @@
                 <div class="etiqueta-diagrama">Casos de Uso</div>
             </div>
             <div class="slide-item">
-                <a href="#img5" class="enlace-zoom"><img src="webroot/images/UsoSession.png" alt="Sesión"></a>
+                <a href="#img5" class="enlace-zoom"><img src="webroot/images/UsoSession2.png" alt="Sesión"></a>
                 <div class="etiqueta-diagrama">Estructura de Sesión</div>
             </div>
 
             <div class="slide-item">
-                <a href="#img4" class="enlace-zoom"><img src="webroot/images/ModeloFisico.png" alt="Físico"></a>
+                <a href="#img6" class="enlace-zoom"><img src="webroot/images/ModeloFisico.png" alt="Físico"></a>
                 <div class="etiqueta-diagrama">Modelo Físico</div>
             </div>
             <div class="slide-item">
@@ -87,7 +87,7 @@
     <div id="img2" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/MapaWeb.png"></div>
     <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/DiagramaDeClases.png"></div>
     <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CasosDeUso.png"></div>
-    <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/UsoSession.png"></div>
+    <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/UsoSession2.png"></div>
     <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ModeloFisico.png"></div>
     <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CatalogoRequisitos.png"></div>
 </main>
