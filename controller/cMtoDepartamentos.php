@@ -15,10 +15,7 @@ if (isset($_REQUEST['volver'])) {
 if (isset($_REQUEST['editar'])) {
     // Guardamos el código del departamento seleccionado en la sesión
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
-    
-    // Cambiamos la página actual para que index.php cargue el controlador de edición
-    $_SESSION['paginaEnCurso'] = 'modificarDepartamento'; 
-    
+    $_SESSION['paginaEnCurso'] = 'modificarDepartamento';  
     header('Location: index.php');
     exit;
 }
@@ -26,29 +23,19 @@ if (isset($_REQUEST['editar'])) {
 if (isset($_REQUEST['ver'])) {
     // Guardamos el código
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
-    
-    // Cambiamos la página a modo consulta (esto activará los 'disabled' en la vista de destino)
     $_SESSION['paginaEnCurso'] = 'consultarDepartamento';
     
     header('Location: index.php');
     exit;
 }
 
-// Por defecto buscamos todo
-$descripcionBuscada = "";
+// Definimos el valor por defecto recuperando de la sesión (si existe) o cadena vacía
+$descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'] ?? "";
 
-if (isset($_SESSION["descripcionBuscadaEnCurso"])) {
-    $descripcionBuscada = $_SESSION["descripcionBuscadaEnCurso"];
-}
-
-// Si se ha pulsado buscar y hay texto
+// Si el usuario ha enviado una nueva búsqueda, sobrescribimos la variable y actualizamos la sesión
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
     $_SESSION['descripcionBuscadaEnCurso'] = $descripcionBuscada;
-}
-//Si NO ha pulsado buscar, miramos si tenía algo guardado de antes
-elseif (isset($_SESSION['descripcionBuscadaEnCurso'])) {
-    $descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'];
 }
 
 // Recuperar los datos de la DB

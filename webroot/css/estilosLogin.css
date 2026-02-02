@@ -715,34 +715,31 @@ main {
     margin-bottom: 20px;
 }
 /* =========================================
-    VISTA REST - ESTILO MICROSOFT FLUENT
+    VISTA REST
    ========================================= */
 
-/* Contenedor principal: Rejilla adaptativa al ancho total */
 .contenedor-rest {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 20px;
     width: 100%;
-    max-width: 1600px; /* Permite que se expanda casi en toda la pantalla */
+    max-width: 1600px; 
     margin: 0 auto;
     padding: 10px;
     align-items: start;
 }
 
-/* Tarjeta de API individual */
 .tarjeta-api {
     background-color: var(--card-bg);
     border: 1px solid #edebe9;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    min-height: 600px; /* Altura mínima para consistencia visual */
+    min-height: 600px;
     position: relative;
-    border-top: 4px solid var(--ms-blue); /* El toque característico Microsoft */
+    border-top: 4px solid var(--ms-blue); 
 }
 
-/* Cabecera de la tarjeta */
 .seccion-titulo {
     padding: 15px 20px;
     background-color: #ffffff;
@@ -757,10 +754,9 @@ main {
     letter-spacing: 0.5px;
 }
 
-/* Área de búsqueda dentro de la tarjeta */
 .seccion-input {
     padding: 15px 20px;
-    background-color: #faf9f8; /* Un gris muy tenue para diferenciar áreas */
+    background-color: #faf9f8; 
     border-bottom: 1px solid #edebe9;
 }
 
@@ -774,7 +770,6 @@ main {
     min-width: auto;
 }
 
-/* Contenedor de resultados/contenido */
 .seccion-contenido {
     padding: 20px;
     flex-grow: 1;
@@ -794,28 +789,33 @@ main {
     line-height: 1.3;
 }
 
-/* Estilos específicos para la imagen de la NASA */
 .contenedor-imagen-nasa {
     position: relative;
     width: 100%;
-    height: 280px;
-    background-color: #000;
+    height: 400px;
+    background-color: #000; 
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #edebe9;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .contenedor-imagen-nasa img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta la imagen sin deformarla */
+    object-fit: cover;
+    display: block;
     transition: transform 0.3s ease;
 }
 
-.contenedor-imagen-nasa:hover img {
-    transform: scale(1.02);
+.contenedor-imagen-nasa img.img-error {
+    object-fit: contain; 
+    background-color: #f3f2f1; 
+    cursor: default;
 }
 
-/* Botón flotante "Detalles" sobre la imagen */
 .btn-hd-overlay {
     position: absolute;
     bottom: 10px;
@@ -828,6 +828,7 @@ main {
     font-weight: 600;
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .btn-hd-overlay:hover {
@@ -835,23 +836,43 @@ main {
     color: white;
 }
 
-/* Área de texto/descripción */
 .descripcion-nasa {
     font-size: 0.9rem;
     line-height: 1.6;
     color: #605e5c;
-    max-height: 180px;
-    overflow-y: auto; /* Scroll interno si la descripción es muy larga */
+    max-height: 200px;
     padding-right: 5px;
 }
 
-/* Personalización del scrollbar para la descripción (estilo moderno) */
-.descripcion-nasa::-webkit-scrollbar {
-    width: 6px;
+.instrucciones {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #333;      
+    line-height: 1.5;
 }
-.descripcion-nasa::-webkit-scrollbar-thumb {
-    background: #c8c6c4;
-    border-radius: 10px;
+
+.instrucciones h4 {
+    margin: 0 0 8px 0;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #000;
+}
+
+.instrucciones ul {
+    padding-left: 20px; 
+    margin: 0;
+}
+
+.instrucciones li {
+    margin-bottom: 5px;
+}
+
+.instrucciones code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: none; 
+    color: inherit; 
+    padding: 0;
+    border: none;
 }
 
 /* Ajustes Responsive */
@@ -885,6 +906,105 @@ main {
 .mensaje-vacio p {
     font-size: 0.95rem;
 }
+
+/* =========================================
+   DETALLE NASA HD
+   ========================================= */
+
+.main-detalle-nasa {
+    width: 98%; 
+    max-width: none;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detalle-info-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 5px solid #0078D4; 
+}
+
+.detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.detalle-header h2 {
+    color: #0078D4;
+    margin: 0;
+}
+
+.fecha-badge {
+    background-color: #f3f2f1;
+    color: #605e5c;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.detalle-texto p {
+    line-height: 1.6;
+    color: #323130;
+    font-size: 1em;
+    text-align: justify;
+}
+
+.detalle-imagen-full {
+    width: 100%;
+    background-color: #000; 
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+.chk-zoom {
+    display: none; 
+}
+
+.img-contenedor {
+    display: block;
+    cursor: zoom-in; 
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.img-contenedor img {
+    max-width: 100%;
+    height: auto;
+    max-height: 85vh; 
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+#zoom-check:checked + .img-contenedor {
+    cursor: zoom-out;
+}
+
+#zoom-check:checked + .img-contenedor img {
+    max-height: none; 
+    max-width: none;  
+    width: 100%;      
+}
+
+#zoom-check:checked + .img-contenedor .mensaje-zoom {
+    display: none;
+}
+
+
 
 /* =========================================
     VISTAS ESPECIALES (Error / WIP / Tablas)

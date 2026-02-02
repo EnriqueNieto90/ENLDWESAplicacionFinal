@@ -1,11 +1,12 @@
 <?php
+
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 21/01/2026
- * @description: Clase FotoNasa
+ * @description: Clase entidad FotoNasa.
  */
-
 class FotoNasa {
+
     private $titulo;
     private $url;
     private $fecha;
@@ -31,7 +32,7 @@ class FotoNasa {
     public function getFecha() {
         return $this->fecha;
     }
-    
+
     public function getDescripcion() {
         return $this->descripcion;
     }
@@ -40,4 +41,5 @@ class FotoNasa {
         return $this->urlHD;
     }
 }
+
 ?>

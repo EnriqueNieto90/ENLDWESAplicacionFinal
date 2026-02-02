@@ -1,19 +1,18 @@
 <main>
     <div class="contenedor-rest">
-        
+
         <div class="columna-api">
             <div class="tarjeta-api">
                 <div class="seccion-titulo">
-                    <h3><i class="fa-solid fa-user-astronaut"></i> Astronomy Picture</h3>
+                    <h3><i class="fa-solid fa-user-astronaut"></i> API Foto Nasa</h3>
                 </div>
 
                 <div class="seccion-input">
                     <form method="post">
                         <div class="grupo-input-api">
                             <input type="date" name="fechaNasaEnCurso" class="input-microsoft" 
-                                   value="<?php echo $avRest['fechaNasaEnCurso']; ?>" 
-                                   max="<?php echo date('Y-m-d'); ?>">
-                            
+                                   value="<?php echo $avRest['fechaNasaEnCurso']; ?>" >
+
                             <button type="submit" name="entrar" class="btn-primary btn-api">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
@@ -28,39 +27,57 @@
                     <h4><?php echo $avRest['fotoNasaEnCursoTitulo']; ?></h4>
 
                     <div class="contenedor-imagen-nasa">
-                        <img src="<?php echo $avRest['fotoNasaEnCursoUrl']; ?>" alt="Foto NASA">
-                        <a href="<?php echo $avRest['fotoNasaEnCursoUrlHD']; ?>" target="_blank" class="btn-hd-overlay">
-                            <i class="fa-solid fa-expand"></i> HD
-                        </a>
+
+                        <img src="<?php echo $avRest['fotoNasaEnCursoUrl']; ?>" 
+                             alt="Foto NASA" 
+                             class="<?php echo $avRest['mostrarBotonDetalle'] ? '' : 'img-error'; ?>">
+
+                        <?php if ($avRest['mostrarBotonDetalle']): ?>
+                            <form action="index.php" method="post">
+                                <button name="verDetalleNasa" class="btn-hd-overlay">
+                                    <i class="fa-solid fa-expand"></i> Ver en detalle
+                                </button>
+                            </form>
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="descripcion-nasa">
-                        <strong>Explicación:</strong><br>
-                        <?php echo $avRest['fotoNasaEnCursoDescripcion'] ?? 'Sin descripción disponible.'; ?>
+                        <div class="instrucciones">
+                            <h4>Instrucciones:</h4>
+                            <ul>
+                                <li>Pedimos la key en <strong>api.nasa.gov</strong>.</li>
+                                <li>
+                                    Construimos la URL con 3 partes (url, fecha y key):<br>
+                                    <code>.../apod?date=<?php echo $avRest['fechaNasaEnCurso']; ?>&api_key=...</code>
+                                </li>
+                                <li>Con <code>file_get_contents()</code> o <code>cURL</code> obtenemos el JSON.</li>
+                                <li>Con <code>json_decode($json, true)</code> lo pasamos a array para sacar la foto.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="columna-api">
             <div class="tarjeta-api">
                 <div class="seccion-titulo">
-                    <h3><i class="fa-solid fa-cloud-sun"></i> Tiempo Actual</h3>
+                    <h3><i class="fa-solid fa-database"></i> Nueva API </h3>
                 </div>
 
                 <div class="seccion-input">
                     <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Ciudad (ej: Madrid)">
+                        <input type="text" class="input-microsoft" placeholder="Buscar...">
                         <button class="btn-primary btn-api">
-                            <i class="fa-solid fa-location-dot"></i>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="seccion-contenido">
                     <div class="mensaje-vacio">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <p>Introduce una ubicación para consultar el servicio meteorológico externo.</p>
+
                     </div>
                 </div>
             </div>
@@ -74,21 +91,20 @@
 
                 <div class="seccion-input">
                     <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Buscar por código...">
+                        <input type="text" class="input-microsoft" placeholder="Buscar...">
                         <button class="btn-primary btn-api">
-                            <i class="fa-solid fa-server"></i>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="seccion-contenido">
                     <div class="mensaje-vacio">
-                        <i class="fa-solid fa-code"></i>
-                        <p>Consulta tus propios recursos locales a través del servicio REST interno.</p>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        </div>
+    </div>
 </main>
