@@ -1,10 +1,3 @@
-<?php
-/**
- * @author: Enrique Nieto Lorenzo
- * @since: 18/01/2026
- * @description: Vista de Inicio Público con Carrusel de Diagramas.
- */
-?>
 <main>
     <div class="intro-inicio text-center">
         <h2 class="titulo-grande-ms">Documentación técnica y diagramas de la arquitectura</h2>
@@ -16,6 +9,8 @@
         <input type="radio" name="slider" id="slide3">
         <input type="radio" name="slider" id="slide4">
         <input type="radio" name="slider" id="slide5">
+        <input type="radio" name="slider" id="slide6">
+        <input type="radio" name="slider" id="slide7">
 
         <div class="carrusel-slides">
             <div class="slide-item">
@@ -31,19 +26,27 @@
                 <div class="etiqueta-diagrama">Diagrama de Clases</div>
             </div>
             <div class="slide-item">
-                <a href="#img4" class="enlace-zoom"><img src="webroot/images/ModeloFisico.png" alt="Físico"></a>
-                <div class="etiqueta-diagrama">Modelo Físico</div>
+                <a href="#img4" class="enlace-zoom"><img src="webroot/images/CasosDeUso.png" alt="Físico"></a>
+                <div class="etiqueta-diagrama">Casos de Uso</div>
             </div>
             <div class="slide-item">
                 <a href="#img5" class="enlace-zoom"><img src="webroot/images/UsoSession.png" alt="Sesión"></a>
                 <div class="etiqueta-diagrama">Estructura de Sesión</div>
             </div>
+
+            <div class="slide-item">
+                <a href="#img4" class="enlace-zoom"><img src="webroot/images/ModeloFisico.png" alt="Físico"></a>
+                <div class="etiqueta-diagrama">Modelo Físico</div>
+            </div>
+            <div class="slide-item">
+                <a href="#img7" class="enlace-zoom"><img src="webroot/images/CatalogoRequisitos.png" alt="Img 7"></a>
+                <div class="etiqueta-diagrama">Catálogo de Requisitos</div>
+            </div>
         </div>
 
         <div class="capa-flechas">
             <div class="flechas-grupo" id="flechas1">
-                <label for="slide5" class="flecha prev">&#10094;</label>
-                <label for="slide2" class="flecha next">&#10095;</label>
+                <label for="slide7" class="flecha prev">&#10094;</label> <label for="slide2" class="flecha next">&#10095;</label>
             </div>
             <div class="flechas-grupo" id="flechas2">
                 <label for="slide1" class="flecha prev">&#10094;</label>
@@ -59,8 +62,14 @@
             </div>
             <div class="flechas-grupo" id="flechas5">
                 <label for="slide4" class="flecha prev">&#10094;</label>
-                <label for="slide1" class="flecha next">&#10095;</label>
+                <label for="slide6" class="flecha next">&#10095;</label> </div>
+            <div class="flechas-grupo" id="flechas6">
+                <label for="slide5" class="flecha prev">&#10094;</label>
+                <label for="slide7" class="flecha next">&#10095;</label>
             </div>
+            <div class="flechas-grupo" id="flechas7">
+                <label for="slide6" class="flecha prev">&#10094;</label>
+                <label for="slide1" class="flecha next">&#10095;</label> </div>
         </div>
 
         <div class="carrusel-nav">
@@ -69,6 +78,8 @@
             <label for="slide3" class="nav-dot"></label>
             <label for="slide4" class="nav-dot"></label>
             <label for="slide5" class="nav-dot"></label>
+            <label for="slide6" class="nav-dot"></label>
+            <label for="slide7" class="nav-dot"></label>
         </div>
     </div>
 
@@ -77,4 +88,7 @@
     <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/DiagramaDeClases.png"></div>
     <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ModeloFisico.png"></div>
     <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/UsoSession.png"></div>
+    
+    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/TU_IMAGEN_6.png"></div>
+    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/TU_IMAGEN_7.png"></div>
 </main>

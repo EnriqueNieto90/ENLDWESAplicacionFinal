@@ -479,13 +479,13 @@ main {
 
 .carrusel-slides {
     display: flex;
-    width: 500%;  
+    width: 700%; 
     height: 100%;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .slide-item {
-    width: 20%;
+    width: 14.2857%;
     height: 100%;
     position: relative;
     background-color: #ffffff;
@@ -515,10 +515,12 @@ main {
 }
 
 #slide1:checked ~ .carrusel-slides { transform: translateX(0%); }
-#slide2:checked ~ .carrusel-slides { transform: translateX(-20%); }
-#slide3:checked ~ .carrusel-slides { transform: translateX(-40%); }
-#slide4:checked ~ .carrusel-slides { transform: translateX(-60%); }
-#slide5:checked ~ .carrusel-slides { transform: translateX(-80%); }
+#slide2:checked ~ .carrusel-slides { transform: translateX(-14.2857%); }
+#slide3:checked ~ .carrusel-slides { transform: translateX(-28.5714%); }
+#slide4:checked ~ .carrusel-slides { transform: translateX(-42.8571%); }
+#slide5:checked ~ .carrusel-slides { transform: translateX(-57.1428%); }
+#slide6:checked ~ .carrusel-slides { transform: translateX(-71.4285%); }
+#slide7:checked ~ .carrusel-slides { transform: translateX(-85.7142%); }
 
 .carrusel-nav {
     position: absolute;
@@ -552,7 +554,9 @@ main {
 #slide2:checked ~ .carrusel-nav label[for="slide2"],
 #slide3:checked ~ .carrusel-nav label[for="slide3"],
 #slide4:checked ~ .carrusel-nav label[for="slide4"],
-#slide5:checked ~ .carrusel-nav label[for="slide5"] {
+#slide5:checked ~ .carrusel-nav label[for="slide5"],
+#slide6:checked ~ .carrusel-nav label[for="slide6"],
+#slide7:checked ~ .carrusel-nav label[for="slide7"] {
     background-color: var(--ms-blue);
     border-color: var(--ms-blue);
     transform: scale(1.2);
@@ -578,7 +582,9 @@ main {
 #slide2:checked ~ .capa-flechas #flechas2,
 #slide3:checked ~ .capa-flechas #flechas3,
 #slide4:checked ~ .capa-flechas #flechas4,
-#slide5:checked ~ .capa-flechas #flechas5 {
+#slide5:checked ~ .capa-flechas #flechas5,
+#slide6:checked ~ .capa-flechas #flechas6,
+#slide7:checked ~ .capa-flechas #flechas7 {
     display: flex;
     justify-content: space-between;
 }
