@@ -1408,3 +1408,77 @@ body.view-error, body.view-wip {
 .btn-gris:hover {
     background-color: #e1dfdd !important;
 }
+
+/* =========================================
+   VISTA CAMBIAR CONTRASEÑA
+   ========================================= */
+
+.cabecera-cambio-pass {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icono-clave-grande {
+    font-size: 2rem;
+    color: #0078D4; 
+    margin-bottom: 10px;
+}
+
+.subtitulo-login {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.separador-form {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.botones-cambio-pass {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-gris {
+    background-color: #edebe9 !important;
+    color: #323130 !important;
+    border: 1px solid #8a8886 !important;
+}
+.btn-gris:hover {
+    background-color: #e1dfdd !important;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.icon-input {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #605e5c;
+    font-size: 0.9rem;
+    pointer-events: none; 
+}
+
+.input-icon-wrapper .input-microsoft {
+    padding-left: 35px; 
+}
+
+.label-form {
+    display: block;
+    margin-bottom: 5px;
+    color: #323130;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
