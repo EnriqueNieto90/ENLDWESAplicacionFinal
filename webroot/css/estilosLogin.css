@@ -1088,20 +1088,39 @@ body.view-error, body.view-wip {
     border-collapse: collapse;
     margin-bottom: 30px;
     font-size: 0.9rem;
+    table-layout: fixed;
 }
 .tabla-microsoft th {
     text-align: left;
     padding: 12px;
     border-bottom: 1px solid #ccc;
     background-color: #f8f8f8;
+    width: 30%;
 }
 .tabla-microsoft td {
     padding: 10px;
     border-bottom: 1px solid #e1dfdd;
     font-family: 'Consolas', monospace;
-    word-break: break-all;
+    overflow: hidden;
+    vertical-align: top;
 }
 
+.tabla-microsoft td pre {
+    margin: 0;
+    white-space: pre-wrap;       
+    white-space: -moz-pre-wrap;  
+    white-space: -o-pre-wrap;    
+    word-wrap: break-word;       
+    word-break: break-all;
+    max-width: 100%;
+}
+
+.scroll-container {
+    width: 100%;
+    overflow-x: auto; 
+    margin-bottom: 20px;
+    border: 1px solid #e1dfdd; 
+}
 /* =========================================
     RESPONSIVE
    ========================================= */
