@@ -1141,6 +1141,10 @@ body.view-error, body.view-wip {
     margin-bottom: 30px;
 }
 
+.input-cuenta{
+    background-color: white;
+}
+
 .avatar-grande {
     width: 80px;
     height: 80px;

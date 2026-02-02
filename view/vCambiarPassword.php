@@ -53,7 +53,7 @@
 
             <div class="grupo-botones botones-cambio-pass">
                 <button type="submit" name="guardar" class="btn-primary btn-full-width">
-                    Actualizar Contraseña
+                    Aceptar
                 </button>
                 
                 <button type="submit" name="cancelar" class="btn-primary btn-gris btn-full-width">

@@ -34,7 +34,7 @@
 
             <div class="grupo-input">
                 <label class="label-microsoft">Nombre y Apellidos</label>
-                <input type="text" class="input-microsoft <?php echo ($aErrores['descUsuario']) ? 'input-error' : ''; ?>" 
+                <input type="text" class="input-microsoft input-cuenta <?php echo ($aErrores['descUsuario']) ? 'input-error' : ''; ?>" 
                        name="descUsuario" 
                        value="<?php echo $avMiCuenta['descUsuario']; ?>" 
                        placeholder="Tu nombre completo">
