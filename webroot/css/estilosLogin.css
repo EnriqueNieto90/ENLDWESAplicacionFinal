@@ -1330,6 +1330,38 @@ body.view-error, body.view-wip {
     font-style: italic;
 }
 
+/* --- ESTILOS BAJA LÓGICA --- */
+
+.fila-baja, .fila-baja td {
+    background-color: #fde8e9 !important;
+    color: #a4262c !important;
+    border-bottom: 1px solid #d13438 !important;
+}
+
+.fila-baja .td-codigo strong, .fila-baja strong {
+     color: #a4262c !important;
+}
+
+/* La flecha roja de BAJA en filas normales */
+.btn-baja:hover {
+    color: #d13438;
+    background-color: #fde7e9;
+    border-radius: 50%;
+}
+
+/* La flecha verde de ALTA en filas rojas */
+.btn-alta {
+    color: #107c10 !important;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+.btn-alta:hover {
+    color: #0b5a0b !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
 /* =========================================
     EDICIÓN / CONSULTA DE DEPARTAMENTOS
    ========================================= */
@@ -1447,6 +1479,54 @@ body.view-error, body.view-wip {
 }
 .btn-gris:hover {
     background-color: #e1dfdd !important;
+}
+
+/* =========================================
+   VISTA ELIMINAR
+   ========================================= */
+
+.card-media {
+    max-width: 600px;
+}
+
+.encabezado-alerta {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.titulo-peligro {
+    color: #d13438;
+}
+
+.texto-descripcion {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.fila-flex {
+    display: flex;
+    gap: 15px;
+}
+
+.col-flex {
+    flex: 1;
+}
+
+.separador-horizontal {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.grupo-botones-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-full {
+    width: 100%;
 }
 
 /* =========================================

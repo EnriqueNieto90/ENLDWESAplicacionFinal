@@ -12,6 +12,26 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
+// BAJA LÓGICA
+if (isset($_REQUEST['baja'])) {
+    // Llamamos al modelo para poner fecha de baja como now()
+    if (DepartamentoPDO::bajaLogicaDepartamento($_REQUEST['codDepartamento'])) {
+        // Recargamos para que la tabla se pinte de rojo
+        header('Location: index.php');
+        exit;
+    }
+}
+
+// ALTA LÓGICA
+if (isset($_REQUEST['alta'])) {
+    // Llamamos al modelo para poner fecha de baja a null
+    if (DepartamentoPDO::altaLogicaDepartamento($_REQUEST['codDepartamento'])) {
+        // Recargamos para que la tabla vuelva a estar normal
+        header('Location: index.php');
+        exit;
+    }
+}
+
 if (isset($_REQUEST['editar'])) {
     // Guardamos el código del departamento seleccionado en la sesión
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
@@ -24,7 +44,14 @@ if (isset($_REQUEST['ver'])) {
     // Guardamos el código
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
     $_SESSION['paginaEnCurso'] = 'consultarDepartamento';
-    
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['borrar'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'eliminarDepartamento';
     header('Location: index.php');
     exit;
 }
