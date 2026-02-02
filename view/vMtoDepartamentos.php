@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 27/01/2026
+ * @since: 01/02/2026
  * @description: Vista Mto. Departamentos.
  */
 ?>
@@ -22,6 +22,14 @@
             </div>
         </form>
 
+        <div class="acciones-superiores">
+            <form action="index.php" method="post">
+                <button type="submit" name="anadir" class="btn-primary btn-verde">
+                    <i class="fa-solid fa-plus"></i> Añadir Departamento
+                </button>
+            </form>
+        </div>
+
         <div class="tabla-container">
             <?php if (!empty($aVistaDepartamentos)): ?>
                 <table class="tabla-microsoft">
@@ -32,7 +40,7 @@
                             <th>Fecha Alta</th>
                             <th>Volumen Negocio</th>
                             <th>Fecha Baja</th>
-                            <th style="text-align: right;">Acciones</th>
+                            <th class="text-right">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,8 +53,8 @@
                                 <td class="<?php echo ($dep['fechaBaja'] !== '-') ? 'texto-rojo' : ''; ?>">
                                     <?php echo $dep['fechaBaja']; ?>
                                 </td>
-                                <td style="text-align: right;">
-                                    <form method="post" style="display: inline;">
+                                <td class="text-right">
+                                    <form method="post" class="form-inline">
                                         
                                         <input type="hidden" name="codDepartamento" value="<?php echo $dep['cod']; ?>">
                                         
@@ -60,6 +68,12 @@
                                         
                                         <button type="button" class="btn-icon" title="Borrar/Baja">
                                             <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                        <button type="button" class="btn-icon" title="Alta">
+                                            <i class="fa-solid fa-long-arrow-up"></i>
+                                        </button>
+                                        <button type="button" class="btn-icon" title="Baja">
+                                            <i class="fa-solid fa-long-arrow-down"></i>
                                         </button>
                                     </form>
                                 </td>

@@ -1261,6 +1261,28 @@ body.view-error, body.view-wip {
     color: #0078D4;
 }
 
+.acciones-superiores {
+    margin-bottom: 20px;
+    text-align: right; 
+}
+
+.btn-verde {
+    background-color: #107c10 !important;
+    border-color: #107c10 !important;
+    color: white;
+}
+.btn-verde:hover {
+    background-color: #0b5a0b !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.form-inline {
+    display: inline;
+}
+
 .mensaje-vacio {
     text-align: center;
     padding: 40px;
@@ -1272,27 +1294,24 @@ body.view-error, body.view-wip {
     EDICIÓN / CONSULTA DE DEPARTAMENTOS
    ========================================= */
 
-/* Contenedor para centrar la tarjeta en pantalla */
 .contenedor-centrado {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 70vh; /* Centrado vertical respecto al viewport */
+    min-height: 70vh; 
     padding: 20px;
 }
 
-/* Tarjeta específica de formulario */
 .tarjeta-formulario {
     width: 100%;
-    max-width: 550px; /* Ancho elegante para formularios de una columna */
+    max-width: 550px; 
     background-color: var(--card-bg);
     border: 1px solid #edebe9;
-    border-top: 4px solid var(--ms-blue); /* Tu toque Microsoft característico */
+    border-top: 4px solid var(--ms-blue); 
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Cabecera de la sección */
 .cabecera-seccion-ms {
     padding: 15px 20px;
     border-bottom: 1px solid #f3f2f1;
@@ -1314,12 +1333,10 @@ body.view-error, body.view-wip {
     color: var(--ms-blue);
 }
 
-/* Cuerpo de la tarjeta */
 .cuerpo-tarjeta {
     padding: 25px;
 }
 
-/* Etiquetas de formulario */
 .label-microsoft {
     display: block;
     margin-bottom: 6px;
@@ -1332,14 +1349,12 @@ body.view-error, body.view-wip {
     color: #605e5c;
 }
 
-/* Contenedor de botones en el formulario */
 .acciones-formulario {
     margin-top: 30px;
     display: flex;
     gap: 12px;
 }
 
-/* Ajuste de botones para que ocupen el 50% cada uno */
 .acciones-formulario .btn-primary,
 .acciones-formulario .btn-secondary {
     flex: 1;
@@ -1350,7 +1365,6 @@ body.view-error, body.view-wip {
     padding: 10px;
 }
 
-/* Estilo para los inputs de búsqueda/edición activos */
 .input-busc {
     background-color: #ffffff;
     border: 1px solid var(--border-color);
@@ -1358,4 +1372,39 @@ body.view-error, body.view-wip {
 
 .input-busc:focus {
     border-bottom: 2px solid var(--ms-blue);
+}
+
+/* =========================================
+   VISTA BORRAR CUENTA
+   ========================================= */
+
+.icono-alerta {
+    font-size: 4rem;
+    color: #d13438; 
+    margin-bottom: 10px;
+}
+
+.form-botones-borrar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-peligro {
+    background-color: #d13438 !important;
+    border-color: #d13438 !important;
+    color: white;
+}
+.btn-peligro:hover {
+    background-color: #a4262c !important; 
+}
+
+.btn-gris {
+    background-color: #edebe9 !important;
+    color: #323130 !important;
+    border: 1px solid #8a8886 !important;
+}
+.btn-gris:hover {
+    background-color: #e1dfdd !important;
 }

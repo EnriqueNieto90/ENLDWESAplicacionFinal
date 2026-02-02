@@ -29,8 +29,7 @@ if (isset($_REQUEST['cambiarPassword'])) {
 
 if (isset($_REQUEST['borrarCuenta'])) {
     $_SESSION['paginaAnterior'] = 'cuenta';
-//    $_SESSION['paginaEnCurso'] = 'borrarCuenta';
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'borrarCuenta';
     header('Location: index.php');
     exit;
 }

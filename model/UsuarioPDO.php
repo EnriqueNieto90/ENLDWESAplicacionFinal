@@ -173,6 +173,19 @@ final class UsuarioPDO {
 
         return null;
     }
+    
+    /**
+     * Elimina un usuario de la base de datos
+     * @param Usuario $oUsuario Objeto del usuario a eliminar
+     * @return boolean True si se borró correctamente, false si no
+     */
+    public static function borrarUsuario($oUsuario){
+        $sql = "DELETE FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
+
+        return DBPDO::ejecutarConsulta($sql, [
+            ':codUsuario' => $oUsuario->getCodUsuario()
+        ])->rowCount() > 0;
+    }
 }
 ?>
 
