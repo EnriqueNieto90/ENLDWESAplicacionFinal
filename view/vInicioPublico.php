@@ -26,7 +26,7 @@
                 <div class="etiqueta-diagrama">Diagrama de Clases</div>
             </div>
             <div class="slide-item">
-                <a href="#img4" class="enlace-zoom"><img src="webroot/images/CasosDeUso.png" alt="Físico"></a>
+                <a href="#img4" class="enlace-zoom"><img src="webroot/images/CasosDeUso.png" alt="Usos"></a>
                 <div class="etiqueta-diagrama">Casos de Uso</div>
             </div>
             <div class="slide-item">
@@ -39,7 +39,7 @@
                 <div class="etiqueta-diagrama">Modelo Físico</div>
             </div>
             <div class="slide-item">
-                <a href="#img7" class="enlace-zoom"><img src="webroot/images/CatalogoRequisitos.png" alt="Img 7"></a>
+                <a href="webroot/files/230129CatalogoDeRequisitos.pdf" target="_blank" style="cursor: pointer;"><img src="webroot/images/CatalogoRequisitos.png" alt="Requisitos"></a>
                 <div class="etiqueta-diagrama">Catálogo de Requisitos</div>
             </div>
         </div>
@@ -86,9 +86,8 @@
     <div id="img1" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ArbolNavegacion.png"></div>
     <div id="img2" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/MapaWeb.png"></div>
     <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/DiagramaDeClases.png"></div>
-    <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ModeloFisico.png"></div>
+    <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CasosDeUso.png"></div>
     <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/UsoSession.png"></div>
-    
-    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/TU_IMAGEN_6.png"></div>
-    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/TU_IMAGEN_7.png"></div>
+    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ModeloFisico.png"></div>
+    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CatalogoRequisitos.png"></div>
 </main>
