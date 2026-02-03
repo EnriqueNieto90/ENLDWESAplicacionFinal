@@ -1602,3 +1602,22 @@ body.view-error, body.view-wip {
     font-weight: 600;
     font-size: 0.9rem;
 }
+
+/* =========================================
+   VISTA ALTA DEPARTAMENTO
+   ========================================= */
+
+.encabezado-centrado {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icono-alta {
+    font-size: 2rem;
+    color: #107c10;
+    margin-bottom: 10px;
+}
+
+.input-uppercase {
+    text-transform: uppercase;
+}

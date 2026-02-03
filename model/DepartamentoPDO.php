@@ -64,6 +64,33 @@ final class DepartamentoPDO {
         }
         return null;
     }
+    
+    /**
+     * Da de alta un nuevo departamento en la base de datos.
+     * * Inserta un registro en la tabla T02_Departamento con la fecha de creación actual (NOW()) y la fecha de baja a null.
+     * @param string $codDepartamento Código del departamento (PK, 3 letras mayúsculas).
+     * @param string $descDepartamento Descripción o nombre del departamento.
+     * @param float $volumenDeNegocio Volumen de negocio anual (permitiendo decimales).
+     * @return Departamento|null Devuelve el objeto Departamento si se crea con éxito, o null si falla la inserción.
+     */
+    public static function altaDepartamento($codDepartamento, $descDepartamento, $volumenDeNegocio){
+        
+        $sql = <<<SQL
+            INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:cod, :desc, NOW(), :vol, NULL)";
+        SQL;
+        
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':cod' => $codDepartamento,
+            ':desc' => $descDepartamento,
+            ':vol' => $volumenDeNegocio
+        ]);
+
+        if ($consulta) {
+            // Devolvemos el objeto creado para confirmar
+            return self::buscaDepartamentoPorCod($codDepartamento);
+        }
+        return null;
+    }
 
     /**
      * Modifica la descripción y el volumen de negocio de un departamento.

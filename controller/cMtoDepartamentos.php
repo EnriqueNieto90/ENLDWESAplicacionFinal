@@ -56,6 +56,14 @@ if (isset($_REQUEST['borrar'])) {
     exit;
 }
 
+if (isset($_REQUEST['anadir'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'altaDepartamento';
+    header('Location: index.php');
+    exit;
+}
+
 // Definimos el valor por defecto recuperando de la sesión (si existe) o cadena vacía
 $descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'] ?? "";
 
