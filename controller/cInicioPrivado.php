@@ -15,16 +15,30 @@ if (isset($_REQUEST['detalle'])) {
 
 // BOTÓN MTO DEPARTAMENTOS
 if (isset($_REQUEST['mtoDepartamentos'])) {
+    // Comprobamos si el perfil del usuario tiene permiso
+    if (!in_array($_SESSION['usuarioENLAplicacionFinal']->getPerfil(), $controlAcceso['mtoDepartamentos'])) {
+        // Si NO tiene permiso
+        $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+        header('Location: index.php');
+        exit;
+    }
+    
+    // Si tiene permiso
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';    
+    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
     header('Location: index.php');
     exit;
 }
 
 // BOTÓN MTO USUARIOS (Solo para perfil administrador)
 if (isset($_REQUEST['mtoUsuarios'])) {
+    if (!in_array($_SESSION['usuarioENLAplicacionFinal']->getPerfil(), $controlAcceso['mtoUsuarios'])) {
+        header('Location: index.php');
+        exit;
+    }
+
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip'; 
+    $_SESSION['paginaEnCurso'] = 'wip';
     header('Location: index.php');
     exit;
 }

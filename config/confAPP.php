@@ -91,6 +91,17 @@ $titulos = [
     'eliminarDepartamento'  => 'Eliminar Departamento'
 ];
 
+// ARRAY DE CONTROL DE ACCESO SEGÚN PERFIL
+$controlAcceso = [
+    'inicioPrivado'    => ['administrador', 'usuario'],
+    'detalle'          => ['administrador', 'usuario'],
+    'cuenta'           => ['administrador', 'usuario'],
+    'rest'             => ['administrador', 'usuario'],
+    'mtoDepartamentos' => ['administrador', 'usuario'], 
+    'mtoUsuarios'      => ['administrador'], 
+    'wip'              => ['administrador']
+];
+
 //ARRAY PARA DEFINIR VISTAS PÚBLICAS
 $aPaginasPublicas = ['inicioPublico', 'login', 'registro', 'wip', 'error'];
 
