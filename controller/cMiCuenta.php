@@ -5,22 +5,6 @@
  * @description: Controlador de Mi Cuenta.
  */
 
-// Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CERRAR SESIÓN
-if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy();
-    session_start();
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
-
 // Control de botón Volver
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
@@ -37,16 +21,14 @@ if (isset($_REQUEST['cancelar'])) {
 
 if (isset($_REQUEST['cambiarPassword'])) {
     $_SESSION['paginaAnterior'] = 'cuenta';
-//    $_SESSION['paginaEnCurso'] = 'cambiarPassword';
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'cambiarPassword';
     header('Location: index.php');
     exit;
 }
 
 if (isset($_REQUEST['borrarCuenta'])) {
     $_SESSION['paginaAnterior'] = 'cuenta';
-//    $_SESSION['paginaEnCurso'] = 'borrarCuenta';
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'borrarCuenta';
     header('Location: index.php');
     exit;
 }

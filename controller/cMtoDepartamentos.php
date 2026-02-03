@@ -5,22 +5,6 @@
  * @description: Controlador de Mantenimiento de Departamentos.
  */
 
-// Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CERRAR SESIÓN
-if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy();
-    session_start();
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
-
 // Control de botón Volver
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
@@ -28,21 +12,65 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
-// Por defecto buscamos todo
-$descripcionBuscada = "";
-
-if (isset($_SESSION["descripcionBuscadaEnCurso"])) {
-    $descripcionBuscada = $_SESSION["descripcionBuscadaEnCurso"];
+// BAJA LÓGICA
+if (isset($_REQUEST['baja'])) {
+    // Llamamos al modelo para poner fecha de baja como now()
+    if (DepartamentoPDO::bajaLogicaDepartamento($_REQUEST['codDepartamento'])) {
+        // Recargamos para que la tabla se pinte de rojo
+        header('Location: index.php');
+        exit;
+    }
 }
 
-// Si se ha pulsado buscar y hay texto
+// ALTA LÓGICA
+if (isset($_REQUEST['alta'])) {
+    // Llamamos al modelo para poner fecha de baja a null
+    if (DepartamentoPDO::altaLogicaDepartamento($_REQUEST['codDepartamento'])) {
+        // Recargamos para que la tabla vuelva a estar normal
+        header('Location: index.php');
+        exit;
+    }
+}
+
+if (isset($_REQUEST['editar'])) {
+    // Guardamos el código del departamento seleccionado en la sesión
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'modificarDepartamento';  
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['ver'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'consultarDepartamento';
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['borrar'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'eliminarDepartamento';
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_REQUEST['anadir'])) {
+    // Guardamos el código
+    $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
+    $_SESSION['paginaEnCurso'] = 'altaDepartamento';
+    header('Location: index.php');
+    exit;
+}
+
+// Definimos el valor por defecto recuperando de la sesión (si existe) o cadena vacía
+$descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'] ?? "";
+
+// Si el usuario ha enviado una nueva búsqueda, sobrescribimos la variable y actualizamos la sesión
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
     $_SESSION['descripcionBuscadaEnCurso'] = $descripcionBuscada;
-}
-//Si NO ha pulsado buscar, miramos si tenía algo guardado de antes
-elseif (isset($_SESSION['descripcionBuscadaEnCurso'])) {
-    $descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'];
 }
 
 // Recuperar los datos de la DB

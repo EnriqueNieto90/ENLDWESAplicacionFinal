@@ -34,7 +34,7 @@
 
             <div class="grupo-input">
                 <label class="label-microsoft">Nombre y Apellidos</label>
-                <input type="text" class="input-microsoft <?php echo ($aErrores['descUsuario']) ? 'input-error' : ''; ?>" 
+                <input type="text" class="input-microsoft input-cuenta <?php echo ($aErrores['descUsuario']) ? 'input-error' : ''; ?>" 
                        name="descUsuario" 
                        value="<?php echo $avMiCuenta['descUsuario']; ?>" 
                        placeholder="Tu nombre completo">
@@ -51,7 +51,7 @@
 
             <div class="acciones-login" style="margin-top: 20px;">
                 <button type="submit" name="aceptar" class="btn-primary">
-                    <i class="fa-solid fa-floppy-disk"></i> Guardar
+                    Aceptar
                 </button>
                 
                 <button type="submit" name="cancelar" class="btn-secondary">
