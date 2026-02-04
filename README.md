@@ -236,14 +236,11 @@ ENLDWESAplicacionFinal/
   - Confirmación de contraseña coincidente
   - Nombre obligatorio
 - Perfil por defecto: "usuario"
-- Hash de contraseña con `password_hash()` (bcrypt)
-- Redirección automática a login tras registro exitoso
 
 #### Login (cLogin.php / vLogin.php)
 **Funcionalidades:**
 - Formulario usuario/password
 - Autenticación contra tabla T01_Usuario
-- Verificación con `password_verify()`
 - Actualización de:
   - Contador de conexiones (+1)
   - Fecha hora última conexión (actual)
@@ -280,9 +277,6 @@ ENLDWESAplicacionFinal/
   - Password actual correcta
   - Password nueva diferente a la actual
   - Confirmación coincidente
-- Hash de nueva contraseña con bcrypt
-- Actualización en BD
-- Mensaje de confirmación
 
 #### Borrar Cuenta (cBorrarCuenta.php / vBorrarCuenta.php)
 **Funcionalidades:**
@@ -312,11 +306,6 @@ ENLDWESAplicacionFinal/
   - Volumen de negocio
   - Fecha creación
   - Estado (Activo/Inactivo según fecha de baja)
-  - Acciones según perfil:
-    - **Usuario:** Solo "Ver"
-    - **Administrador:** "Ver", "Editar", "Eliminar", "Baja Lógica"/"Rehabilitar"
-- Sin resultados: mensaje informativo
-- Campo vacío: muestra todos los departamentos
 
 #### Alta de Departamento (cAltaDepartamento.php / vAltaDepartamento.php)
 
@@ -331,18 +320,15 @@ ENLDWESAplicacionFinal/
   - Formato código: 3 letras mayúsculas
   - Descripción no vacía
   - Volumen de negocio numérico positivo
-- Fecha creación: automática (CURRENT_TIMESTAMP)
-- Fecha baja: NULL (departamento activo)
-- Redirección a mantenimiento tras alta exitosa
 
 #### Consultar/Modificar Departamento (cConsultarModificar.php / vConsultarModificar.php)
 **Funcionalidades:**
 - Vista detalle completo del departamento
-- Modo **Consulta** (Usuario estándar):
+- Modo **Consulta**:
   - Todos los campos bloqueados
   - Solo visualización de datos
   - Botón "Volver"
-- Modo **Edición** (Administrador):
+- Modo **Edición**:
   - Código departamento (bloqueado, no modificable)
   - Descripción (editable)
   - Volumen de negocio (editable)
@@ -350,11 +336,6 @@ ENLDWESAplicacionFinal/
   - Fecha baja (bloqueada, gestionada por baja lógica/rehabilitación)
   - Botón "Guardar cambios"
   - Botón "Cancelar"
-- Validaciones en edición:
-  - Descripción no vacía
-  - Volumen de negocio numérico positivo
-- Actualización en BD
-- Mensaje de confirmación
 
 #### Eliminar Departamento (cEliminarDepartamento.php / vEliminarDepartamento.php)
 
@@ -362,12 +343,6 @@ ENLDWESAplicacionFinal/
 - Página de confirmación
 - Mostrar datos del departamento a eliminar
 - Advertencia sobre irreversibilidad
-- Botones:
-  - "Confirmar Eliminación" (borrado físico)
-  - "Cancelar" (volver sin eliminar)
-- Borrado físico: `DELETE FROM T02_Departamento WHERE ...`
-- Mensaje de confirmación
-- Redirección a mantenimiento
 
 ### 3. Consumo de Servicios REST
 
@@ -377,10 +352,6 @@ ENLDWESAplicacionFinal/
 - Ejemplo: API de datos públicos, clima, noticias, etc.
 - Petición HTTP con `cURL` o `file_get_contents()`
 - Procesamiento de respuesta JSON
-- Presentación de datos en vista estructurada
-- Manejo de errores de conexión
-- Timeout configurado
-- Caché opcional de resultados
 ```
 
 ## URLs de Acceso
