@@ -64,7 +64,23 @@ final class DepartamentoPDO {
         }
         return null;
     }
-    
+
+    /**
+     * Comprueba si existe un departamento con ese código en la BBDD.
+     * @param string $codDepartamento Código del departamento a buscar.
+     * @return boolean True si encontró el código (ya existe), false si no.
+     */
+    public static function validaCodNoExiste($codDepartamento) {
+        
+        $sql = "SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
+        $parametros = [':codDepartamento' => $codDepartamento];
+
+        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
+
+        // Si rowCount es mayor a 0, significa que el código ya está en la base de datos
+        return $consulta->rowCount() > 0;
+    }
+
     /**
      * Da de alta un nuevo departamento en la base de datos.
      * * Inserta un registro en la tabla T02_Departamento con la fecha de creación actual (NOW()) y la fecha de baja a null.
@@ -73,16 +89,19 @@ final class DepartamentoPDO {
      * @param float $volumenDeNegocio Volumen de negocio anual (permitiendo decimales).
      * @return Departamento|null Devuelve el objeto Departamento si se crea con éxito, o null si falla la inserción.
      */
-    public static function altaDepartamento($codDepartamento, $descDepartamento, $volumenDeNegocio){
-        
+    public static function altaDepartamento($codDepartamento, $descDepartamento, $volumenDeNegocio) {
+
         $sql = <<<SQL
-            INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES (:cod, :desc, NOW(), :vol, NULL)";
+            INSERT INTO T02_Departamento 
+                (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) 
+            VALUES 
+                (:cod, :desc, NOW(), :vol, NULL);
         SQL;
-        
+
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':cod' => $codDepartamento,
-            ':desc' => $descDepartamento,
-            ':vol' => $volumenDeNegocio
+                    ':cod' => $codDepartamento,
+                    ':desc' => $descDepartamento,
+                    ':vol' => $volumenDeNegocio
         ]);
 
         if ($consulta) {
@@ -117,18 +136,18 @@ final class DepartamentoPDO {
 
         return $consulta; // Devuelve true si la consulta se ejecutó (aunque no cambie filas)
     }
-    
+
     /**
      * Elimina un departamento de la base de datos (Baja Física).
      * @param string $codDepartamento Código del departamento a eliminar.
      * @return boolean True si se borró correctamente, false si no.
      */
-    public static function bajaFisicaDepartamento($codDepartamento){
+    public static function bajaFisicaDepartamento($codDepartamento) {
         $sql = "DELETE FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
 
         return DBPDO::ejecutarConsulta($sql, [
-            ':codDepartamento' => $codDepartamento
-        ])->rowCount() > 0;
+                    ':codDepartamento' => $codDepartamento
+                ])->rowCount() > 0;
     }
 
     /**
@@ -145,7 +164,7 @@ final class DepartamentoPDO {
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codDepartamento' => $codDepartamento
+                    ':codDepartamento' => $codDepartamento
         ]);
 
         // Devolvemos true si se ha afectado alguna fila
@@ -166,7 +185,7 @@ final class DepartamentoPDO {
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codDepartamento' => $codDepartamento
+                    ':codDepartamento' => $codDepartamento
         ]);
 
         return $consulta->rowCount() > 0;
