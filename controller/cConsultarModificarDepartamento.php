@@ -5,6 +5,13 @@
  * @description: Controlador para Consultar y Modificar un Departamento.
  */
 
+// Control de botón Volver
+if (isset($_REQUEST['volver'])) {
+    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
+    header('Location: index.php');
+    exit;
+}
+
 // Control del botón CANCELAR (Volver atrás sin guardar)
 if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
@@ -34,11 +41,11 @@ $aErrores = [
 if (isset($_REQUEST['aceptar'])) {
     
     // Validación: Descripción (Alfabético, obligatorio)
-    $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfabetico($_REQUEST['descDepartamento'], 255, 1, 1);
+    $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 1, 1);
     
     // Validación: Volumen de Negocio (Float, sustituimos coma por punto primero)
     $volumenFiltrado = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 1000000000, 0, 1);
 
     // Comprobar si hay errores
     foreach ($aErrores as $campo => $error) {
@@ -59,7 +66,7 @@ if (isset($_REQUEST['aceptar'])) {
             header('Location: index.php');
             exit;
         } else {
-            // Error en BBDD (poco probable si validamos bien)
+            // Error en BBDD
             $aErrores['descDepartamento'] = "Error al modificar en la base de datos.";
         }
     }
