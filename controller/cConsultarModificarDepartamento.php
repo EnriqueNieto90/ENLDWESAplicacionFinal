@@ -86,7 +86,7 @@ $fechaAlta = new DateTime($oDepartamento->getFechaCreacionDepartamento());
 $fechaBaja = $oDepartamento->getFechaBajaDepartamento();
 $fechaBajaStr = ($fechaBaja) ? (new DateTime($fechaBaja))->format('d/m/Y') : '-';
 
-$avDepartamento = [
+$avConsultarModificarDepartamento = [
     'codDepartamento' => $oDepartamento->getCodDepartamento(),
     'descDepartamento' => $descMostrar,
     'fechaCreacion' => $fechaAlta->format('d/m/Y'),

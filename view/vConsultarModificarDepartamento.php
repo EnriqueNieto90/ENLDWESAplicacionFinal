@@ -14,33 +14,33 @@
                     <div class="grupo-input">
                         <label class="label-microsoft">Código</label>
                         <input type="text" class="input-microsoft input-disabled" 
-                               value="<?php echo $avDepartamento['codDepartamento']; ?>" readonly disabled>
+                               value="<?php echo $avConsultarModificarDepartamento['codDepartamento']; ?>" readonly disabled>
                     </div>
 
                     <div class="grupo-input">
                         <label class="label-microsoft">Descripción</label>
                         <input type="text" name="descDepartamento" class="input-microsoft input-busc" 
-                               value="<?php echo $avDepartamento['descDepartamento']; ?>"
+                               value="<?php echo $avConsultarModificarDepartamento['descDepartamento']; ?>"
                                <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'readonly' : ''; ?>>
                     </div>
 
                     <div class="grupo-input">
                         <label class="label-microsoft label-tenue">Fecha Alta</label>
                         <input type="text" class="input-microsoft input-disabled" 
-                               value="<?php echo $avDepartamento['fechaCreacion']; ?>" readonly disabled>
+                               value="<?php echo $avConsultarModificarDepartamento['fechaCreacion']; ?>" readonly disabled>
                     </div>
                     
                     <div class="grupo-input">
                         <label class="label-microsoft">Volumen Negocio</label>
                         <input type="text" name="volumenDeNegocio" class="input-microsoft input-busc" 
-                               value="<?php echo $avDepartamento['volumenDeNegocio']; ?>"
+                               value="<?php echo $avConsultarModificarDepartamento['volumenDeNegocio']; ?>"
                                <?php echo ($_SESSION['paginaEnCurso'] == 'consultarDepartamento') ? 'readonly' : ''; ?>>
                     </div>
                     
                     <div class="grupo-input">
                         <label class="label-microsoft label-tenue">Fecha Baja</label>
                         <input type="text" class="input-microsoft input-disabled" 
-                               value="<?php echo $avDepartamento['fechaBaja']; ?>" readonly disabled>
+                               value="<?php echo $avConsultarModificarDepartamento['fechaBaja']; ?>" readonly disabled>
                     </div>
 
                     <div class="acciones-formulario">

@@ -31,7 +31,7 @@
         </div>
 
         <div class="tabla-container">
-            <?php if (!empty($aVistaDepartamentos)): ?>
+            <?php if (!empty($avMtoDepartamentos)): ?>
                 <table class="tabla-microsoft">
                     <thead>
                         <tr>
@@ -44,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($aVistaDepartamentos as $dep): ?>
+                        <?php foreach ($avMtoDepartamentos as $dep): ?>
                             <?php
                             $estaDeBaja = ($dep['fechaBaja'] !== '-');
                             ?>
