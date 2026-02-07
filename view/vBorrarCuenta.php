@@ -23,7 +23,7 @@
         <form action="index.php" method="post" class="form-botones-borrar">
             
             <button type="submit" name="eliminar" class="btn-primary btn-peligro">
-                <i class="fa-solid fa-trash"></i> Sí, eliminar cuenta
+                Aceptar
             </button>
 
             <button type="submit" name="cancelar" class="btn-primary btn-gris">
