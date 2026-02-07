@@ -5,15 +5,8 @@
  * @description: Controlador de Mi Cuenta.
  */
 
-// Control de botón Volver
-if (isset($_REQUEST['volver'])) {
-    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CANCELAR
-if (isset($_REQUEST['cancelar'])) {
+// BOTÓN CANCELAR Y VOLVER
+if (isset($_REQUEST['cancelar']) || isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
     header('Location: index.php');
     exit;

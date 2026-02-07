@@ -1,36 +1,45 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 02/02/2026
+ * @since: 07/02/2026
  * @description: Controlador para el borrado de cuenta.
  */
 
-//BOTÓN VOLVER
-if (isset($_REQUEST['volver'])) {
-    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CANCELAR
-if (isset($_REQUEST['cancelar'])) {
+// BOTÓN CANCELAR Y VOLVER
+if (isset($_REQUEST['cancelar']) || isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'] ?? 'inicioPrivado';
     header('Location: index.php');
     exit;
 }
 
-// SI CONFIRMA ELIMINAR
+// PROCESO DE ELIMINACIÓN
 if (isset($_REQUEST['eliminar'])) {
-    
+    // Intentamos borrar el usuario que está en sesión
     if (UsuarioPDO::borrarUsuario($_SESSION['usuarioENLAplicacionFinal'])) {
+        // Si se borra, destruimos sesión y al login
         session_destroy();
-        session_start(); 
+        session_start();
         $_SESSION['paginaEnCurso'] = 'login';
-        
+
         header('Location: index.php');
         exit;
     } else {
-        $error = "No se ha podido borrar la cuenta. Inténtelo más tarde.";
+        $error = "No se ha podido borrar la cuenta.";
     }
 }
+
+// ARRAY PARA LA VISTA
+$oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
+
+// Formateamos la fecha de última conexión si existe
+$fechaUltima = $oUsuario->getFechaHoraUltimaConexion();
+$fechaUltimaStr = ($fechaUltima instanceof DateTime) ? $fechaUltima->format('d/m/Y H:i:s') : '-';
+
+$avBorrarCuenta = [
+    'codUsuario' => $oUsuario->getCodUsuario(),
+    'perfil' => $oUsuario->getPerfil(),
+    'descUsuario' => $oUsuario->getDescUsuario(),
+    'numConexiones' => $oUsuario->getNumConexiones(),
+    'ultimaConexion' => $fechaUltimaStr
+];
 ?>

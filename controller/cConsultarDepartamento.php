@@ -32,7 +32,7 @@ $avConsultarDepartamento = [
     'codDepartamento' => $oDepartamento->getCodDepartamento(),
     'descDepartamento' => $oDepartamento->getDescDepartamento(),
     'fechaCreacion' => $fechaAlta->format('d/m/Y'),
-    'volumenDeNegocio' => number_format($oDepartamento->getVolumenDeNegocio(), 2, ',', '.'), // Formateado bonito para leer
+    'volumenDeNegocio' => number_format($oDepartamento->getVolumenDeNegocio(), 2, ',', '.'),
     'fechaBaja' => $fechaBajaStr
 ];
 ?>

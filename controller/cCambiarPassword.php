@@ -5,15 +5,8 @@
  * @description: Controlador para cambiar la contraseña.
  */
 
-//BOTÓN VOLVER
-if (isset($_REQUEST['volver'])) {
-    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CANCELAR
-if (isset($_REQUEST['cancelar'])) {
+// BOTÓN CANCELAR Y VOLVER
+if (isset($_REQUEST['cancelar']) || isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'cuenta'; 
     header('Location: index.php');
     exit;
