@@ -218,6 +218,43 @@ final class UsuarioPDO {
             ':codUsuario' => $oUsuario->getCodUsuario()
         ])->rowCount() > 0;
     }
+    
+    /**
+     * Busca usuarios cuya descripción contenga la cadena proporcionada.
+     * @param string $descUsuario Descripción a buscar (o parte de ella).
+     * @return array Array de objetos Usuario encontrados.
+     */
+    public static function buscaUsuariosPorDesc($descUsuario) {
+
+        $sql = <<<SQL
+            SELECT * FROM T01_Usuario
+            WHERE T01_DescUsuario LIKE :descUsuario
+        SQL;
+
+        $parametros = [
+            ':descUsuario' => '%' . $descUsuario . '%'
+        ];
+
+        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
+        $aUsuarios = [];
+
+        if ($consulta->rowCount() > 0) {
+            while ($oUsuario = $consulta->fetchObject()) {
+                $aUsuarios[] = new Usuario(
+                        $oUsuario->T01_CodUsuario,
+                        $oUsuario->T01_Password,
+                        $oUsuario->T01_DescUsuario,
+                        $oUsuario->T01_NumConexiones,
+                        $oUsuario->T01_FechaHoraUltimaConexion,
+                        null,
+                        $oUsuario->T01_Perfil,
+                        $oUsuario->T01_ImagenUsuario,
+                );
+            }
+        }
+
+        return $aUsuarios;
+    }
 }
 ?>
 

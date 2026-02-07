@@ -77,11 +77,11 @@ if (isset($_REQUEST['buscar'])) {
 $aDepartamentosEncontrados = DepartamentoPDO::buscaDepartamentosPorDesc($descripcionBuscada);
 
 // PREPARAR ARRAY PARA LA VISTA
-$aVistaDepartamentos = [];
+$avMtoDepartamentos = [];
 
 if ($aDepartamentosEncontrados) {
     foreach ($aDepartamentosEncontrados as $oDep) {
-        $aVistaDepartamentos[] = [
+        $avMtoDepartamentos[] = [
             'cod' => $oDep->getCodDepartamento(),
             'desc' => $oDep->getDescDepartamento(),
             'volumen' => number_format($oDep->getVolumenDeNegocio(), 2, ',', '.') . ' €',

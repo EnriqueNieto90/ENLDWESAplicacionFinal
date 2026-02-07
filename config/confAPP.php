@@ -43,9 +43,10 @@ $controller = [
     'rest'                  => 'controller/cRest.php',
     'mtoDepartamentos'      => 'controller/cMtoDepartamentos.php',
     'altaDepartamento'      => 'controller/cAltaDepartamento.php',
-    'modificarDepartamento' => 'controller/cConsultarModificarDepartamento.php',
-    'consultarDepartamento' => 'controller/cConsultarModificarDepartamento.php',
-    'eliminarDepartamento'  => 'controller/cEliminarDepartamento.php'
+    'modificarDepartamento' => 'controller/cModificarDepartamento.php',
+    'consultarDepartamento' => 'controller/cConsultarDepartamento.php',
+    'eliminarDepartamento'  => 'controller/cEliminarDepartamento.php',
+    'mtoUsuarios'           => 'controller/cMtoUsuarios.php'
 ];
 
 // ARRAY DE VISTAS
@@ -65,9 +66,10 @@ $view = [
     'rest'                  => 'view/vRest.php',
     'mtoDepartamentos'      => 'view/vMtoDepartamentos.php',
     'altaDepartamento'      => 'view/vAltaDepartamento.php',
-    'modificarDepartamento' => 'view/vConsultarModificarDepartamento.php',
-    'consultarDepartamento' => 'view/vConsultarModificarDepartamento.php',
-    'eliminarDepartamento'  => 'view/vEliminarDepartamento.php'
+    'modificarDepartamento' => 'view/vModificarDepartamento.php',
+    'consultarDepartamento' => 'view/vConsultarDepartamento.php',
+    'eliminarDepartamento'  => 'view/vEliminarDepartamento.php',
+    'mtoUsuarios'           => 'view/vMtoUsuarios.php'
 ];
 
 // ARRAY DE TÍTULOS DEL HEADER
@@ -88,7 +90,8 @@ $titulos = [
     'altaDepartamento'      => 'Añadir Departamento',
     'modificarDepartamento' => 'Editar Departamento',
     'consultarDepartamento' => 'Consultar Departamento',
-    'eliminarDepartamento'  => 'Eliminar Departamento'
+    'eliminarDepartamento'  => 'Eliminar Departamento',
+    'mtoUsuarios'           => 'Mantenimiento de Usuarios'
 ];
 
 // ARRAY DE CONTROL DE ACCESO SEGÚN PERFIL

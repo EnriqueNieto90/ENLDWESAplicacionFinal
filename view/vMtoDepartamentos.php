@@ -9,7 +9,15 @@
     <div class="card-central card-dashboard card-wide">
 
         <h2 class="titulo-login">Mantenimiento de Departamentos</h2>
-
+        
+        <div class="acciones-superiores">
+            <form action="index.php" method="post">
+                <button type="submit" name="anadir" class="btn-primary btn-verde">
+                    <i class="fa-solid fa-plus"></i> Añadir Departamento
+                </button>
+            </form>
+        </div>
+        
         <form action="index.php" method="post" class="form-busqueda">
             <div class="grupo-busqueda">
                 <input type="text" class="input-microsoft input-busc" name="descDepartamento" 
@@ -22,16 +30,8 @@
             </div>
         </form>
 
-        <div class="acciones-superiores">
-            <form action="index.php" method="post">
-                <button type="submit" name="anadir" class="btn-primary btn-verde">
-                    <i class="fa-solid fa-plus"></i> Añadir Departamento
-                </button>
-            </form>
-        </div>
-
         <div class="tabla-container">
-            <?php if (!empty($aVistaDepartamentos)): ?>
+            <?php if (!empty($avMtoDepartamentos)): ?>
                 <table class="tabla-microsoft">
                     <thead>
                         <tr>
@@ -44,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($aVistaDepartamentos as $dep): ?>
+                        <?php foreach ($avMtoDepartamentos as $dep): ?>
                             <?php
                             $estaDeBaja = ($dep['fechaBaja'] !== '-');
                             ?>

@@ -1263,7 +1263,7 @@ body.view-error, body.view-wip {
     border-bottom: 2px solid #0078D4;
     padding: 12px 10px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
     color: #323130;
 }
 .tabla-microsoft th i{
@@ -1274,6 +1274,7 @@ body.view-error, body.view-wip {
     padding: 12px 10px;
     border-bottom: 1px solid #e1dfdd;
     color: #323130;
+    font-weight: 600;
 }
 
 .tabla-microsoft tr:hover {
@@ -1444,6 +1445,14 @@ body.view-error, body.view-wip {
 
 .input-busc:focus {
     border-bottom: 2px solid var(--ms-blue);
+}
+
+.color-gris {
+    color: #605e5c !important;
+}
+
+.color-azul {
+    color: #0078D4 !important;
 }
 
 /* =========================================

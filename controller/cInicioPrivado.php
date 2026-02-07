@@ -38,7 +38,7 @@ if (isset($_REQUEST['mtoUsuarios'])) {
     }
 
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
     header('Location: index.php');
     exit;
 }
