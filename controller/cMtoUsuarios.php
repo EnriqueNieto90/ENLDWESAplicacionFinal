@@ -11,6 +11,4 @@ if (isset($_REQUEST['volver'])) {
     header('Location: index.php');
     exit;
 }
-
-
 ?>

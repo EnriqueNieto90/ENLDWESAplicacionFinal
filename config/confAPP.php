@@ -43,8 +43,8 @@ $controller = [
     'rest'                  => 'controller/cRest.php',
     'mtoDepartamentos'      => 'controller/cMtoDepartamentos.php',
     'altaDepartamento'      => 'controller/cAltaDepartamento.php',
-    'modificarDepartamento' => 'controller/cConsultarModificarDepartamento.php',
-    'consultarDepartamento' => 'controller/cConsultarModificarDepartamento.php',
+    'modificarDepartamento' => 'controller/cModificarDepartamento.php',
+    'consultarDepartamento' => 'controller/cConsultarDepartamento.php',
     'eliminarDepartamento'  => 'controller/cEliminarDepartamento.php',
     'mtoUsuarios'           => 'controller/cMtoUsuarios.php'
 ];
@@ -66,8 +66,8 @@ $view = [
     'rest'                  => 'view/vRest.php',
     'mtoDepartamentos'      => 'view/vMtoDepartamentos.php',
     'altaDepartamento'      => 'view/vAltaDepartamento.php',
-    'modificarDepartamento' => 'view/vConsultarModificarDepartamento.php',
-    'consultarDepartamento' => 'view/vConsultarModificarDepartamento.php',
+    'modificarDepartamento' => 'view/vModificarDepartamento.php',
+    'consultarDepartamento' => 'view/vConsultarDepartamento.php',
     'eliminarDepartamento'  => 'view/vEliminarDepartamento.php',
     'mtoUsuarios'           => 'view/vMtoUsuarios.php'
 ];

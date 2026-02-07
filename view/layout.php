@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="webroot/css/all.min.css">
         <link rel="stylesheet" href="webroot/css/estilosLogin.css">
     </head>
-    <body class="view-<?php echo $_SESSION['paginaEnCurso']; ?>">
+    <body>
 
         <header class="header-app">
             <div class="marca-corporativa-ms">

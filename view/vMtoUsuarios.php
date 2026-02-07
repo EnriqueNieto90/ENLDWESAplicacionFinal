@@ -46,7 +46,7 @@
         // Referencias al DOM
         const cuerpoTabla = document.getElementById("cuerpoTablaUsuarios");
         const mensajeVacio = document.getElementById("mensajeVacio");
-        const urlApi = "http://daw208.local.ieslossauces.es/ENLDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+        const urlApi = "http://192.168.1.131/ENLDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
 
         function mostrarUsuarios(usuarios) {
             
