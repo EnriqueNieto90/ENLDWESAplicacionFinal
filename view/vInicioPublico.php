@@ -14,32 +14,32 @@
 
         <div class="carrusel-slides">
             <div class="slide-item">
-                <a href="#img1" class="enlace-zoom"><img src="webroot/images/ArbolNavegacion.png" alt="Árbol"></a>
+                <a href="#img1" class="enlace-zoom"><img src="webroot/media/images/ArbolNavegacion.png" alt="Árbol"></a>
                 <div class="etiqueta-diagrama">Árbol de Navegación</div>
             </div>
             <div class="slide-item">
-                <a href="#img2" class="enlace-zoom"><img src="webroot/images/MapaWeb.png" alt="Mapa"></a>
+                <a href="#img2" class="enlace-zoom"><img src="webroot/media/images/MapaWeb.png" alt="Mapa"></a>
                 <div class="etiqueta-diagrama">Mapa Web</div>
             </div>
             <div class="slide-item">
-                <a href="#img3" class="enlace-zoom"><img src="webroot/images/DiagramaDeClases.png" alt="Clases"></a>
+                <a href="#img3" class="enlace-zoom"><img src="webroot/media/images/DiagramaDeClases.png" alt="Clases"></a>
                 <div class="etiqueta-diagrama">Diagrama de Clases</div>
             </div>
             <div class="slide-item">
-                <a href="#img4" class="enlace-zoom"><img src="webroot/images/CasosDeUso.png" alt="Usos"></a>
+                <a href="#img4" class="enlace-zoom"><img src="webroot/media/images/CasosDeUso.png" alt="Usos"></a>
                 <div class="etiqueta-diagrama">Casos de Uso</div>
             </div>
             <div class="slide-item">
-                <a href="#img5" class="enlace-zoom"><img src="webroot/images/UsoSession2.png" alt="Sesión"></a>
+                <a href="#img5" class="enlace-zoom"><img src="webroot/media/images/UsoSession2.png" alt="Sesión"></a>
                 <div class="etiqueta-diagrama">Estructura de Sesión</div>
             </div>
 
             <div class="slide-item">
-                <a href="#img6" class="enlace-zoom"><img src="webroot/images/ModeloFisico.png" alt="Físico"></a>
+                <a href="#img6" class="enlace-zoom"><img src="webroot/media/images/ModeloFisico.png" alt="Físico"></a>
                 <div class="etiqueta-diagrama">Modelo Físico</div>
             </div>
             <div class="slide-item">
-                <a href="webroot/files/230129CatalogoDeRequisitos.pdf" target="_blank" style="cursor: pointer;"><img src="webroot/images/CatalogoRequisitos.png" alt="Requisitos"></a>
+                <a href="webroot/files/230129CatalogoDeRequisitos.pdf" target="_blank" style="cursor: pointer;"><img src="webroot/media/images/CatalogoRequisitos.png" alt="Requisitos"></a>
                 <div class="etiqueta-diagrama">Catálogo de Requisitos</div>
             </div>
         </div>
@@ -83,11 +83,11 @@
         </div>
     </div>
 
-    <div id="img1" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ArbolNavegacion.png"></div>
-    <div id="img2" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/MapaWeb.png"></div>
-    <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/DiagramaDeClases.png"></div>
-    <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CasosDeUso.png"></div>
-    <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/UsoSession2.png"></div>
-    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/ModeloFisico.png"></div>
-    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/images/CatalogoRequisitos.png"></div>
+    <div id="img1" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/ArbolNavegacion.png"></div>
+    <div id="img2" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/MapaWeb.png"></div>
+    <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/DiagramaDeClases.png"></div>
+    <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/CasosDeUso.png"></div>
+    <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/UsoSession2.png"></div>
+    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/ModeloFisico.png"></div>
+    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/CatalogoRequisitos.png"></div>
 </main>
