@@ -24,7 +24,7 @@ $descripcionBuscada = "";
 //Comprobamos que llega el parámetro correcto
 if (isset($_REQUEST['descUsuario'])) {
     
-    if (!validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 1, 0)) {
+    if (validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 1, 0)) {
         $bEntradaOK = false;
     } else {
         // Si es válido, guardamos la variable
