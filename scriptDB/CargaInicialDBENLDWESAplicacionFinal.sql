@@ -6,7 +6,6 @@
 USE DBENLDWESAplicacionFinal;
 
 INSERT INTO T02_Departamento (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) VALUES
-    -- Los originales (5)
     ('INF', 'Departamento de Informática.', now(), 1245.5, null),
     ('AUT', 'Departamento de Automoción.', now(), 8735.7, null),
     ('ELE', 'Departamento de Electricidad.', now(), 4375.2, null),

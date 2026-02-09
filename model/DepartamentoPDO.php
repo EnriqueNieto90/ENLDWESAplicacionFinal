@@ -134,7 +134,7 @@ final class DepartamentoPDO {
 
         $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
 
-        return $consulta; // Devuelve true si la consulta se ejecutó (aunque no cambie filas)
+        return $consulta; // Devuelve true si la consulta se ejecutó
     }
 
     /**

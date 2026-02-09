@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Descripción</th>
+                        <th>Descripción<i class="fa-solid fa-long-arrow-down"></i></th>
                         <th>Nº Conexiones</th>
                         <th>Última conexión</th>
                         <th>Perfil</th>

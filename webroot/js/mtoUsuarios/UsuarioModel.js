@@ -9,7 +9,7 @@ export class UsuarioModel {
     
     constructor() {
         // Definimos la URL
-        this.apiUrl = "http://192.168.1.131/ENLDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+        this.apiUrl = "http://daw208.local.ieslossauces.es/ENLDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
     }
 
     /**

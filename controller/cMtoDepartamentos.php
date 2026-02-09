@@ -64,11 +64,11 @@ if (isset($_REQUEST['anadir'])) {
     exit;
 }
 
-// --- GESTIÓN DE FILTROS Y PAGINACIÓN ---
+// GESTIÓN DE FILTROS Y PAGINACIÓN
 
 // Recuperar filtros de la sesión o inicializar por defecto
 $descripcionBuscada = $_SESSION['criterioBusqueda']['desc'] ?? "";
-$estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "todos"; // todos, alta, baja
+$estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "alta";
 
 // Si el usuario pulsa BUSCAR, actualizamos la sesión y reiniciamos a página 1
 if (isset($_REQUEST['buscar'])) {
@@ -114,7 +114,7 @@ $aDepartamentosEncontrados = DepartamentoPDO::buscaDepartamentosPorDescEstadoPag
     $paginaActual
 );
 
-// --- PREPARAR ARRAY PARA LA VISTA ---
+// PREPARAR ARRAY PARA LA VISTA
 $avMtoDepartamentos = [];
 
 if ($aDepartamentosEncontrados) {
