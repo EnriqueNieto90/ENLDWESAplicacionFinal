@@ -20,7 +20,12 @@ if (isset($_REQUEST['registrarse'])) {
 
 //PROCESO DE LOGIN
 $entradaOK = true;
-$aErrores = ['usuario' => null, 'password' => null];
+$oUsuarioValido = null;
+
+$aErrores = [
+    'usuario' => null,
+    'password' => null
+];
 
 if (isset($_REQUEST['entrar'])) {
     // Validar el formato de campos
@@ -41,6 +46,7 @@ if (isset($_REQUEST['entrar'])) {
         // Si no se encuentra en la BBDD entradaOK es false
         if (!isset($oUsuarioValido)) {
             $entradaOK = false;
+            $_REQUEST['password'] = ''; // Limpiar contraseña por seguridad
         }
     }
 } else {
@@ -49,13 +55,13 @@ if (isset($_REQUEST['entrar'])) {
 
 // LOGIN CORRECTO. Guardamos usuario en sesión y redirigimos
 if ($entradaOK) {
+    // Registrar la conexión en la BD
+    $oUsuarioValido = UsuarioPDO::registrarUltimaConexion($oUsuarioValido);
+    
     $_SESSION['usuarioENLAplicacionFinal'] = $oUsuarioValido;
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
         
     header('Location: index.php');
     exit;
 }
-
-//CARGAR LA VISTA
-require_once $view['layout'];
 ?>

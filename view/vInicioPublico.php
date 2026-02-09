@@ -1,46 +1,93 @@
-<?php
-/**
- * @author: Enrique Nieto Lorenzo
- * @since: 18/01/2026
- * @description: Vista de Inicio Público.
- */
-?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Bienvenido</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-
-    <div class="header-controls">
-        <form action="index.php" method="post" class="idioma-buttons">
-            <?php $lang = $_COOKIE['idioma'] ?? 'ES'; ?>
-            
-            <button type="submit" name="idioma" value="ES" class="btn-flag <?php echo ($lang=='ES')?'active':''; ?>" title="Español">
-                <img src="webroot/images/esp.png" alt="ES">
-            </button>
-            <button type="submit" name="idioma" value="EN" class="btn-flag <?php echo ($lang=='EN')?'active':''; ?>" title="English">
-                <img src="webroot/images/uk.png" alt="EN">
-            </button>
-            <button type="submit" name="idioma" value="FR" class="btn-flag <?php echo ($lang=='FR')?'active':''; ?>" title="Français">
-                <img src="webroot/images/francia.png" alt="FR">
-            </button>
-        </form>
-
-        <form action="index.php" method="post" class="form-no-margin">
-            <button name="iniciarSesion" class="btn-login-header">
-                Iniciar Sesión
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
-    <div class="card-central card-dashboard card-center-text">
-        <h2 class="titulo-login text-center">Bienvenido a la aplicación Login Logoff</h2>
-        <p>Sistema de gestión de usuarios con autenticación y control de sesiones.</p>
-        
-        <div class="home-image-container">
-            <img src="webroot/images/arbol.png" alt="Diagrama de navegación" onerror="this.style.display='none'">
+    <div class="intro-inicio text-center">
+        <h2 class="titulo-grande-ms">Documentación técnica y diagramas de la arquitectura</h2>
+    </div>
+
+    <div class="contenedor-carrusel-ms">
+        <input type="radio" name="slider" id="slide1" checked>
+        <input type="radio" name="slider" id="slide2">
+        <input type="radio" name="slider" id="slide3">
+        <input type="radio" name="slider" id="slide4">
+        <input type="radio" name="slider" id="slide5">
+        <input type="radio" name="slider" id="slide6">
+        <input type="radio" name="slider" id="slide7">
+
+        <div class="carrusel-slides">
+            <div class="slide-item">
+                <a href="#img1" class="enlace-zoom"><img src="webroot/media/images/ArbolNavegacion.png" alt="Árbol"></a>
+                <div class="etiqueta-diagrama">Árbol de Navegación</div>
+            </div>
+            <div class="slide-item">
+                <a href="#img2" class="enlace-zoom"><img src="webroot/media/images/MapaWeb.png" alt="Mapa"></a>
+                <div class="etiqueta-diagrama">Mapa Web</div>
+            </div>
+            <div class="slide-item">
+                <a href="#img3" class="enlace-zoom"><img src="webroot/media/images/DiagramaDeClases.png" alt="Clases"></a>
+                <div class="etiqueta-diagrama">Diagrama de Clases</div>
+            </div>
+            <div class="slide-item">
+                <a href="#img4" class="enlace-zoom"><img src="webroot/media/images/CasosDeUso.png" alt="Usos"></a>
+                <div class="etiqueta-diagrama">Casos de Uso</div>
+            </div>
+            <div class="slide-item">
+                <a href="#img5" class="enlace-zoom"><img src="webroot/media/images/UsoSession2.png" alt="Sesión"></a>
+                <div class="etiqueta-diagrama">Estructura de Sesión</div>
+            </div>
+
+            <div class="slide-item">
+                <a href="#img6" class="enlace-zoom"><img src="webroot/media/images/ModeloFisico.png" alt="Físico"></a>
+                <div class="etiqueta-diagrama">Modelo Físico</div>
+            </div>
+            <div class="slide-item">
+                <a href="webroot/files/230129CatalogoDeRequisitos.pdf" target="_blank" style="cursor: pointer;"><img src="webroot/media/images/CatalogoRequisitos.png" alt="Requisitos"></a>
+                <div class="etiqueta-diagrama">Catálogo de Requisitos</div>
+            </div>
+        </div>
+
+        <div class="capa-flechas">
+            <div class="flechas-grupo" id="flechas1">
+                <label for="slide7" class="flecha prev">&#10094;</label> <label for="slide2" class="flecha next">&#10095;</label>
+            </div>
+            <div class="flechas-grupo" id="flechas2">
+                <label for="slide1" class="flecha prev">&#10094;</label>
+                <label for="slide3" class="flecha next">&#10095;</label>
+            </div>
+            <div class="flechas-grupo" id="flechas3">
+                <label for="slide2" class="flecha prev">&#10094;</label>
+                <label for="slide4" class="flecha next">&#10095;</label>
+            </div>
+            <div class="flechas-grupo" id="flechas4">
+                <label for="slide3" class="flecha prev">&#10094;</label>
+                <label for="slide5" class="flecha next">&#10095;</label>
+            </div>
+            <div class="flechas-grupo" id="flechas5">
+                <label for="slide4" class="flecha prev">&#10094;</label>
+                <label for="slide6" class="flecha next">&#10095;</label> </div>
+            <div class="flechas-grupo" id="flechas6">
+                <label for="slide5" class="flecha prev">&#10094;</label>
+                <label for="slide7" class="flecha next">&#10095;</label>
+            </div>
+            <div class="flechas-grupo" id="flechas7">
+                <label for="slide6" class="flecha prev">&#10094;</label>
+                <label for="slide1" class="flecha next">&#10095;</label> </div>
+        </div>
+
+        <div class="carrusel-nav">
+            <label for="slide1" class="nav-dot"></label>
+            <label for="slide2" class="nav-dot"></label>
+            <label for="slide3" class="nav-dot"></label>
+            <label for="slide4" class="nav-dot"></label>
+            <label for="slide5" class="nav-dot"></label>
+            <label for="slide6" class="nav-dot"></label>
+            <label for="slide7" class="nav-dot"></label>
         </div>
     </div>
+
+    <div id="img1" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/ArbolNavegacion.png"></div>
+    <div id="img2" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/MapaWeb.png"></div>
+    <div id="img3" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/DiagramaDeClases.png"></div>
+    <div id="img4" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/CasosDeUso.png"></div>
+    <div id="img5" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/UsoSession2.png"></div>
+    <div id="img6" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/ModeloFisico.png"></div>
+    <div id="img7" class="lightbox"><a href="#_" class="lb-close"></a><img src="webroot/media/images/CatalogoRequisitos.png"></div>
 </main>

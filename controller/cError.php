@@ -31,14 +31,12 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 
+// Control de botón Volver
 if (isset($_REQUEST['volver'])) {
-    // Si se pulsa le damos el valor de la página anterior a la variable en curso
-    $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'];
+    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
     header('Location: index.php');
     exit;
 }
 
-// Cargamos el layout principal
-require_once $view['layout'];
 ?>
 

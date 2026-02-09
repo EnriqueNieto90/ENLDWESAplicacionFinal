@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS T01_Usuario (
         CHECK (LENGTH(T01_Password) >= 4),
     T01_DescUsuario VARCHAR(255) NOT NULL,
     T01_NumConexiones INT NOT NULL default 0,
-    T01_FechaHoraUltimaConexion DATETIME NOT NULL default now(),
+    T01_FechaHoraUltimaConexion DATETIME default null,
     T01_Perfil VARCHAR(20) NOT NULL default 'usuario',
     T01_ImagenUsuario VARCHAR(255) default null
 );

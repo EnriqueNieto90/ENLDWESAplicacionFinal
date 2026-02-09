@@ -2,29 +2,9 @@
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 18/01/2026
- * @description: Vista de Inicio Privado.
+ * @description: Vista de Inicio Privado con Control de Acceso.
  */
 ?>
-<header class="header-app">
-    <div class="logo-seccion">
-        <span class="titulo-tema">Portal Privado</span>
-        <span class="subtitulo-tema">APLICACIÓN FINAL</span>
-    </div>
-    <div class="nav-derecha">
-        <form action="index.php" method="post" style="display:inline;">
-             <button name="cuenta" class="btn-header" title="Mi Cuenta">
-                <i class="fa-solid fa-user-gear"></i> Cuenta
-             </button>
-        </form>
-
-        <form action="index.php" method="post" style="display:inline;">
-            <button name="cerrarSesion" class="btn-header">
-                <i class="fa-solid fa-power-off"></i> Cerrar sesión
-            </button>
-        </form>
-    </div>
-</header>
-
 <main>
     <div class="card-central card-dashboard">
         
@@ -34,11 +14,6 @@
                 if ($idioma == "ES") {
                     echo '<h2>Bienvenido <strong>' . $avInicioPrivado['descUsuario'] . '</strong></h2>';
                     echo '<p>Esta es la <strong>' . $avInicioPrivado['numConexiones'] . 'ª</strong> vez que se conecta.</p>';
-                } elseif ($idioma == "EN") {
-                    echo '<h2>Welcome <strong>' . $avInicioPrivado['descUsuario'] . '</strong></h2>';
-                    echo '<p>This is the <strong>' . $avInicioPrivado['numConexiones'] . 'th</strong> time you connected.</p>';
-                } else {
-                    echo '<h2>Bienvenue <strong>' . $avInicioPrivado['descUsuario'] . '</strong></h2>';
                 }
             ?>
         </div>
@@ -52,23 +27,37 @@
     
         <div class="dashboard-menu">
             
-            <form action="index.php" method="post">
-                <button name="mtoDepartamentos" class="btn-dashboard btn-blue">
-                    <i class="fa-solid fa-building-user"></i> Mto. Departamentos
-                </button>
-            </form>
+            <?php if (isset($controlAcceso['mtoDepartamentos']) && in_array($avInicioPrivado['perfil'], $controlAcceso['mtoDepartamentos'])): ?>
+                <form action="index.php" method="post">
+                    <button name="mtoDepartamentos" class="btn-dashboard btn-blue">
+                        <i class="fa-solid fa-building-user"></i> Mto. Departamentos
+                    </button>
+                </form>
+            <?php endif; ?>
+            
+            <?php if (isset($controlAcceso['mtoUsuarios']) && in_array($avInicioPrivado['perfil'], $controlAcceso['mtoUsuarios'])): ?>
+                <form action="index.php" method="post">
+                    <button name="mtoUsuarios" class="btn-dashboard btn-blue">
+                        <i class="fa-solid fa-users-gear"></i> Mto. Usuarios
+                    </button>
+                </form>
+            <?php endif; ?>
 
-            <form action="index.php" method="post">
-                <button name="rest" class="btn-dashboard btn-blue">
-                    <i class="fa-solid fa-cloud"></i> REST
-                </button>
-            </form>
+            <?php if (isset($controlAcceso['rest']) && in_array($avInicioPrivado['perfil'], $controlAcceso['rest'])): ?>
+                <form action="index.php" method="post">
+                    <button name="rest" class="btn-dashboard btn-blue">
+                        <i class="fa-solid fa-cloud"></i> REST
+                    </button>
+                </form>
+            <?php endif; ?>
 
-            <form action="index.php" method="post">
-                <button name="detalle" class="btn-dashboard btn-gray">
-                    <i class="fa-solid fa-eye"></i> Detalle
-                </button>
-            </form>
+            <?php if (isset($controlAcceso['detalle']) && in_array($avInicioPrivado['perfil'], $controlAcceso['detalle'])): ?>
+                <form action="index.php" method="post">
+                    <button name="detalle" class="btn-dashboard btn-gray">
+                        <i class="fa-solid fa-eye"></i> Detalle
+                    </button>
+                </form>
+            <?php endif; ?>
 
             <form action="index.php" method="post">
                 <button name="error" class="btn-dashboard btn-red">

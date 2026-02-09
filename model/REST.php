@@ -1,25 +1,91 @@
 <?php
 /**
  * @author: Enrique Nieto Lorenzo
- * @since: 19/01/2026
- * @description: Clase REST para la gestión de la conexión con un Web Service a través de una API REST.
+ * @since: 02/02/2026
+ * @description: Clase REST. Gestiona la comunicación externa (API y Descarga de imágenes).
  */
-
 class REST {
-    
-    const API_KEY_NASA = null;
 
-    public static function apiNasa($fecha){
-        //Obtenemos el resultado del servidor de la API REST
-        $resultado = file_get_contents($url = "https://api.nasa.gov/planetary/apod?api_key=" . self::API_KEY_NASA);
-        
-        //Devolvemos el array devuelto por json_decode
-        $archivoApi=json_decode($resultado,true);
-        //si el archivo se a descodificado correctamente, rotorna la foto
-        if(isset($archivoApi)){
-             $fotoNasa= new FotoNasa($archivoApi['title'],$archivoApi['url'], $archivoApi['date']);
-             return $fotoNasa;
+    /**
+     * Llama a la API APOD de la NASA.
+     * Devuelve SIEMPRE un objeto FotoNasa (con datos reales o de error).
+     */
+    public static function apiNasa($sFecha) {
+        $sUrl = "https://api.nasa.gov/planetary/apod?date=$sFecha&api_key=" . API_KEY_NASA;
+
+         // Configuración básica de cURL
+        $oCurl = curl_init(); 
+        curl_setopt($oCurl, CURLOPT_URL, $sUrl);
+        curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true); 
+        curl_setopt($oCurl, CURLOPT_TIMEOUT, 5); 
+        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, false);
+
+        $sResultado = curl_exec($oCurl); 
+        $iHttpCode = curl_getinfo($oCurl, CURLINFO_HTTP_CODE);
+        $bErrorCurl = curl_errno($oCurl);
+        curl_close($oCurl);
+
+        if ($sResultado && $iHttpCode === 200) {
+            $aArchivoApi = json_decode($sResultado, true);
+
+            if (isset($aArchivoApi['title'], $aArchivoApi['url'])) {
+                
+                $sUrlFoto = $aArchivoApi['url'];
+                // Si es imagen, pedimos al método privado que la transforme
+                if (isset($aArchivoApi['media_type']) && $aArchivoApi['media_type'] === 'image') {
+                    
+                    // Llamamos al método privado para serializar la imagen
+                    $sBase64 = self::descargarImagenBase64($sUrlFoto);
+                    
+                    if ($sBase64) {
+                        $sUrlFoto = $sBase64;
+                    }
+                }
+
+                return new FotoNasa(
+                    $aArchivoApi['title'], 
+                    $sUrlFoto, 
+                    $aArchivoApi['date'] ?? $sFecha,
+                    $aArchivoApi['explanation'] ?? '',
+                    $aArchivoApi['hdurl'] ?? ''
+                );
+            }
         }
+
+        // Si la consulta a la API devuelve algo que no podemos controlar se lanza un objeto de error
+        return new FotoNasa(
+            'Error de conexión con la NASA',
+            'webroot/media/images/error_nasa.jpg',
+            $sFecha,
+            'No disponible',
+            'webroot/media/images/error_nasa.jpg'
+        );
+    }
+
+    /**
+     * Método privado para serializar la imagen de la NASA
+     * Se encarga exclusivamente de la lógica técnica de bajar y convertir la imagen.
+     * Al ser privado, nadie fuera de esta clase puede usarlo, manteniendo el encapsulamiento.
+     */
+    private static function descargarImagenBase64($sUrl) {
+        if (empty($sUrl)) return null;
+
+        $oCurlImg = curl_init($sUrl);
+        curl_setopt($oCurlImg, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($oCurlImg, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($oCurlImg, CURLOPT_TIMEOUT, 10);
+        
+        $sImagenBinaria = curl_exec($oCurlImg);
+        $iHttpCode = curl_getinfo($oCurlImg, CURLINFO_HTTP_CODE);
+        $sType = curl_getinfo($oCurlImg, CURLINFO_CONTENT_TYPE);
+        curl_close($oCurlImg);
+
+        if ($iHttpCode === 200 && $sImagenBinaria) {
+            return "data:$sType;base64," . base64_encode($sImagenBinaria);
+        }
+
+        return null;
     }
 }
 ?>

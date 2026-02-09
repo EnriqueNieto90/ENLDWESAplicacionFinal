@@ -18,7 +18,7 @@ class Usuario {
     private $imagenUsuario;
     
     //CONSTRUCTOR
-    public function __construct($codUsuario, $password, $descUsuario, $numConexiones, $fechaHoraUltimaConexion, $fechaHoraUltimaConexionAnterior, $perfil, $imagenUsuario = null) {
+    public function __construct($codUsuario, $password, $descUsuario, $numConexiones, $fechaHoraUltimaConexion, $fechaHoraUltimaConexionAnterior, $perfil, $imagenUsuario=null) {
         $this->codUsuario = $codUsuario;
         $this->password = $password;
         $this->descUsuario = $descUsuario;
@@ -60,6 +60,9 @@ class Usuario {
 
     public function getImagenUsuario() {
         return $this->imagenUsuario;
+    }
+    public function getInicialNombre() {
+        return !empty($this->descUsuario) ? mb_strtoupper(mb_substr($this->descUsuario, 0, 1)) : '?';
     }
 
     // SETTERS

@@ -5,30 +5,6 @@
  * @description: Controlador de Inicio Privado.
  */
 
-// Si no hay usuario logueado, mandar al login
-if (!isset($_SESSION['usuarioENLAplicacionFinal'])) {
-    $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CERRAR SESIÓN
-if (isset($_REQUEST['cerrarSesion'])) {
-    session_destroy();
-    session_start();
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
-
-// BOTÓN CUENTA (WIP por ahora o tu controlador futuro cCuenta)
-if (isset($_REQUEST['cuenta'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip'; 
-    header('Location: index.php');
-    exit;
-}
-
 // BOTÓN DETALLE
 if (isset($_REQUEST['detalle'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
@@ -39,8 +15,30 @@ if (isset($_REQUEST['detalle'])) {
 
 // BOTÓN MTO DEPARTAMENTOS
 if (isset($_REQUEST['mtoDepartamentos'])) {
+    // Comprobamos si el perfil del usuario tiene permiso
+    if (!in_array($_SESSION['usuarioENLAplicacionFinal']->getPerfil(), $controlAcceso['mtoDepartamentos'])) {
+        // Si NO tiene permiso
+        $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+        header('Location: index.php');
+        exit;
+    }
+    
+    // Si tiene permiso
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'mtoDepartamentos';
+    header('Location: index.php');
+    exit;
+}
+
+// BOTÓN MTO USUARIOS (Solo para perfil administrador)
+if (isset($_REQUEST['mtoUsuarios'])) {
+    if (!in_array($_SESSION['usuarioENLAplicacionFinal']->getPerfil(), $controlAcceso['mtoUsuarios'])) {
+        header('Location: index.php');
+        exit;
+    }
+
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
     header('Location: index.php');
     exit;
 }
@@ -48,7 +46,7 @@ if (isset($_REQUEST['mtoDepartamentos'])) {
 // BOTÓN REST
 if (isset($_REQUEST['rest'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'rest';
     header('Location: index.php');
     exit;
 }
@@ -63,13 +61,12 @@ if (isset($_REQUEST['error'])) {
     exit;
 }
 
-// PREPARAR DATOS
+// PREPARAR DATOS PARA LA VISTA EN UN ARRAY
 $oUsuario = $_SESSION['usuarioENLAplicacionFinal'];
 $avInicioPrivado = [
     'descUsuario' => $oUsuario->getDescUsuario(),
     'numConexiones' => $oUsuario->getNumConexiones(),
     'fechaHoraUltimaConexionAnterior' => $oUsuario->getFechaHoraUltimaConexionAnterior(),
+    'perfil' => $oUsuario->getPerfil()
 ];
-
-require_once $view['layout'];
 ?>
