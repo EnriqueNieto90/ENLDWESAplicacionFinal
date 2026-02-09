@@ -27,6 +27,9 @@ const API_KEY_NASA = 'VArtVZZeOSBGcSkPjTl7VzP0gX2olfPh8kdQgz3b';
 //Constante con la palabra de seguridad de la aplicación
 const PALABRA_SEGURIDAD = 'pimentel';
 
+// Constante para paginación
+const RESULTADOS_POR_PAGINA = 5;
+
 // ARRAY DE CONTROLADORES
 $controller = [
     'inicioPublico'         => 'controller/cInicioPublico.php',

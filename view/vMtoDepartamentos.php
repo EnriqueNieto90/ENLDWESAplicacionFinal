@@ -9,7 +9,7 @@
     <div class="card-central card-dashboard card-wide">
 
         <h2 class="titulo-login">Mantenimiento de Departamentos</h2>
-        
+
         <div class="acciones-superiores">
             <form action="index.php" method="post">
                 <button type="submit" name="anadir" class="btn-primary btn-verde">
@@ -17,12 +17,24 @@
                 </button>
             </form>
         </div>
-        
+
         <form action="index.php" method="post" class="form-busqueda">
             <div class="grupo-busqueda">
                 <input type="text" class="input-microsoft input-busc" name="descDepartamento" 
-                       value="<?php echo $valorBuscar; ?>" 
-                       placeholder="Buscar departamento por descripción">
+                       value="<?php echo $valorDescBuscar; ?>" 
+                       placeholder="Buscar por descripción">
+
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="estado" value="todos" <?php echo ($valorEstadoBuscar == 'todos') ? 'checked' : ''; ?>> Todos
+                    </label>
+                    <label>
+                        <input type="radio" name="estado" value="alta" <?php echo ($valorEstadoBuscar == 'alta') ? 'checked' : ''; ?>> Altas
+                    </label>
+                    <label>
+                        <input type="radio" name="estado" value="baja" <?php echo ($valorEstadoBuscar == 'baja') ? 'checked' : ''; ?>> Bajas
+                    </label>
+                </div>
 
                 <button type="submit" name="buscar" class="btn-primary btn-search">
                     <i class="fa-solid fa-magnifying-glass"></i> Buscar
@@ -98,6 +110,30 @@
                     <i class="fa-solid fa-circle-info"></i> No se han encontrado departamentos.
                 </div>
             <?php endif; ?>
+        </div>
+
+        <div class="paginacion-container">
+            <form action="index.php" method="post">
+                <button type="submit" name="paginaPrimera" class="btn-paginacion" <?php echo ($paginaActual == 1) ? 'disabled' : ''; ?>>
+                    <i class="fa-solid fa-angles-left"></i>
+                </button>
+
+                <button type="submit" name="paginaAnterior" class="btn-paginacion" <?php echo ($paginaActual == 1) ? 'disabled' : ''; ?>>
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+
+                <span class="info-paginacion">
+                    Página <?php echo $paginaActual; ?> de <?php echo $totalPaginas; ?> 
+                </span>
+
+                <button type="submit" name="paginaSiguiente" class="btn-paginacion" <?php echo ($paginaActual == $totalPaginas) ? 'disabled' : ''; ?>>
+                    <i class="fa-solid fa-angle-right"></i>
+                </button>
+
+                <button type="submit" name="paginaUltima" class="btn-paginacion" <?php echo ($paginaActual == $totalPaginas) ? 'disabled' : ''; ?>>
+                    <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </form>
         </div>
 
     </div>
