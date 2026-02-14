@@ -73,7 +73,7 @@ $estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "alta";
 // Si el usuario pulsa BUSCAR, actualizamos la sesión y reiniciamos a página 1
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
-    $estadoBuscado = $_REQUEST['estado'] ?? "todos";
+    $estadoBuscado = $_REQUEST['estado'] ?? "alta";
     
     $_SESSION['criterioBusqueda']['desc'] = $descripcionBuscada;
     $_SESSION['criterioBusqueda']['estado'] = $estadoBuscado;
