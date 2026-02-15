@@ -31,7 +31,7 @@ class DBPDO {
             
             $_SESSION['paginaEnCurso'] = 'error';
             
-            // Redirigimos inmediatamente
+            // Redirigimos directamente a index
             header('Location: index.php');
             exit;
         } finally {

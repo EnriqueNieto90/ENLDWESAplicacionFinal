@@ -15,7 +15,7 @@ if (isset($_REQUEST['cancelar']) || isset($_REQUEST['volver'])) {
 // PROCESO DE ELIMINACIÓN
 if (isset($_REQUEST['eliminar'])) {
     // Intentamos borrar el usuario que está en sesión
-    if (UsuarioPDO::borrarUsuario($_SESSION['usuarioENLAplicacionFinal'])) {
+    if (UsuarioPDO::borrarUsuario($_SESSION['usuarioENLAplicacionFinal']->getCodUsuario())) {
         // Si se borra, destruimos sesión y al login
         session_destroy();
         session_start();

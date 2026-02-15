@@ -20,6 +20,7 @@ require_once '../model/DBPDO.php';
 
 $bEntradaOK = true;
 $descripcionBuscada = "";
+$aUsuariosPorDescripcion = [];
 
 //Comprobamos que llega el parámetro correcto
 if (isset($_REQUEST['descUsuario'])) {
