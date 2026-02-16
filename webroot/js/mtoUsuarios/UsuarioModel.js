@@ -11,6 +11,7 @@ export class UsuarioModel {
         // Definimos las URLs de los endpoints
         this.urlBuscar = "api/wsBuscaUsuariosPorDescripcion.php";
         this.urlBorrar = "api/wsBorraUsuario.php";
+        this.urlCambiarPassword = "api/wsCambiaPasswordUsuario.php";
     }
 
     /**
@@ -65,6 +66,32 @@ export class UsuarioModel {
 
         } catch (error) {
             console.error("Error en la capa de datos (borrado):", error);
+            return { exito: false, mensaje: 'Error de conexión con el servidor.' };
+        }
+    }
+    
+    /**
+     * Solicita al servidor el cambio de contraseña de un usuario.
+     * @param {string} codUsuario Código del usuario.
+     * @param {string} nuevaPassword Nueva contraseña.
+     * @returns {Object} Objeto con { exito: boolean, mensaje: string }
+     */
+    async cambiarPassword(codUsuario, nuevaPassword) {
+        try {
+            const respuesta = await fetch(this.urlCambiarPassword, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `codUsuario=${encodeURIComponent(codUsuario)}&nuevaPassword=${encodeURIComponent(nuevaPassword)}`
+            });
+
+            if (!respuesta.ok) {
+                throw new Error(`Error HTTP: ${respuesta.status}`);
+            }
+
+            return await respuesta.json();
+
+        } catch (error) {
+            console.error("Error en la capa de datos (cambio contraseña):", error);
             return { exito: false, mensaje: 'Error de conexión con el servidor.' };
         }
     }

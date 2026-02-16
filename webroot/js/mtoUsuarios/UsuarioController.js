@@ -16,6 +16,7 @@ export class UsuarioController {
         // Usamos .bind para asegurar que la función ejecutarBusqueda mantenga el acceso a las propiedades del controlador aunque sea llamada desde la vista.
         this.view.alBuscarUsuario(this.ejecutarBusqueda.bind(this));
         this.view.alBorrarUsuario(this.ejecutarBorrado.bind(this));
+        this.view.alCambiarPassword(this.ejecutarCambioPassword.bind(this));
     }
 
     /**
@@ -73,6 +74,31 @@ export class UsuarioController {
         if (resultado.exito) {
             const busquedaActual = sessionStorage.getItem(this.CLAVE_SESION) || "";
             await this.ejecutarBusqueda(busquedaActual);
+        } else {
+            alert(resultado.mensaje);
+        }
+    }
+    
+    /**
+     * Flujo principal de la funcionalidad de cambio de contraseña.
+     * Muestra el formulario, recoge la nueva contraseña y la envía al servidor.
+     * @param {string} codUsuario Código del usuario al que cambiar la contraseña.
+     * @param {string} descUsuario Nombre del usuario (para mostrarlo en el formulario).
+     */
+    async ejecutarCambioPassword(codUsuario, descUsuario) {
+        // Pedimos a la Vista que muestre el formulario y esperamos la respuesta
+        const nuevaPassword = await this.view.mostrarFormularioCambioPassword(descUsuario);
+
+        // Si el usuario clica cancelar, nuevaPassword es null
+        if (!nuevaPassword) {
+            return;
+        }
+
+        // Pedimos al Modelo que ejecute el cambio en el servidor
+        const resultado = await this.model.cambiarPassword(codUsuario, nuevaPassword);
+
+        if (resultado.exito) {
+            alert("Contraseña cambiada correctamente.");
         } else {
             alert(resultado.mensaje);
         }

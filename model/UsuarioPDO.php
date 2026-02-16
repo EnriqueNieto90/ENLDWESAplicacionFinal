@@ -182,12 +182,12 @@ final class UsuarioPDO {
      */
     public static function cambiarPassword($codUsuario, $nuevaPassword) {
         $sql = "UPDATE T01_Usuario SET T01_Password = SHA2(:password, 256) WHERE T01_CodUsuario = :codUsuario";
-        
+
         $consulta = DBPDO::ejecutarConsulta($sql, [
                     ':password' => $codUsuario . $nuevaPassword,
                     ':codUsuario' => $codUsuario
         ]);
-        
+
         return ($consulta && $consulta->rowCount() > 0);
     }
 
@@ -239,6 +239,23 @@ final class UsuarioPDO {
         }
 
         return $aUsuarios;
+    }
+
+    /**
+     * Cambia el perfil de un usuario en la base de datos.
+     * @param string $codUsuario Código del usuario.
+     * @param string $nuevoPerfil Nuevo perfil: usuario o administrador.
+     * @return bool True si se actualizó correctamente, false si no.
+     */
+    public static function cambiarPerfilUsuario($codUsuario, $nuevoPerfil) {
+        $sql = "UPDATE T01_Usuario SET T01_Perfil = :nuevoPerfil WHERE T01_CodUsuario = :codUsuario";
+
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+                    ':nuevoPerfil' => $nuevoPerfil,
+                    ':codUsuario' => $codUsuario
+        ]);
+
+        return ($consulta && $consulta->rowCount() > 0);
     }
 }
 ?>

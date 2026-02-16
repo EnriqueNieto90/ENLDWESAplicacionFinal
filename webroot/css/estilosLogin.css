@@ -1758,3 +1758,7 @@ body.view-error, body.view-wip {
     padding: 10px;
     font-size: 1rem;
 }
+
+.icono-azul {
+    color: #0078D4;
+}

@@ -47,6 +47,24 @@ export class UsuarioView {
             }
         });
     }
+    
+    /**
+     * Vincula el evento de cambiar contraseña usando delegación de eventos.
+     * Mismo mecanismo que alBorrarUsuario: un listener en el tbody que detecta
+     * clicks en los botones de cambiar contraseña creados dinámicamente.
+     * @param {Function} ejecutarCambioPassword Función del controlador que gestiona el cambio.
+     */
+    alCambiarPassword(ejecutarCambioPassword) {
+        this.tablaCuerpo.addEventListener("click", (evento) => {
+            const botonPassword = evento.target.closest(".boton-cambiar-password");
+            
+            if (botonPassword) {
+                const codUsuario = botonPassword.dataset.cod;
+                const descUsuario = botonPassword.dataset.desc;
+                ejecutarCambioPassword(codUsuario, descUsuario);
+            }
+        });
+    }
 
     /**
      * Actualiza visualmente el campo de búsqueda.
@@ -82,8 +100,10 @@ export class UsuarioView {
                 <td>${usuario.fechaHoraUltimaConexion ?? '-'}</td>
                 <td>${usuario.perfil}</td>
                 <td class="text-right">
-                    <button class="btn-icon" title="Ver Detalle">
-                        <i class="fa-solid fa-eye"></i>
+                    <button class="btn-icon boton-cambiar-password" title="Canbiar contraseña"
+                            data-cod="${usuario.codUsuario}" 
+                            data-desc="${usuario.descUsuario}">
+                        <i class="fa-solid fa-key"></i>
                     </button>
                     <button class="btn-icon boton-borrar" title="Borrar" 
                             data-cod="${usuario.codUsuario}" 
@@ -143,6 +163,100 @@ export class UsuarioView {
             // Conectamos los botones
             fondoOscuro.querySelector("#btnConfirmarSi").addEventListener("click", () => cerrarVentana(true));
             fondoOscuro.querySelector("#btnConfirmarNo").addEventListener("click", () => cerrarVentana(false));
+        });
+    }
+    
+    /**
+     * Muestra una ventana con campos para cambiar la contraseña de un usuario.
+     * Incluye validación: los campos deben estar rellenos y coincidir.
+     * Devuelve una Promesa: se resuelve con la nueva contraseña si el usuario
+     * pulsa Aceptar y la validación es correcta, o con null si pulsa Cancelar.
+     * @param {string} descUsuario Nombre del usuario al que se cambia la contraseña.
+     * @returns {Promise<string|null>}
+     */
+    mostrarFormularioCambioPassword(descUsuario) {
+        return new Promise((resolve) => {
+            const fondoOscuro = document.createElement("div");
+            fondoOscuro.className = "fondo-oscuro";
+
+            fondoOscuro.innerHTML = `
+                <div class="cuadro-confirmacion">
+                    <div class="confirmacion-icono icono-azul">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="confirmacion-titulo">Cambiar Contraseña</h3>
+                    <p class="confirmacion-texto">
+                        Nueva contraseña para <strong>${descUsuario}</strong>
+                    </p>
+
+                    <div class="grupo-input">
+                        <input type="password" id="inputNuevaPassword" 
+                               class="input-microsoft" 
+                               placeholder="Nueva contraseña">
+                    </div>
+                    <div class="grupo-input">
+                        <input type="password" id="inputRepetirPassword" 
+                               class="input-microsoft" 
+                               placeholder="Repetir contraseña">
+                    </div>
+
+                    <p id="errorPassword" class="error-msg" style="display: none;"></p>
+
+                    <div class="confirmacion-botones">
+                        <button class="btn-primary confirmacion-btn" id="btnConfirmarSi">
+                            Aceptar
+                        </button>
+                        <button class="btn-primary btn-gris confirmacion-btn" id="btnConfirmarNo">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(fondoOscuro);
+
+            // Ponemos el foco en el primer campo para que el usuario pueda escribir directamente
+            fondoOscuro.querySelector("#inputNuevaPassword").focus();
+
+            // Función que cierra la ventana y devuelve la respuesta
+            const cerrarVentana = (respuesta) => {
+                fondoOscuro.remove();
+                resolve(respuesta);
+            };
+
+            // Botón Cancelar: cerramos sin hacer nada
+            fondoOscuro.querySelector("#btnConfirmarNo").addEventListener("click", () => cerrarVentana(null));
+
+            // Botón Aceptar: validamos antes de cerrar
+            fondoOscuro.querySelector("#btnConfirmarSi").addEventListener("click", () => {
+                const nuevaPassword = fondoOscuro.querySelector("#inputNuevaPassword").value;
+                const repetirPassword = fondoOscuro.querySelector("#inputRepetirPassword").value;
+                const mensajeError = fondoOscuro.querySelector("#errorPassword");
+
+                // Validación: campos obligatorios
+                if (!nuevaPassword || !repetirPassword) {
+                    mensajeError.textContent = "Ambos campos son obligatorios.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                // Validación: mínimo 4 caracteres
+                if (nuevaPassword.length < 4) {
+                    mensajeError.textContent = "La contraseña debe tener al menos 4 caracteres.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                // Validación: las contraseñas deben coincidir
+                if (nuevaPassword !== repetirPassword) {
+                    mensajeError.textContent = "Las contraseñas no coinciden.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                // Si todo es correcto, cerramos y devolvemos la contraseña
+                cerrarVentana(nuevaPassword);
+            });
         });
     }
 }
