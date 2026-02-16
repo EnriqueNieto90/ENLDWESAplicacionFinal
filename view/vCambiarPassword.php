@@ -21,8 +21,7 @@
                 <div class="input-icon-wrapper">
                     <i class="fa-solid fa-lock icon-input"></i>
                     <input type="password" name="contrasenaActual" id="contrasenaActual" 
-                           class="input-microsoft" placeholder="Escribe tu contraseña actual"
-                           value="<?php echo $_REQUEST['contrasenaActual'] ?? ''; ?>">
+                           class="input-microsoft" placeholder="Escribe tu contraseña actual">
                 </div>
                 <span class="error-msg"><?php echo $aErrores['contrasenaActual']; ?></span>
             </div>
@@ -34,8 +33,7 @@
                 <div class="input-icon-wrapper">
                     <i class="fa-solid fa-key icon-input"></i>
                     <input type="password" name="contrasenaNueva" id="contrasenaNueva" 
-                           class="input-microsoft" placeholder="Mínimo 4 caracteres"
-                           value="<?php echo $_REQUEST['contrasenaNueva'] ?? ''; ?>">
+                           class="input-microsoft" placeholder="Mínimo 4 caracteres">
                 </div>
                 <span class="error-msg"><?php echo $aErrores['contrasenaNueva']; ?></span>
             </div>
@@ -45,8 +43,7 @@
                 <div class="input-icon-wrapper">
                     <i class="fa-solid fa-check-double icon-input"></i>
                     <input type="password" name="repiteContrasena" id="repiteContrasena" 
-                           class="input-microsoft" placeholder="Vuelve a escribirla"
-                           value="<?php echo $_REQUEST['repiteContrasena'] ?? ''; ?>">
+                           class="input-microsoft" placeholder="Vuelve a escribirla">
                 </div>
                 <span class="error-msg"><?php echo $aErrores['repiteContrasena']; ?></span>
             </div>
