@@ -8,12 +8,13 @@
 
 // Cabecera para que JavaScript entienda que recibe JSON
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
 
 // CARGA DE LIBRERÍA DE VALIDACIÓN
 require_once '../core/231018libreriaValidacion.php';
 
 // CARGA DEL MODELO
-require_once '../config/confDBPDO.php';
+require_once '../config/EDconfDBPDO.php';
 require_once '../model/Usuario.php';
 require_once '../model/UsuarioPDO.php';
 require_once '../model/DBPDO.php';

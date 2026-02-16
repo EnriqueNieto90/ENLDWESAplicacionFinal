@@ -3,7 +3,7 @@
  * Responsable de la manipulación del DOM, renderizado de la tabla HTML
  * y captura de eventos de usuario.
  * @author Enrique Nieto Lorenzo
- * @since 08/02/2026
+ * @since 16/02/2026
  */
 export class UsuarioView {
     
@@ -17,7 +17,7 @@ export class UsuarioView {
     /**
      * Vincula el evento de escritura del usuario con la lógica del controlador.
      * La vista no sabe buscar, por lo que recibe la función ejecutarBusqueda como parámetro y la llama cuando es necesario.
-     * * @param {Function} ejecutarBusqueda Función del controlador que realiza la petición.
+     * @param {Function} ejecutarBusqueda Función del controlador que realiza la petición.
      */
     alBuscarUsuario(ejecutarBusqueda) {
         this.inputBusqueda.addEventListener("input", (evento) => {
@@ -28,9 +28,30 @@ export class UsuarioView {
     }
 
     /**
+     * Vincula el evento de borrado usando delegación de eventos.
+     * Como los botones de borrar se crean dinámicamente con cada búsqueda,
+     * ponemos un único listener en el tbody que siempre existe.
+     * Cuando detecta un click, comprobamos si fue en un botón de borrar.
+     * @param {Function} ejecutarBorrado Función del controlador que gestiona el borrado.
+     */
+    alBorrarUsuario(ejecutarBorrado) {
+        this.tablaCuerpo.addEventListener("click", (evento) => {
+            // closest() busca el botón de borrar subiendo desde donde se hizo click
+            // Esto es necesario porque el click puede ser en el icono <i> dentro del botón
+            const botonBorrar = evento.target.closest(".boton-borrar");
+            
+            if (botonBorrar) {
+                const codUsuario = botonBorrar.dataset.cod;
+                const descUsuario = botonBorrar.dataset.desc;
+                ejecutarBorrado(codUsuario, descUsuario);
+            }
+        });
+    }
+
+    /**
      * Actualiza visualmente el campo de búsqueda.
      * Útil para restaurar el estado cuando el usuario regresa a la página.
-     * * @param {string} descripcionBuscada Texto a mostrar en el input.
+     * @param {string} descripcionBuscada Texto a mostrar en el input.
      */
     setDescripcion(descripcionBuscada) {
         this.inputBusqueda.value = descripcionBuscada;
@@ -38,7 +59,7 @@ export class UsuarioView {
 
     /**
      * Genera y muestra el HTML de la tabla a partir de los datos recibidos.
-     * * @param {Array} usuarios Lista de objetos usuario recibida del modelo.
+     * @param {Array} usuarios Lista de objetos usuario recibida del modelo.
      */
     mostrarUsuarios(usuarios) {
         // Limpiamos el contenido previo para evitar duplicados
@@ -61,14 +82,68 @@ export class UsuarioView {
                 <td>${usuario.fechaHoraUltimaConexion ?? '-'}</td>
                 <td>${usuario.perfil}</td>
                 <td class="text-right">
-                    <button class="btn-icon" title="Ver Detalle"><i class="fa-solid fa-eye"></i></button>
-                    <button class="btn-icon" title="Borrar"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn-icon" title="Ver Detalle">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-icon boton-borrar" title="Borrar" 
+                            data-cod="${usuario.codUsuario}" 
+                            data-desc="${usuario.descUsuario}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </td>
             </tr>
         `).join("");
 
         // Realizamos una única inserción en el DOM
         this.tablaCuerpo.innerHTML = htmlFilas;
+    }
+
+    /**
+     * Muestra una ventana de confirmación personalizada antes de borrar.
+     * Devuelve una Promesa: se resuelve a true si el usuario pulsa Aceptar,
+     * o a false si pulsa Cancelar.
+     * @param {string} descUsuario Nombre del usuario que se va a borrar.
+     * @returns {Promise<boolean>}
+     */
+    mostrarConfirmacionBorrado(descUsuario) {
+        return new Promise((resolve) => {
+            // Creamos el fondo oscuro y el cuadro de confirmación
+            const fondoOscuro = document.createElement("div");
+            fondoOscuro.className = "fondo-oscuro";
+
+            fondoOscuro.innerHTML = `
+                <div class="cuadro-confirmacion">
+                    <div class="confirmacion-icono">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h3 class="confirmacion-titulo">¿Eliminar usuario?</h3>
+                    <p class="confirmacion-texto">
+                        Estás a punto de eliminar a <strong>${descUsuario}</strong> permanentemente.
+                    </p>
+                    <div class="confirmacion-botones">
+                        <button class="btn-primary btn-peligro confirmacion-btn" id="btnConfirmarSi">
+                            Aceptar
+                        </button>
+                        <button class="btn-primary btn-gris confirmacion-btn" id="btnConfirmarNo">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Lo añadimos al body
+            document.body.appendChild(fondoOscuro);
+
+            // Función que cierra la ventana y devuelve la respuesta
+            const cerrarVentana = (respuesta) => {
+                fondoOscuro.remove();
+                resolve(respuesta);
+            };
+
+            // Conectamos los botones
+            fondoOscuro.querySelector("#btnConfirmarSi").addEventListener("click", () => cerrarVentana(true));
+            fondoOscuro.querySelector("#btnConfirmarNo").addEventListener("click", () => cerrarVentana(false));
+        });
     }
 }
 

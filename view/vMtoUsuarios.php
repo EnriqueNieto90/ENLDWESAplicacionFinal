@@ -21,7 +21,7 @@
             </div>
         </form>
 
-        <div class="tabla-container">
+        <div class="tabla-container tabla-usuarios">
             <table id="tablaUsuarios" class="tabla-microsoft">
                 <thead>
                     <tr>

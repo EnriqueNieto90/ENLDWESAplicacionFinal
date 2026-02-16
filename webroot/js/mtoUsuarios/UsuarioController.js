@@ -3,7 +3,7 @@
  * Actúa como intermediario entre Modelo y Vista.
  * Gestiona la lógica de negocio del cliente y la persistencia temporal en SessionStorage.
  * @author Enrique Nieto Lorenzo
- * @since 08/02/2026
+ * @since 16/02/2026
  */
 export class UsuarioController {
     
@@ -15,6 +15,7 @@ export class UsuarioController {
         // Conectamos la Vista con este Controlador.
         // Usamos .bind para asegurar que la función ejecutarBusqueda mantenga el acceso a las propiedades del controlador aunque sea llamada desde la vista.
         this.view.alBuscarUsuario(this.ejecutarBusqueda.bind(this));
+        this.view.alBorrarUsuario(this.ejecutarBorrado.bind(this));
     }
 
     /**
@@ -48,6 +49,33 @@ export class UsuarioController {
 
         // Interfaz: Ordenamos a la vista que pinte los resultados
         this.view.mostrarUsuarios(usuarios);
+    }
+    
+    /**
+     * Flujo principal de la funcionalidad de borrado.
+     * Pide confirmación visual al usuario, ejecuta el borrado y refresca la tabla.
+     * @param {string} codUsuario Código del usuario a eliminar.
+     * @param {string} descUsuario Nombre del usuario (para mostrarlo en la confirmación).
+     */
+    async ejecutarBorrado(codUsuario, descUsuario) {
+        // Pedimos confirmación a la Vista
+        const confirmado = await this.view.mostrarConfirmacionBorrado(descUsuario);
+
+        // Si el usuario cancela no hacemos nada
+        if (!confirmado) {
+            return;
+        }
+
+        // Pedimos al Modelo que ejecute el borrado en el servidor
+        const resultado = await this.model.borrarUsuario(codUsuario);
+
+        // Si se borró correctamente, refrescamos la tabla con la búsqueda actual
+        if (resultado.exito) {
+            const busquedaActual = sessionStorage.getItem(this.CLAVE_SESION) || "";
+            await this.ejecutarBusqueda(busquedaActual);
+        } else {
+            alert(resultado.mensaje);
+        }
     }
 }
 

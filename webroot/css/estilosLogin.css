@@ -729,7 +729,7 @@ main {
     max-width: 1400px;
     width: 95%;
     padding: 30px;
-    margin-bottom: 20px;
+    margin: auto; 
 }
 /* =========================================
     VISTA REST
@@ -1283,7 +1283,23 @@ body.view-error, body.view-wip {
     text-align: left;
     font-weight: 700;
     color: #323130;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
+
+.tabla-container {
+    min-height: 360px;
+    max-height: 550px;
+    overflow-y: auto;
+    width: 100%;
+    border-bottom: 1px solid #e1dfdd; 
+}
+
+.tabla-usuarios{
+    min-height: 550px;
+}
+
 .tabla-microsoft th i{
     text-align: right;
 }
@@ -1679,4 +1695,66 @@ body.view-error, body.view-wip {
 
 .input-uppercase {
     text-transform: uppercase;
+}
+
+/* =========================================
+   VENTANA DE CONFIRMACIÓN DE BORRADO
+   ========================================= */
+
+.fondo-oscuro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.cuadro-confirmacion {
+    background-color: white;
+    width: 90%;
+    max-width: 420px;
+    padding: 35px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirmacion-icono {
+    font-size: 3rem;
+    color: #d13438;
+    margin-bottom: 15px;
+}
+
+.confirmacion-titulo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #323130;
+    margin-bottom: 10px;
+}
+
+.confirmacion-texto {
+    font-size: 0.95rem;
+    color: #605e5c;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.confirmacion-texto strong {
+    color: #323130;
+}
+
+.confirmacion-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.confirmacion-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
 }
