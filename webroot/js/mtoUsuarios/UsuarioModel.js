@@ -12,6 +12,7 @@ export class UsuarioModel {
         this.urlBuscar = "api/wsBuscaUsuariosPorDescripcion.php";
         this.urlBorrar = "api/wsBorraUsuario.php";
         this.urlCambiarPassword = "api/wsCambiaPasswordUsuario.php";
+        this.urlCambiarPerfil = "api/wsCambiaPerfilUsuario.php";
     }
 
     /**
@@ -92,6 +93,32 @@ export class UsuarioModel {
 
         } catch (error) {
             console.error("Error en la capa de datos (cambio contraseña):", error);
+            return { exito: false, mensaje: 'Error de conexión con el servidor.' };
+        }
+    }
+    
+    /**
+     * Solicita al servidor el cambio de perfil de un usuario.
+     * @param {string} codUsuario Código del usuario.
+     * @param {string} nuevoPerfil Nuevo perfil ('usuario' o 'administrador').
+     * @returns {Object} Objeto con { exito: boolean, mensaje: string }
+     */
+    async cambiarPerfil(codUsuario, nuevoPerfil) {
+        try {
+            const respuesta = await fetch(this.urlCambiarPerfil, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `codUsuario=${encodeURIComponent(codUsuario)}&nuevoPerfil=${encodeURIComponent(nuevoPerfil)}`
+            });
+
+            if (!respuesta.ok) {
+                throw new Error(`Error HTTP: ${respuesta.status}`);
+            }
+
+            return await respuesta.json();
+
+        } catch (error) {
+            console.error("Error en la capa de datos (cambio perfil):", error);
             return { exito: false, mensaje: 'Error de conexión con el servidor.' };
         }
     }

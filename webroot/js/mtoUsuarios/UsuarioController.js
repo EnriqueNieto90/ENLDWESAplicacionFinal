@@ -17,6 +17,7 @@ export class UsuarioController {
         this.view.alBuscarUsuario(this.ejecutarBusqueda.bind(this));
         this.view.alBorrarUsuario(this.ejecutarBorrado.bind(this));
         this.view.alCambiarPassword(this.ejecutarCambioPassword.bind(this));
+        this.view.alCambiarPerfil(this.ejecutarCambioPerfil.bind(this));
     }
 
     /**
@@ -99,6 +100,31 @@ export class UsuarioController {
 
         if (resultado.exito) {
             alert("Contraseña cambiada correctamente.");
+        } else {
+            alert(resultado.mensaje);
+        }
+    }
+    
+     /**
+     * Flujo principal de la funcionalidad de cambio de perfil.
+     * @param {string} codUsuario Código del usuario.
+     * @param {string} descUsuario Nombre del usuario.
+     * @param {string} perfilActual Perfil actual del usuario.
+     */
+    async ejecutarCambioPerfil(codUsuario, descUsuario, perfilActual) {
+        const nuevoPerfil = await this.view.mostrarFormularioCambioPerfil(descUsuario, perfilActual);
+
+        // Si el usuario clica cancelar, nuevoPerfil es null
+        if (!nuevoPerfil) {
+            return;
+        }
+
+        const resultado = await this.model.cambiarPerfil(codUsuario, nuevoPerfil);
+
+        // Si se cambió correctamente, refrescamos la tabla para ver el cambio
+        if (resultado.exito) {
+            const busquedaActual = sessionStorage.getItem(this.CLAVE_SESION) || "";
+            await this.ejecutarBusqueda(busquedaActual);
         } else {
             alert(resultado.mensaje);
         }

@@ -65,6 +65,23 @@ export class UsuarioView {
             }
         });
     }
+    
+    /**
+     * Vincula el evento de cambiar perfil usando delegación de eventos.
+     * @param {Function} ejecutarCambioPerfil Función del controlador que gestiona el cambio.
+     */
+    alCambiarPerfil(ejecutarCambioPerfil) {
+        this.tablaCuerpo.addEventListener("click", (evento) => {
+            const botonPerfil = evento.target.closest(".boton-cambiar-perfil");
+            
+            if (botonPerfil) {
+                const codUsuario = botonPerfil.dataset.cod;
+                const descUsuario = botonPerfil.dataset.desc;
+                const perfilActual = botonPerfil.dataset.perfil;
+                ejecutarCambioPerfil(codUsuario, descUsuario, perfilActual);
+            }
+        });
+    }
 
     /**
      * Actualiza visualmente el campo de búsqueda.
@@ -100,9 +117,15 @@ export class UsuarioView {
                 <td>${usuario.fechaHoraUltimaConexion ?? '-'}</td>
                 <td>${usuario.perfil}</td>
                 <td class="text-right">
-                    <button class="btn-icon boton-cambiar-password" title="Canbiar contraseña"
+                    <button class="btn-icon boton-cambiar-perfil" title="Cambiar perfil"
                             data-cod="${usuario.codUsuario}" 
                             data-desc="${usuario.descUsuario}">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </button>
+                    <button class="btn-icon boton-cambiar-password" title="Cambiar contraseña"
+                            data-cod="${usuario.codUsuario}" 
+                            data-desc="${usuario.descUsuario}"
+                            data-perfil="${usuario.perfil}">
                         <i class="fa-solid fa-key"></i>
                     </button>
                     <button class="btn-icon boton-borrar" title="Borrar" 
@@ -256,6 +279,77 @@ export class UsuarioView {
 
                 // Si todo es correcto, cerramos y devolvemos la contraseña
                 cerrarVentana(nuevaPassword);
+            });
+        });
+    }
+    
+    /**
+     * Muestra una ventana con un desplegable para cambiar el perfil de un usuario.
+     * El desplegable aparece con el perfil actual ya seleccionado.
+     * @param {string} descUsuario Nombre del usuario al que se cambia el perfil.
+     * @param {string} perfilActual Perfil actual del usuario: usuario o administrador.
+     * @returns {Promise<string|null>} El nuevo perfil seleccionado o null si cancela.
+     */
+    mostrarFormularioCambioPerfil(descUsuario, perfilActual) {
+        return new Promise((resolve) => {
+            const fondoOscuro = document.createElement("div");
+            fondoOscuro.className = "fondo-oscuro";
+
+            // Preparamos las opciones del desplegable con el perfil actual preseleccionado
+            const seleccionadoUsuario = (perfilActual === "usuario") ? "selected" : "";
+            const seleccionadoAdmin = (perfilActual === "administrador") ? "selected" : "";
+
+            fondoOscuro.innerHTML = `
+                <div class="cuadro-confirmacion">
+                    <div class="confirmacion-icono icono-azul">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <h3 class="confirmacion-titulo">Cambiar Perfil</h3>
+                    <p class="confirmacion-texto">
+                        Selecciona el nuevo perfil para <strong>${descUsuario}</strong>
+                    </p>
+
+                    <div class="grupo-input">
+                        <select id="selectNuevoPerfil" class="input-microsoft">
+                            <option value="usuario" ${seleccionadoUsuario}>Usuario</option>
+                            <option value="administrador" ${seleccionadoAdmin}>Administrador</option>
+                        </select>
+                    </div>
+
+                    <p id="errorPerfil" class="error-msg" style="display: none;"></p>
+
+                    <div class="confirmacion-botones">
+                        <button class="btn-primary confirmacion-btn" id="btnConfirmarSi">
+                            Aceptar
+                        </button>
+                        <button class="btn-primary btn-gris confirmacion-btn" id="btnConfirmarNo">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(fondoOscuro);
+
+            const cerrarVentana = (respuesta) => {
+                fondoOscuro.remove();
+                resolve(respuesta);
+            };
+
+            fondoOscuro.querySelector("#btnConfirmarNo").addEventListener("click", () => cerrarVentana(null));
+
+            fondoOscuro.querySelector("#btnConfirmarSi").addEventListener("click", () => {
+                const nuevoPerfil = fondoOscuro.querySelector("#selectNuevoPerfil").value;
+                const mensajeError = fondoOscuro.querySelector("#errorPerfil");
+
+                // Comprobamos que el perfil sea diferente al actual
+                if (nuevoPerfil === perfilActual) {
+                    mensajeError.textContent = "El perfil seleccionado es el mismo que el actual.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                cerrarVentana(nuevoPerfil);
             });
         });
     }
