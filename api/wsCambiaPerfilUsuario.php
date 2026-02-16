@@ -49,7 +49,7 @@ if ($bEntradaOK) {
     $codUsuario = trim($_REQUEST['codUsuario']);
 
     // Intentamos cambiar el perfil en la DB
-    if (UsuarioPDO::cambiarPerfil($codUsuario, $nuevoPerfil)) {
+    if (UsuarioPDO::cambiarPerfilUsuario($codUsuario, $nuevoPerfil)) {
         $aRespuesta['exito'] = true;
         $aRespuesta['mensaje'] = 'Perfil cambiado correctamente.';
     } else {
