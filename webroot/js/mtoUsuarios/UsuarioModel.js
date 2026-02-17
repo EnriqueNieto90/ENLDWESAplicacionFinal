@@ -8,11 +8,25 @@
 export class UsuarioModel {
     
     constructor() {
-        // Definimos las URLs de los endpoints
+        // Definimos la clave de la API
+        this.API_KEY = "xK9pQ2mW5vY8nZ4cT1bH7jL0dF3gR6sN";
+        
+        // Definimos las URLs de las APIs
         this.urlBuscar = "api/wsBuscaUsuariosPorDescripcion.php";
         this.urlBorrar = "api/wsBorraUsuario.php";
         this.urlCambiarPassword = "api/wsCambiaPasswordUsuario.php";
         this.urlCambiarPerfil = "api/wsCambiaPerfilUsuario.php";
+    }
+    
+    /**
+     * Devuelve las cabeceras estándar para todas las peticiones con la clave.
+     * Este método es para no repetir código en cada fetch.
+     */
+    get headersSeguros() {
+        return {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-api-key': this.API_KEY
+        };
     }
 
     /**
@@ -26,7 +40,10 @@ export class UsuarioModel {
             const url = `${this.urlBuscar}?descUsuario=${encodeURIComponent(descripcionBuscada)}`;
             
             // Pausamos la ejecución aquí hasta que el servidor responda
-            const respuesta = await fetch(url);
+            const respuesta = await fetch(url, {
+                method: 'GET',
+                headers: { 'x-api-key': this.API_KEY }
+            });
             
             // Verificamos si la respuesta HTTP es correcta
             if (!respuesta.ok) {
@@ -54,7 +71,7 @@ export class UsuarioModel {
             // Enviamos la petición POST con el código del usuario
             const respuesta = await fetch(this.urlBorrar, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: this.headersSeguros,
                 body: `codUsuario=${encodeURIComponent(codUsuario)}`
             });
 
@@ -81,7 +98,7 @@ export class UsuarioModel {
         try {
             const respuesta = await fetch(this.urlCambiarPassword, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: this.headersSeguros,
                 body: `codUsuario=${encodeURIComponent(codUsuario)}&nuevaPassword=${encodeURIComponent(nuevaPassword)}`
             });
 
@@ -107,7 +124,7 @@ export class UsuarioModel {
         try {
             const respuesta = await fetch(this.urlCambiarPerfil, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: this.headersSeguros,
                 body: `codUsuario=${encodeURIComponent(codUsuario)}&nuevoPerfil=${encodeURIComponent(nuevoPerfil)}`
             });
 

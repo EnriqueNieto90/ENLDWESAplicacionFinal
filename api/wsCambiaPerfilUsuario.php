@@ -5,8 +5,8 @@
  * @description: Web Service para cambiar el perfil de un usuario.
  */
 
-// Cabecera para que JavaScript entienda que recibe JSON
-header("Content-Type: application/json; charset=UTF-8");
+// Carga del fichero de configuración de la API
+require_once 'confAPI.php';
 
 // CARGA DE LIBRERÍA DE VALIDACIÓN
 require_once '../core/231018libreriaValidacion.php';

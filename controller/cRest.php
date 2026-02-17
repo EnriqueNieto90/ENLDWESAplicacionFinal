@@ -3,7 +3,7 @@
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 21/01/2026
- * @description: Controlador para la API REST de la NASA.
+ * @description: Controlador para las API REST.
  */
 // BOTÓN DE VOLVER
 if (isset($_REQUEST['volver'])) {

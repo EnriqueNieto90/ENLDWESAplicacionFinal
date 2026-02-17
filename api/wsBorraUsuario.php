@@ -5,9 +5,8 @@
  * @description: Web Service para eliminar un usuario por su código.
  */
 
-// Cabecera para que JavaScript entienda que recibe JSON
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
+// Carga del fichero de configuración de la API
+require_once 'confAPI.php';
 
 // CARGA DE LIBRERÍA DE VALIDACIÓN
 require_once '../core/231018libreriaValidacion.php';
