@@ -63,22 +63,72 @@
         <div class="columna-api">
             <div class="tarjeta-api">
                 <div class="seccion-titulo">
-                    <h3><i class="fa-solid fa-database"></i> Nueva API </h3>
+                    <h3><i class="fa-solid fa-book-journal-whills"></i> Un Día Como Hoy (Wikipedia)</h3>
                 </div>
 
                 <div class="seccion-input">
-                    <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Buscar...">
-                        <button class="btn-primary btn-api">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
+                    <form method="post">
+                        <div class="grupo-input-api">
+                            <input type="date" name="fechaHistoriaEnCurso" class="input-microsoft" 
+                                   value="<?php echo $avRest['fechaHistoriaEnCurso']; ?>" >
+
+                            <button type="submit" name="buscarHistoria" class="btn-primary btn-api" title="Buscar efeméride">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <span class="error-msg">
+                            <?php echo $avRest['errorHistoria'] ?? ''; ?>
+                        </span>
+                    </form>
                 </div>
 
-                <div class="seccion-contenido">
-                    <div class="mensaje-vacio">
+                <div class="seccion-contenido sin-fondo">
 
+                    <?php if ($avRest['historiaAnio'] === 'Error'): ?>
+                        <div class="mensaje-vacio">
+                            <i class="fa fa-question-circle"></i>
+                            <p><?php echo $avRest['historiaDescripcion']; ?></p>
+                        </div>
+                    <?php else: ?>
+
+                        <h4>Año <?php echo $avRest['historiaAnio']; ?></h4>
+
+                        <div class="contenedor-historia">
+
+                            <p class="historia-texto">
+                                <?php echo $avRest['historiaDescripcion']; ?>
+                            </p>
+
+                            <?php if ($avRest['historiaUrl'] !== '#'): ?>
+                                <a href="<?php echo $avRest['historiaUrl']; ?>" target="_blank" class="btn-secondary btn-wiki">
+                                    <i class="fa-brands fa-wikipedia-w"></i> Leer en Wikipedia
+                                </a>
+                            <?php endif; ?>
+
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="descripcion-nasa">
+                        <div class="instrucciones">
+                            <span class="tip-interactivo">
+                                <i class="fa-solid fa-lightbulb"></i> Pulsa la lupa varias veces en la misma fecha para descubrir distintos eventos.
+                            </span>
+                            <h4>Instrucciones:</h4>
+                            <ul>
+                                <li><strong>API Abierta:</strong> No requiere API Key.</li>
+                                <li>
+                                    Construimos la URL con <strong>mes</strong> y <strong>día</strong>: <code>.../events/<?php echo date('m/d', strtotime($avRest['fechaHistoriaEnCurso'])); ?></code>
+                                </li>
+                                <li>
+                                    Es <strong>obligatorio</strong> usar <code>cURL</code> con <code>User-Agent</code>. Si no, devuelve HTTP 403.
+                                </li>
+                                <li>
+                                    Usamos <code>array_rand()</code> para extraer un evento aleatorio de esa fecha.
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

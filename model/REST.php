@@ -87,5 +87,61 @@ class REST {
 
         return null;
     }
+    
+    /**
+     * Llama a la API de Wikipedia "Un día como hoy" (Efemérides).
+     * @param string $sMes Mes en formato 'MM'
+     * @param string $sDia Día en formato 'DD'
+     * @return EventoHistorico
+     */
+    public static function apiWikipediaEfemerides($sMes, $sDia) {
+        // url de Wikipedia en español
+        $sUrl = "https://es.wikipedia.org/api/rest_v1/feed/onthisday/events/$sMes/$sDia";
+
+        $oCurl = curl_init();
+        curl_setopt($oCurl, CURLOPT_URL, $sUrl);
+        curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($oCurl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        curl_setopt($oCurl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($oCurl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, false);
+        
+        // Wikipedia exige un User-Agent o te devuelven error 403
+        curl_setopt($oCurl, CURLOPT_USERAGENT, 'AppEducativaDWES/1.0 (tu@email.com)');
+
+        $sResultado = curl_exec($oCurl);
+        $iHttpCode = curl_getinfo($oCurl, CURLINFO_HTTP_CODE);
+        curl_close($oCurl);
+
+        if ($sResultado && $iHttpCode === 200) {
+            $aArchivoApi = json_decode($sResultado, true);
+
+            // Verificamos que vengan eventos
+            if (isset($aArchivoApi['events']) && count($aArchivoApi['events']) > 0) {
+                
+                // La API devuelve varios eventos para un día, cogemos uno aleatorio.
+                $eventoAleatorio = $aArchivoApi['events'][array_rand($aArchivoApi['events'])];
+                
+                // Extraemos los datos
+                $anio = $eventoAleatorio['year'] ?? 'Año desconocido';
+                $descripcion = $eventoAleatorio['text'] ?? 'Sin descripción disponible.';
+                
+                // Cogemos la URL del artículo principal relacionado
+                $urlArticulo = '#';
+                if (isset($eventoAleatorio['pages'][0]['content_urls']['desktop']['page'])) {
+                    $urlArticulo = $eventoAleatorio['pages'][0]['content_urls']['desktop']['page'];
+                }
+
+                return new EventoHistorico($anio, $descripcion, $urlArticulo);
+            }
+        }
+
+        // Si falla la API o no hay eventos, devolvemos el objeto de error
+        return new EventoHistorico(
+            'Error', 
+            'No se ha podido conectar con Wikipedia o no hay eventos para este día.', 
+            '#'
+        );
+    }
 }
 ?>
