@@ -38,5 +38,49 @@ class DBPDO {
             unset($miDB);
         }
     }
+    
+    /**
+     * Ejecuta una misma consulta SQL múltiples veces bajo una sola Transacción.
+     * Si una sola ejecución falla, se cancelan todas las demás (Rollback).
+     * * @param string $sentenciaSQL La instrucción SQL (ej. INSERT INTO...).
+     * @param array $aColeccionParametros Array bidimensional donde cada elemento es un array de parámetros.
+     * @return boolean True si la transacción se completó con éxito.
+     * @throws PDOException Si hay un error de SQL, lo lanza para ser capturado en el modelo.
+     */
+    public static function ejecutarTransaccion($sentenciaSQL, $aColeccionParametros) {
+        try {
+            // Abrimos conexión
+            $oDB = new PDO(DSN, USERNAME, PASSWORD);
+            $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            // Iniciamos la transacción
+            $oDB->beginTransaction();
+            
+            // Preparamos la consulta una sola vez
+            $oSentencia = $oDB->prepare($sentenciaSQL);
+            
+            // Ejecutamos la consulta por cada fila de datos
+            foreach ($aColeccionParametros as $aParametrosFila) {
+                $oSentencia->execute($aParametrosFila);
+            }
+            
+            // Confirmamos los cambios en la BD
+            $oDB->commit();
+            
+            return true;
+
+        } catch (PDOException $oException) {
+            // Deshacemos todo en caso de error
+            if (isset($oDB) && $oDB->inTransaction()) {
+                $oDB->rollBack();
+            }
+            
+            // Lanzamos la excepción hacia arriba
+            throw $oException;
+            
+        } finally {
+            unset($oDB);
+        }
+    }
 }
 ?>

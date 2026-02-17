@@ -268,6 +268,86 @@ final class DepartamentoPDO {
         }
         return $aDepartamentos;
     }
+    
+    /**
+     * Extrae los departamentos de la BBDD y los formatea en un array asociativo preparado para exportar a JSON.
+     * @param string $descDepartamento Descripción por la que filtrar.
+     * @return array Array asociativo con los datos puros de los departamentos.
+     */
+    public static function exportarDepartamentos($descDepartamento = "") {
+        // Reutilizamos el método para obtener los objetos de la BBDD
+        $aObjetosDepartamento = self::buscaDepartamentosPorDesc($descDepartamento); 
+        
+        $aExportacion = [];
+        
+        // Rellenamos un array asociativo con los objetos
+        if ($aObjetosDepartamento) {
+            foreach ($aObjetosDepartamento as $oDepto) {
+                $aExportacion[] = [
+                    'codDepartamento'           => $oDepto->getCodDepartamento(),
+                    'descDepartamento'          => $oDepto->getDescDepartamento(),
+                    'fechaCreacionDepartamento' => $oDepto->getFechaCreacionDepartamento(),
+                    'volumenDeNegocio'          => $oDepto->getVolumenDeNegocio(),
+                    'fechaBajaDepartamento'     => $oDepto->getFechaBajaDepartamento()
+                ];
+            }
+        }
+        
+        // Devolvemos el array estructurado
+        return $aExportacion;
+    }
+    
+    /**
+     * Importa un array de departamentos a la base de datos mediante una Transacción.
+     * Si un solo departamento falla, se cancela toda la importación (Rollback).
+     * * @param array $aDepartamentos Array asociativo extraído del JSON.
+     * @return boolean True si se han insertado todos correctamente, False si ha habido algún error.
+     */
+    public static function importarDepartamentos($aDepartamentos) {
+        
+        // Preparamos la consulta SQL
+        $sql = <<<SQL
+            INSERT INTO T02_Departamento (
+                T02_CodDepartamento, 
+                T02_DescDepartamento, 
+                T02_FechaCreacionDepartamento, 
+                T02_VolumenDeNegocio, 
+                T02_FechaBajaDepartamento
+            ) VALUES (
+                :codDepartamento, 
+                :descDepartamento, 
+                :fechaCreacion, 
+                :volumenNegocio, 
+                :fechaBaja
+            )
+        SQL;
+        
+        // Recorremos tu array $aDepartamentos para preparar la colección de parámetros
+        $aParametrosTransaccion = [];
+        
+        foreach ($aDepartamentos as $aDepto) {
+            $aParametrosTransaccion[] = [
+                ':codDepartamento'  => $aDepto['codDepartamento'],
+                ':descDepartamento' => $aDepto['descDepartamento'],
+                // Si el JSON no trae fecha de creación, le ponemos la actual por defecto
+                ':fechaCreacion'    => $aDepto['fechaCreacionDepartamento'] ?? date('Y-m-d H:i:s'),
+                ':volumenNegocio'   => $aDepto['volumenDeNegocio'],
+                // Si viene vacío o no existe, insertamos un NULL en la BD
+                ':fechaBaja'        => empty($aDepto['fechaBajaDepartamento']) ? null : $aDepto['fechaBajaDepartamento']
+            ];
+        }
+
+        // Ejecutamos la transacción delegando en DBPDO
+        try {
+            // Llamamos a nuestro nuevo método, pasándole la SQL y los parámetros empaquetados
+            return DBPDO::ejecutarTransaccion($sql, $aParametrosTransaccion);
+            
+        } catch (PDOException $e) {
+            // Registramos el error para el administrador.
+            error_log("Error en importación de departamentos (Transacción cancelada): " . $e->getMessage());
+            return false;
+        }
+    }
 }
 
 ?>

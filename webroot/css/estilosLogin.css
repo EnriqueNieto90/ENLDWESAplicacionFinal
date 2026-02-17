@@ -1502,6 +1502,43 @@ body.view-error, body.view-wip {
     margin: 0 15px;
 }
 
+/* --- BOTONEs SUPERIORES Y FEEDBACK --- */
+
+.acciones-superiores {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.form-acciones {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-archivo-oculto,
+.btn-oculto {
+    display: none;
+}
+
+.alerta-exito {
+    background-color: #dff6dd;
+    color: #107c10;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.alerta-error {
+    background-color: #fde7e9;
+    color: #d13438;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
 /* =========================================
     EDICIÓN / CONSULTA DE DEPARTAMENTOS
    ========================================= */

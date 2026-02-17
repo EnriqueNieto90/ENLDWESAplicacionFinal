@@ -1,10 +1,10 @@
 <?php
+
 /**
  * @author: Enrique Nieto Lorenzo
  * @since: 27/01/2026
  * @description: Controlador de Mantenimiento de Departamentos.
  */
-
 // Control de botón Volver
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
@@ -35,7 +35,7 @@ if (isset($_REQUEST['alta'])) {
 if (isset($_REQUEST['editar'])) {
     // Guardamos el código del departamento seleccionado en la sesión
     $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['codDepartamento'];
-    $_SESSION['paginaEnCurso'] = 'modificarDepartamento';  
+    $_SESSION['paginaEnCurso'] = 'modificarDepartamento';
     header('Location: index.php');
     exit;
 }
@@ -64,8 +64,55 @@ if (isset($_REQUEST['anadir'])) {
     exit;
 }
 
-// GESTIÓN DE FILTROS Y PAGINACIÓN
+// EXPORTAR DEPARTAMENTOS A JSON
+if (isset($_REQUEST['exportar'])) {
 
+    // Pedimos al modelo el array listo para exportar
+    $sBusquedaActual = $_SESSION['busquedaDptoEnCurso'] ?? '';
+    $aDatosExportar = DepartamentoPDO::exportarDepartamentos($sBusquedaActual);
+
+    // Codificamos a JSON
+    $sJson = json_encode($aDatosExportar, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+    // Forzamos la descarga en el navegador con un nombre único basado en la fecha y hora
+    $sNombreArchivo = "Departamentos_" . date('Ymd_His') . ".json";
+    header('Content-Type: application/json; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $sNombreArchivo . '"');
+
+    // Imprimimos el JSON
+    echo $sJson;
+    exit;
+}
+
+// IMPORTAR DEPARTAMENTOS DESDE JSON
+$sMensajeImportacion = ""; // Para mostrar en la vista
+$sErrorImportacion = "";
+
+if (isset($_REQUEST['importar'])) {
+
+    if (isset($_FILES['archivoImportacion']) && $_FILES['archivoImportacion']['error'] === UPLOAD_ERR_OK) {
+
+        $sContenidoArchivo = file_get_contents($_FILES['archivoImportacion']['tmp_name']);
+        $aDatosJSON = json_decode($sContenidoArchivo, true);
+
+        // Validamos que el archivo es un JSON bien formado
+        if (json_last_error() === JSON_ERROR_NONE && is_array($aDatosJSON)) {
+
+            // Llamamos a nuestro modelo para importar
+            if (DepartamentoPDO::importarDepartamentos($aDatosJSON)) {
+                $sMensajeImportacion = "¡Se han importado " . count($aDatosJSON) . " departamentos correctamente!";
+            } else {
+                $sErrorImportacion = "Error en la importación. Es posible que haya códigos duplicados o datos inválidos. Operación cancelada.";
+            }
+        } else {
+            $sErrorImportacion = "El archivo subido no tiene un formato JSON válido.";
+        }
+    } else {
+        $sErrorImportacion = "No se ha podido subir el archivo o no has seleccionado ninguno.";
+    }
+}
+
+// GESTIÓN DE FILTROS Y PAGINACIÓN
 // Recuperar filtros de la sesión o inicializar por defecto
 $descripcionBuscada = $_SESSION['criterioBusqueda']['desc'] ?? "";
 $estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "alta";
@@ -74,7 +121,7 @@ $estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "alta";
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
     $estadoBuscado = $_REQUEST['estado'] ?? "alta";
-    
+
     $_SESSION['criterioBusqueda']['desc'] = $descripcionBuscada;
     $_SESSION['criterioBusqueda']['estado'] = $estadoBuscado;
     $_SESSION['paginaActual'] = 1; // Al buscar, volvemos al principio
@@ -88,7 +135,8 @@ $totalRegistros = DepartamentoPDO::contarDepartamentosPorDescEstado($descripcion
 $totalPaginas = ceil($totalRegistros / RESULTADOS_POR_PAGINA);
 
 // Asegurar que al menos hay 1 página
-if ($totalPaginas < 1) $totalPaginas = 1;
+if ($totalPaginas < 1)
+    $totalPaginas = 1;
 
 // Lógica de navegación
 if (isset($_REQUEST['paginaPrimera'])) {
@@ -109,9 +157,9 @@ $_SESSION['paginaActual'] = $paginaActual;
 
 // Recuperar los datos de la DB usando el método PAGINADO
 $aDepartamentosEncontrados = DepartamentoPDO::buscaDepartamentosPorDescEstadoPaginado(
-    $descripcionBuscada, 
-    $estadoBuscado, 
-    $paginaActual
+                $descripcionBuscada,
+                $estadoBuscado,
+                $paginaActual
 );
 
 // PREPARAR ARRAY PARA LA VISTA
@@ -126,7 +174,7 @@ if ($aDepartamentosEncontrados) {
             'fechaAlta' => (new DateTime($oDep->getFechaCreacionDepartamento()))->format('d/m/Y'),
             'fechaBaja' => $oDep->getFechaBajaDepartamento() ? (new DateTime($oDep->getFechaBajaDepartamento()))->format('d/m/Y') : '-',
             // Añadimos clase CSS para pintar rojo si está de baja
-            'estilo' => $oDep->getFechaBajaDepartamento() ? 'fila-baja' : '' 
+            'estilo' => $oDep->getFechaBajaDepartamento() ? 'fila-baja' : ''
         ];
     }
 }
