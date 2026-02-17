@@ -97,7 +97,7 @@ $entradaHistoriaOK = true;
 // Procesamos el formulario si han pulsado el botón de buscar
 if (isset($_REQUEST['buscarHistoria'])) {
 
-    // Validamos la fecha (usamos tu validación estándar)
+    // Validamos la fecha
     $aErroresHistoria['fechaHistoriaEnCurso'] = validacionFormularios::validarFecha($_REQUEST['fechaHistoriaEnCurso'], '2100-01-01', '1000-01-01', 1);
 
     if ($aErroresHistoria['fechaHistoriaEnCurso'] != null) {
@@ -133,18 +133,17 @@ if (isset($_SESSION['eventoHistoricoEnCurso']) && $_SESSION['eventoHistoricoEnCu
 
 // PREPARAR ARRAY PARA LA VISTA
 $avRest = [
+    // API Nasa
     'fechaNasaEnCurso' => $fechaSolicitada,
     'fotoNasaEnCursoTitulo' => $oFotoNasa->getTitulo(),
     'fotoNasaEnCursoUrl' => $oFotoNasa->getUrl(),
     'fotoNasaEnCursoDescripcion' => $oFotoNasa->getDescripcion(),
-    'mostrarBotonDetalle' => $mostrarBotonDetalle
+    'mostrarBotonDetalle' => $mostrarBotonDetalle,
+    // API Wikipedia
+    'fechaHistoriaEnCurso' => $fechaHistoriaSolicitada,
+    'historiaAnio' => $oEventoHistorico->getAnio(),
+    'historiaDescripcion' => $oEventoHistorico->getDescripcion(),
+    'historiaUrl' => $oEventoHistorico->getUrlArticulo(),
+    'errorHistoria' => $aErroresHistoria['fechaHistoriaEnCurso']
 ];
-
-// --- FIN LÓGICA API WIKIPEDIA --- //
-// AÑADE ESTO AL FINAL, DENTRO DE TU ARRAY $avRest EXISTENTE:
-$avRest['fechaHistoriaEnCurso'] = $fechaHistoriaSolicitada;
-$avRest['historiaAnio'] = $oEventoHistorico->getAnio();
-$avRest['historiaDescripcion'] = $oEventoHistorico->getDescripcion();
-$avRest['historiaUrl'] = $oEventoHistorico->getUrlArticulo();
-$avRest['errorHistoria'] = $aErroresHistoria['fechaHistoriaEnCurso'];
 ?>
