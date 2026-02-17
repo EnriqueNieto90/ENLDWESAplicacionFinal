@@ -136,25 +136,68 @@
         <div class="columna-api">
             <div class="tarjeta-api">
                 <div class="seccion-titulo">
-                    <h3><i class="fa-solid fa-database"></i> Mi Propia API</h3>
+                    <h3><i class="fa-solid fa-building-user"></i> Mi Propia API</h3>
                 </div>
 
                 <div class="seccion-input">
-                    <div class="grupo-input-api">
-                        <input type="text" class="input-microsoft" placeholder="Buscar...">
-                        <button class="btn-primary btn-api">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
+                    <form method="post">
+                        <div class="grupo-input-api">
+
+                            <select name="codDepartamentoEnCursoRest" class="input-microsoft select-departamento">
+                                <option value="">Seleccione departamento...</option>
+                                <?php foreach ($avRest['listaDepartamentos'] as $depto): ?>
+                                    <option value="<?php echo $depto['codDepartamento']; ?>" 
+                                            <?php echo ($avRest['codDepartamentoEnCursoRest'] === $depto['codDepartamento']) ? 'selected' : ''; ?>>
+                                                <?php echo $depto['codDepartamento'] . ' - ' . $depto['descDepartamento']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <button type="submit" name="buscarVolumen" class="btn-primary btn-api" title="Consultar Volumen">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="seccion-contenido">
-                    <div class="mensaje-vacio">
+                <div class="seccion-contenido sin-fondo">
+
+                    <h4>Resultado de la consulta</h4>
+
+                    <div class="contenedor-historia">
+
+                        <div class="contenido-centrado">
+                            <h4 class="titulo-volumen">Volumen de Negocio</h4>
+                            <span class="cifra-volumen">
+                                <?php
+                                $volumenMostrar = $avRest['volumenDeNegocio'] ?? 0;
+                                echo number_format($volumenMostrar, 2, ',', '.');
+                                ?> €
+                            </span>
+                        </div>
 
                     </div>
+
+                    <div class="descripcion-nasa">
+                        <div class="instrucciones">
+                            <h4>Instrucciones:</h4>
+                            <ul>
+                                <li><strong>API Cerrada:</strong> Requiere nuestra API Key autorizada.</li>
+                                <li>
+                                    <strong>Seguridad:</strong> Ocultamos la clave inyectándola en las cabeceras HTTP mediante <code>CURLOPT_HTTPHEADER</code> en lugar de usar la URL.
+                                </li>
+                                <li>
+                                    Usamos PHP <code>cURL</code> para que el servidor se consulte a sí mismo.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
-
     </div>
+
+</div>
 </main>

@@ -131,6 +131,35 @@ if (isset($_SESSION['eventoHistoricoEnCurso']) && $_SESSION['eventoHistoricoEnCu
     $_SESSION['eventoHistoricoEnCurso'] = $oEventoHistorico;
 }
 
+// API PROPIA (VOLUMEN DE NEGOCIO DEPARTAMENTOS)
+// Obtenemos los objetos de la BD
+$aObjetosDepartamento = DepartamentoPDO::buscaDepartamentosPorDesc("");
+$aDatosVistaDepartamentos = [];
+
+// Formateamos los datos para lo que necesita el select de la vista
+if ($aObjetosDepartamento) {
+    foreach ($aObjetosDepartamento as $oDepartamento) {
+        $aDatosVistaDepartamentos[] = [
+            'codDepartamento' => $oDepartamento->getCodDepartamento(),
+            'descDepartamento' => $oDepartamento->getDescDepartamento()
+        ];
+    }
+}
+
+// Si se pulsa el botón de buscar, actualizamos la sesión con el valor del select
+if (isset($_REQUEST['buscarVolumen'])) {
+    $_SESSION['codDepartamentoEnCursoRest'] = $_REQUEST['codDepartamentoEnCursoRest'] ?? '';
+}
+
+// Preparamos las variables locales
+$sCodDepartamentoSeleccionado = $_SESSION['codDepartamentoEnCursoRest'] ?? '';
+$fVolumenNegocio = null;
+
+// Si hay un código válido, consumimos nuestra propia API
+if ($sCodDepartamentoSeleccionado !== '') {
+    $fVolumenNegocio = REST::apiVolumenNegocioDepartamento($sCodDepartamentoSeleccionado);
+}
+
 // PREPARAR ARRAY PARA LA VISTA
 $avRest = [
     // API Nasa
@@ -144,6 +173,10 @@ $avRest = [
     'historiaAnio' => $oEventoHistorico->getAnio(),
     'historiaDescripcion' => $oEventoHistorico->getDescripcion(),
     'historiaUrl' => $oEventoHistorico->getUrlArticulo(),
-    'errorHistoria' => $aErroresHistoria['fechaHistoriaEnCurso']
+    'errorHistoria' => $aErroresHistoria['fechaHistoriaEnCurso'],
+    //API Volumen Negocio
+    'listaDepartamentos'         => $aDatosVistaDepartamentos,
+    'codDepartamentoEnCursoRest' => $sCodDepartamentoSeleccionado,
+    'volumenDeNegocio'           => $fVolumenNegocio
 ];
 ?>

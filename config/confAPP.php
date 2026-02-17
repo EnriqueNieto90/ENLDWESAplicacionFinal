@@ -25,6 +25,9 @@ require_once 'model/EventoHistorico.php';
 //Constante con la APIKEY de la NASA
 const API_KEY_NASA = 'VArtVZZeOSBGcSkPjTl7VzP0gX2olfPh8kdQgz3b';
 
+// Constante con la API KEY de nuestra propia API
+const API_KEY_PROPIA = 'xK9pQ2mW5vY8nZ4cT1bH7jL0dF3gR6sN';
+
 //Constante con la palabra de seguridad de la aplicación
 const PALABRA_SEGURIDAD = 'pimentel';
 
