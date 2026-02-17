@@ -1,15 +1,26 @@
 <?php
 
 /**
- * @author: Enrique Nieto Lorenzo
- * @since: 02/02/2026
- * @description: Clase REST. Gestiona la comunicación externa (API y Descarga de imágenes).
+ * Clase REST.
+ * * Gestiona la comunicación externa mediante peticiones HTTP (cURL).
+ * Se encarga de consumir APIs de terceros (NASA, Wikipedia) y la propia API interna 
+ * de la aplicación, decodificando las respuestas JSON e instanciando los objetos necesarios.
+ *
+ * @author Enrique Nieto Lorenzo
+ * @since 02/02/2026
+ * @version 1.2.0
  */
 class REST {
 
     /**
-     * Llama a la API APOD de la NASA.
-     * Devuelve SIEMPRE un objeto FotoNasa (con datos reales o de error).
+     * Consume la API APOD (Astronomy Picture of the Day) de la NASA.
+     * * Realiza una petición cURL utilizando la API Key definida en configuración.
+     * Si la respuesta es exitosa y es una imagen, descarga y codifica la imagen en Base64
+     * para incrustarla directamente. En caso de error de conexión o API, 
+     * devuelve un objeto con datos y recursos gráficos por defecto.
+     *
+     * @param string $sFecha Fecha de consulta en formato 'YYYY-MM-DD'.
+     * @return FotoNasa Objeto instanciado con los datos astronómicos o con los de fallback en caso de error.
      */
     public static function apiNasa($sFecha) {
         $sUrl = "https://api.nasa.gov/planetary/apod?date=$sFecha&api_key=" . API_KEY_NASA;
@@ -65,9 +76,12 @@ class REST {
     }
 
     /**
-     * Método privado para serializar la imagen de la NASA
-     * Se encarga exclusivamente de la lógica técnica de bajar y convertir la imagen.
-     * Al ser privado, nadie fuera de esta clase puede usarlo, manteniendo el encapsulamiento.
+     * Descarga y serializa un archivo de imagen en una cadena codificada Base64.
+     * * Es una función auxiliar privada. Obtiene el tipo MIME original de la imagen 
+     * y genera una cadena lista para ser insertada en el atributo "src" de la etiqueta <img>.
+     *
+     * @param string $sUrl Enlace directo y público a la imagen a descargar.
+     * @return string|null Devuelve la cadena (ej. data:image/jpeg;base64,iVBORw0KG...) o null si falla.
      */
     private static function descargarImagenBase64($sUrl) {
         if (empty($sUrl))
@@ -91,10 +105,13 @@ class REST {
     }
 
     /**
-     * Llama a la API de Wikipedia "Un día como hoy" (Efemérides).
-     * @param string $sMes Mes en formato 'MM'
-     * @param string $sDia Día en formato 'DD'
-     * @return EventoHistorico
+     * Consulta la API pública de Wikipedia para extraer efemérides históricas.
+     * * Solicita los eventos ("On this day") que sucedieron en el mes y día especificados.
+     * Extrae de forma aleatoria uno de los múltiples eventos devueltos para añadir variedad.
+     *
+     * @param string $sMes Mes numérico con formato de dos dígitos (ej. '02').
+     * @param string $sDia Día numérico con formato de dos dígitos (ej. '17').
+     * @return EventoHistorico Objeto con la información del evento, o un objeto predeterminado de error.
      */
     public static function apiWikipediaEfemerides($sMes, $sDia) {
         // url de Wikipedia en español
@@ -147,9 +164,12 @@ class REST {
     }
 
     /**
-     * Consume nuestra propia API para consultar el volumen de negocio de un departamento.
-     * @param string $codDepartamento Código del departamento.
-     * @return float|null Devuelve el volumen o null si hay error.
+     * Consume la API REST interna para consultar el volumen de facturación.
+     * * Envía una solicitud GET segura inyectando la clave autorizada (API_KEY_PROPIA)
+     * a través de los Custom HTTP Headers (x-api-key) para evitar la exposición en la URL.
+     *
+     * @param string $codDepartamento Código identificador único del departamento.
+     * @return float|null Devuelve la cifra monetaria en formato float, o null si la autorización falla o no existe.
      */
     public static function apiVolumenNegocioDepartamento($codDepartamento) {
         // url de nuestro servidor

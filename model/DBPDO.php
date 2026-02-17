@@ -1,12 +1,27 @@
 <?php
 /**
- * @author: Enrique Nieto Lorenzo
- * @since: 18/01/2026
- * @description: Clase DBPDO para la gestión de la conexión a la base de datos.
+ * Clase que gestiona la conexión a la base de datos utilizando PDO.
+ * * Proporciona métodos estáticos para ejecutar consultas simples y transacciones
+ * múltiples, manejando las conexiones de forma segura y capturando los errores 
+ * mediante la redirección a una vista de error unificada.
+ *
+ * @author Enrique Nieto Lorenzo
+ * @since 18/01/2026
+ * @version 1.1
  */
-
 class DBPDO {
     
+    /**
+     * Ejecuta una consulta SQL preparada en la base de datos.
+     * * Establece una conexión PDO, prepara la sentencia SQL proporcionada y la ejecuta
+     * con los parámetros indicados. En caso de error (PDOException), captura la excepción,
+     * guarda los datos del error en una variable de sesión utilizando la clase ErrorApp
+     * y redirige la ejecución al index para cargar la vista de error.
+     *
+     * @param string     $sentenciaSQL Instrucción SQL a ejecutar (puede contener marcadores nombrados).
+     * @param array|null $parametros   Array asociativo con los valores para vincular a la sentencia SQL.
+     * * @return PDOStatement Devuelve el objeto con los resultados de la consulta si tuvo éxito.
+     */
     public static function ejecutarConsulta($sentenciaSQL, $parametros = null) {
         try {
             $miDB = new PDO(DSN, USERNAME, PASSWORD);
@@ -26,7 +41,7 @@ class DBPDO {
                 $exception->getCode(),      // Código SQL
                 $exception->getMessage(),   // Mensaje técnico
                 $exception->getFile(),      // Archivo donde ocurrió
-                $exception->getLine(),      // Línea
+                $exception->getLine()       // Línea
             );
             
             $_SESSION['paginaEnCurso'] = 'error';
@@ -41,11 +56,13 @@ class DBPDO {
     
     /**
      * Ejecuta una misma consulta SQL múltiples veces bajo una sola Transacción.
-     * Si una sola ejecución falla, se cancelan todas las demás (Rollback).
-     * * @param string $sentenciaSQL La instrucción SQL (ej. INSERT INTO...).
-     * @param array $aColeccionParametros Array bidimensional donde cada elemento es un array de parámetros.
-     * @return boolean True si la transacción se completó con éxito.
-     * @throws PDOException Si hay un error de SQL, lo lanza para ser capturado en el modelo.
+     * * Inicia una transacción PDO, ejecuta un bucle iterando sobre la colección de parámetros
+     * y finaliza con un commit. Si cualquier ejecución falla, realiza un rollBack automático
+     * para mantener la integridad referencial de la base de datos.
+     * * @param string $sentenciaSQL         Instrucción SQL preparada (ej. INSERT INTO...).
+     * @param array  $aColeccionParametros Array bidimensional donde cada elemento es un array de parámetros para ejecutar.
+     * * @return boolean True si la transacción se completó y guardó con éxito.
+     * @throws PDOException Lanza la excepción hacia la capa del modelo si la consulta falla (ej. clave duplicada).
      */
     public static function ejecutarTransaccion($sentenciaSQL, $aColeccionParametros) {
         try {
@@ -79,6 +96,7 @@ class DBPDO {
             throw $oException;
             
         } finally {
+            // Cerramos conexión
             unset($oDB);
         }
     }
