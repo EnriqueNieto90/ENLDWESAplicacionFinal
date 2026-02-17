@@ -136,7 +136,7 @@
         <div class="columna-api">
             <div class="tarjeta-api">
                 <div class="seccion-titulo">
-                    <h3><i class="fa-solid fa-building-user"></i> Mi Propia API</h3>
+                    <h3><i class="fa-solid fa-building-user"></i> API Consulta Volumen Negocio Departamento</h3>
                 </div>
 
                 <div class="seccion-input">
@@ -187,7 +187,10 @@
                                     <strong>Seguridad:</strong> Ocultamos la clave inyectándola en las cabeceras HTTP mediante <code>CURLOPT_HTTPHEADER</code> en lugar de usar la URL.
                                 </li>
                                 <li>
-                                    Usamos PHP <code>cURL</code> para que el servidor se consulte a sí mismo.
+                                    Usamos PHP <code>cURL</code> para que el servidor se consulte a sí mismo, ocultando así la clave al cliente.
+                                </li>
+                                <li>
+                                    Convertimos la respuesta con <code>json_decode()</code> para aislar el <strong>volumen de negocio</strong> y formatearlo en pantalla.
                                 </li>
                             </ul>
                         </div>
