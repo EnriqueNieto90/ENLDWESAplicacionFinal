@@ -68,7 +68,7 @@ if (isset($_REQUEST['guardar'])) {
             $_SESSION['usuarioENLAplicacionFinal']->setPassword($nuevoHash);
 
             // Redirigimos
-            $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+            $_SESSION['paginaEnCurso'] = 'cuenta';
             header('Location: index.php');
             exit;
         } else {

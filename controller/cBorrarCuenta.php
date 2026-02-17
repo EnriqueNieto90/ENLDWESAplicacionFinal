@@ -19,7 +19,7 @@ if (isset($_REQUEST['eliminar'])) {
         // Si se borra, destruimos sesión y al login
         session_destroy();
         session_start();
-        $_SESSION['paginaEnCurso'] = 'login';
+        $_SESSION['paginaEnCurso'] = 'inicioPublico';
 
         header('Location: index.php');
         exit;
