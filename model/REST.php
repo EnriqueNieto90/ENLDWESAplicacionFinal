@@ -173,7 +173,7 @@ class REST {
      */
     public static function apiVolumenNegocioDepartamento($codDepartamento) {
         // url de nuestro servidor
-        $sUrl = "http://192.168.1.131/ENLDWESAplicacionFinal/api/wsConsultarVolumenDeNegocio.php?codDepartamento=" . urlencode($codDepartamento);
+        $sUrl = "http://daw208.local.ieslossauces.es/ENLDWESAplicacionFinal/api/wsConsultarVolumenDeNegocio.php?codDepartamento=" . urlencode($codDepartamento);
 
         $oCurl = curl_init();
         curl_setopt($oCurl, CURLOPT_URL, $sUrl);
