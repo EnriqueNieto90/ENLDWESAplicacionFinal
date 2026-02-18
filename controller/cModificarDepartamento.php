@@ -44,7 +44,7 @@ if (isset($_REQUEST['aceptar'])) {
     // Validar Volumen de Negocio
     // Reemplazamos coma por punto antes de validar
     $volumenFiltrado = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 100000000000000000, 0, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 100000000000000000000, 0, 1);
 
     // Comprobamos inmediatamente tras validar
     if ($aErrores['volumenDeNegocio'] != null) {

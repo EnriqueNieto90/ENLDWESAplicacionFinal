@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS T02_Departamento(
     T02_CodDepartamento VARCHAR(3) PRIMARY KEY,
     T02_DescDepartamento VARCHAR(255),
     T02_FechaCreacionDepartamento DATETIME NOT NULL,
-    T02_VolumenDeNegocio DECIMAL(20,2) NULL,
+    T02_VolumenDeNegocio DECIMAL(40,2) NULL,
     T02_FechaBajaDepartamento DATETIME NULL
 );
 

@@ -28,7 +28,7 @@
                 <label class="label-form">Descripción</label>
                 <div class="input-icon-wrapper">
                     <i class="fa-regular fa-file-lines icon-input"></i>
-                    <input type="text" name="descDepartamento" class="input-microsoft input-busc"
+                    <input type="text" name="descDepartamento" class="input-microsoft"
                            value="<?php echo $avModificarDepartamento['descDepartamento']; ?>">
                 </div>
                 <span class="error-msg"><?php echo $aErrores['descDepartamento']; ?></span>
@@ -38,7 +38,7 @@
                 <label class="label-form">Volumen Negocio</label>
                 <div class="input-icon-wrapper">
                     <i class="fa-solid fa-euro-sign icon-input"></i>
-                    <input type="text" name="volumenDeNegocio" class="input-microsoft input-busc"
+                    <input type="text" name="volumenDeNegocio" class="input-microsoft"
                            value="<?php echo $avModificarDepartamento['volumenDeNegocio']; ?>">
                 </div>
                 <span class="error-msg"><?php echo $aErrores['volumenDeNegocio']; ?></span>
