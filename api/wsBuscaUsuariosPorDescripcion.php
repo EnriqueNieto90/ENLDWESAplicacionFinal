@@ -6,8 +6,8 @@
  * @description: Web Service de Buscar Usuario por descripción.
  */
 
-// Cabecera para que JavaScript entienda que recibe JSON
-header("Content-Type: application/json; charset=UTF-8");
+// Carga del fichero de configuración de la API
+require_once 'confAPI.php';
 
 // CARGA DE LIBRERÍA DE VALIDACIÓN
 require_once '../core/231018libreriaValidacion.php';
@@ -20,6 +20,7 @@ require_once '../model/DBPDO.php';
 
 $bEntradaOK = true;
 $descripcionBuscada = "";
+$aUsuariosPorDescripcion = [];
 
 //Comprobamos que llega el parámetro correcto
 if (isset($_REQUEST['descUsuario'])) {

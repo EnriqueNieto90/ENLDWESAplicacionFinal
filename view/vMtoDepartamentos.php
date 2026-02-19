@@ -10,11 +10,37 @@
 
         <h2 class="titulo-login">Mantenimiento de Departamentos</h2>
 
+        <?php if (!empty($sMensajeImportacion)): ?>
+            <div class="alerta-exito">
+                <i class="fa-solid fa-circle-check"></i> <?php echo $sMensajeImportacion; ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if (!empty($sErrorImportacion)): ?>
+            <div class="alerta-error">
+                <i class="fa-solid fa-triangle-exclamation"></i> <?php echo $sErrorImportacion; ?>
+            </div>
+        <?php endif; ?>
+
         <div class="acciones-superiores">
-            <form action="index.php" method="post">
+            <form action="index.php" method="post" enctype="multipart/form-data" class="form-acciones">
+                
                 <button type="submit" name="anadir" class="btn-primary btn-verde">
                     <i class="fa-solid fa-plus"></i> Añadir Departamento
                 </button>
+
+                <button type="submit" name="exportar" class="btn-secondary" formnovalidate>
+                    <i class="fa-solid fa-file-export"></i> Exportar JSON
+                </button>
+
+                <input type="file" name="archivoImportacion" id="archivoImportacion" accept=".json" class="input-archivo-oculto" onchange="document.getElementById('btnSubmitImportar').click();">
+                
+                <button type="button" class="btn-secondary" onclick="document.getElementById('archivoImportacion').click();">
+                    <i class="fa-solid fa-file-import"></i> Importar JSON
+                </button>
+
+                <button type="submit" name="importar" id="btnSubmitImportar" class="btn-oculto"></button>
+
             </form>
         </div>
 

@@ -82,10 +82,10 @@
                 <p>Enrique Nieto Lorenzo</p>
 
                 <div class="footer-links">
-                    <a href="#" class="link-destacado" title="Documentación PHPDoc">
+                    <a href="doc/phpdoc/index.html" class="link-destacado" target="_blank" title="Documentación PHPDoc">
                         <i class="fa-solid fa-book"></i> <span>PHPDoc</span>
                     </a>
-                    <a href="#" class="link-destacado" title="Descargar Currículo">
+                    <a href="webroot/files/CV_Enrique_Nieto_Lorenzo_DAW.pdf" class="link-destacado" target="_blank" title="Descargar Currículo">
                         <i class="fa-solid fa-file-pdf"></i> <span>CV</span>
                     </a>
                     <span class="separador-footer">|</span>
@@ -97,6 +97,9 @@
                     </a>
                     <a href="../index.html" target="_blank" title="Web Personal">
                         <i class="fa-solid fa-house"></i>
+                    </a>
+                    <a href="https://github.com/EnriqueNieto90/ENLDAWProyectoDAW" target="_blank" title="Documentación de tecnologías y herramientas">
+                        <i class="fa-solid fa-file-lines"></i>
                     </a>
                 </div>
             </div>

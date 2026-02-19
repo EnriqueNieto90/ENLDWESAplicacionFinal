@@ -479,13 +479,13 @@ main {
 
 .carrusel-slides {
     display: flex;
-    width: 700%; 
+    width: 800%; 
     height: 100%;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .slide-item {
-    width: 14.2857%;
+    width: 12.5%;
     height: 100%;
     position: relative;
     background-color: #ffffff;
@@ -515,12 +515,13 @@ main {
 }
 
 #slide1:checked ~ .carrusel-slides { transform: translateX(0%); }
-#slide2:checked ~ .carrusel-slides { transform: translateX(-14.2857%); }
-#slide3:checked ~ .carrusel-slides { transform: translateX(-28.5714%); }
-#slide4:checked ~ .carrusel-slides { transform: translateX(-42.8571%); }
-#slide5:checked ~ .carrusel-slides { transform: translateX(-57.1428%); }
-#slide6:checked ~ .carrusel-slides { transform: translateX(-71.4285%); }
-#slide7:checked ~ .carrusel-slides { transform: translateX(-85.7142%); }
+#slide2:checked ~ .carrusel-slides { transform: translateX(-12.5%); }
+#slide3:checked ~ .carrusel-slides { transform: translateX(-25%); }
+#slide4:checked ~ .carrusel-slides { transform: translateX(-37.5%); }
+#slide5:checked ~ .carrusel-slides { transform: translateX(-50%); }
+#slide6:checked ~ .carrusel-slides { transform: translateX(-62.5%); }
+#slide7:checked ~ .carrusel-slides { transform: translateX(-75%); }
+#slide8:checked ~ .carrusel-slides { transform: translateX(-87.5%); }
 
 .carrusel-nav {
     position: absolute;
@@ -556,16 +557,11 @@ main {
 #slide4:checked ~ .carrusel-nav label[for="slide4"],
 #slide5:checked ~ .carrusel-nav label[for="slide5"],
 #slide6:checked ~ .carrusel-nav label[for="slide6"],
-#slide7:checked ~ .carrusel-nav label[for="slide7"] {
+#slide7:checked ~ .carrusel-nav label[for="slide7"],
+#slide8:checked ~ .carrusel-nav label[for="slide8"] {
     background-color: var(--ms-blue);
     border-color: var(--ms-blue);
     transform: scale(1.2);
-}
-
-.slide-item {
-    position: relative;
-    width: 20%;
-    height: 100%;
 }
 
 .flechas-grupo {
@@ -584,7 +580,8 @@ main {
 #slide4:checked ~ .capa-flechas #flechas4,
 #slide5:checked ~ .capa-flechas #flechas5,
 #slide6:checked ~ .capa-flechas #flechas6,
-#slide7:checked ~ .capa-flechas #flechas7 {
+#slide7:checked ~ .capa-flechas #flechas7,
+#slide8:checked ~ .capa-flechas #flechas8 {
     display: flex;
     justify-content: space-between;
 }
@@ -729,7 +726,7 @@ main {
     max-width: 1400px;
     width: 95%;
     padding: 30px;
-    margin-bottom: 20px;
+    margin: auto; 
 }
 /* =========================================
     VISTA REST
@@ -1021,7 +1018,80 @@ main {
     display: none;
 }
 
+/* =========================================
+   API HISTORIA (WIKIPEDIA)
+   ========================================= */
 
+.contenedor-historia {
+    width: 100%;
+    height: 400px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e1dfdd;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.historia-texto {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #323130;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.btn-wiki {
+    margin-top: auto;
+    align-self: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+}
+
+.tip-interactivo {
+    color: var(--ms-blue);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.tip-interactivo i {
+    color: #ffb900;
+    margin-right: 5px;
+}
+
+/* =========================================
+   API PROPIA (VOLUMEN DE NEGOCIO)
+   ========================================= */
+
+.select-departamento {
+    cursor: pointer;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+}
+
+.contenido-centrado {
+    margin: auto;
+    text-align: center;
+}
+
+.titulo-volumen {
+    color: #605e5c;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.cifra-volumen {
+    display: block;
+    font-size: 3.5rem;
+    color: var(--ms-blue);
+    font-weight: bold;
+}
 
 /* =========================================
     VISTAS ESPECIALES (Error / WIP / Tablas)
@@ -1283,7 +1353,23 @@ body.view-error, body.view-wip {
     text-align: left;
     font-weight: 700;
     color: #323130;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
+
+.tabla-container {
+    min-height: 360px;
+    max-height: 550px;
+    overflow-y: auto;
+    width: 100%;
+    border-bottom: 1px solid #e1dfdd; 
+}
+
+.tabla-usuarios{
+    min-height: 550px;
+}
+
 .tabla-microsoft th i{
     text-align: right;
 }
@@ -1411,6 +1497,43 @@ body.view-error, body.view-wip {
 .info-paginacion {
     font-weight: bold;
     margin: 0 15px;
+}
+
+/* --- BOTONEs SUPERIORES Y FEEDBACK --- */
+
+.acciones-superiores {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.form-acciones {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-archivo-oculto,
+.btn-oculto {
+    display: none;
+}
+
+.alerta-exito {
+    background-color: #dff6dd;
+    color: #107c10;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.alerta-error {
+    background-color: #fde7e9;
+    color: #d13438;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 /* =========================================
@@ -1679,4 +1802,70 @@ body.view-error, body.view-wip {
 
 .input-uppercase {
     text-transform: uppercase;
+}
+
+/* =========================================
+   VENTANA DE CONFIRMACIÓN DE BORRADO
+   ========================================= */
+
+.fondo-oscuro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.cuadro-confirmacion {
+    background-color: white;
+    width: 90%;
+    max-width: 420px;
+    padding: 35px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirmacion-icono {
+    font-size: 3rem;
+    color: #d13438;
+    margin-bottom: 15px;
+}
+
+.confirmacion-titulo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #323130;
+    margin-bottom: 10px;
+}
+
+.confirmacion-texto {
+    font-size: 0.95rem;
+    color: #605e5c;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.confirmacion-texto strong {
+    color: #323130;
+}
+
+.confirmacion-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.confirmacion-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.icono-azul {
+    color: #0078D4;
 }

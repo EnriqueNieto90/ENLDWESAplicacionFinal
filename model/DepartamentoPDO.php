@@ -1,16 +1,22 @@
 <?php
-
 /**
- * @author: Enrique Nieto Lorenzo
- * @since: 27/01/2026
- * @description: Clase para gestionar el acceso a datos de Departamentos.
+ * Clase que gestiona la persistencia y operaciones de los Departamentos en la base de datos.
+ * * Actúa como el modelo DAO (Data Access Object) para la entidad Departamento, encapsulando
+ * todas las consultas SQL necesarias para el mantenimiento de la tabla T02_Departamento.
+ *
+ * @author Enrique Nieto Lorenzo
+ * @since 27/01/2026
+ * @version 1.1.0
  */
 final class DepartamentoPDO {
 
     /**
      * Busca departamentos cuya descripción contenga la cadena proporcionada.
+     * * Realiza una consulta SQL utilizando el operador LIKE para coincidencias parciales.
+     * Si no se especifica cadena o está vacía, devuelve todos los departamentos.
+     *
      * @param string $descDepartamento Descripción a buscar (o parte de ella).
-     * @return array Array de objetos Departamento encontrados.
+     * @return Departamento[] Array de objetos Departamento encontrados, o array vacío si no hay coincidencias.
      */
     public static function buscaDepartamentosPorDesc($descDepartamento) {
 
@@ -42,9 +48,10 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Busca un departamento por su código primario.
-     * @param string $codDepartamento Código del departamento.
-     * @return Departamento|null Objeto Departamento o null si no existe.
+     * Busca un departamento específico utilizando su código identificador.
+     *
+     * @param string $codDepartamento Código único del departamento (PK).
+     * @return Departamento|null Devuelve un objeto Departamento si lo encuentra, o null en caso contrario.
      */
     public static function buscaDepartamentoPorCod($codDepartamento) {
         $sql = "SELECT * FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
@@ -66,9 +73,12 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Comprueba si existe un departamento con ese código en la BBDD.
+     * Comprueba la existencia de un departamento a través de su código.
+     * * ATENCIÓN: A pesar del nombre del método, devuelve true si el departamento YA EXISTE 
+     * en la base de datos (rowCount > 0). Útil para validaciones de claves duplicadas.
+     *
      * @param string $codDepartamento Código del departamento a buscar.
-     * @return boolean True si encontró el código (ya existe), false si no.
+     * @return boolean True si el departamento existe en la BBDD, false si no existe.
      */
     public static function validaCodNoExiste($codDepartamento) {
         
@@ -82,12 +92,14 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Da de alta un nuevo departamento en la base de datos.
-     * * Inserta un registro en la tabla T02_Departamento con la fecha de creación actual (NOW()) y la fecha de baja a null.
-     * @param string $codDepartamento Código del departamento (PK, 3 letras mayúsculas).
-     * @param string $descDepartamento Descripción o nombre del departamento.
-     * @param float $volumenDeNegocio Volumen de negocio anual (permitiendo decimales).
-     * @return Departamento|null Devuelve el objeto Departamento si se crea con éxito, o null si falla la inserción.
+     * Registra un nuevo departamento en la base de datos (Alta Física).
+     * * Inserta un registro en la tabla T02_Departamento estableciendo automáticamente 
+     * la fecha de creación actual (NOW()) y dejando la fecha de baja en NULL (activo).
+     *
+     * @param string $codDepartamento  Código único del departamento (PK, 3 letras mayúsculas).
+     * @param string $descDepartamento Nombre o descripción del departamento.
+     * @param float  $volumenDeNegocio Volumen de negocio económico.
+     * @return Departamento|null Devuelve el objeto Departamento instanciado si la inserción fue exitosa, o null si falló.
      */
     public static function altaDepartamento($codDepartamento, $descDepartamento, $volumenDeNegocio) {
 
@@ -112,11 +124,13 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Modifica la descripción y el volumen de negocio de un departamento.
-     * @param string $codDepartamento Código del departamento a modificar.
-     * @param string $descDepartamento Nueva descripción.
-     * @param float $volumenDeNegocio Nuevo volumen.
-     * @return bool True si se modificó correctamente.
+     * Actualiza los datos modificables de un departamento existente.
+     * * Permite modificar la descripción y el volumen de negocio referenciando el registro por su código.
+     *
+     * @param string $codDepartamento  Código del departamento a actualizar.
+     * @param string $descDepartamento Nueva descripción del departamento.
+     * @param float  $volumenDeNegocio Nuevo volumen de negocio.
+     * @return PDOStatement|bool Devuelve el objeto PDOStatement evaluable como booleano para confirmar el éxito de la consulta.
      */
     public static function modificaDepartamento($codDepartamento, $descDepartamento, $volumenDeNegocio) {
         $sql = <<<SQL
@@ -138,9 +152,10 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Elimina un departamento de la base de datos (Baja Física).
-     * @param string $codDepartamento Código del departamento a eliminar.
-     * @return boolean True si se borró correctamente, false si no.
+     * Elimina un departamento permanentemente de la base de datos (Baja Física).
+     *
+     * @param string $codDepartamento Código del departamento a borrar.
+     * @return boolean True si se eliminó alguna fila correctamente, false en caso contrario.
      */
     public static function bajaFisicaDepartamento($codDepartamento) {
         $sql = "DELETE FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
@@ -151,10 +166,12 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Realiza la baja lógica de un departamento.
-     * Actualiza la fecha de baja al momento actual (NOW).
-     * @param string $codDepartamento Código del departamento a desactivar.
-     * @return boolean True si se realizó la actualización, false en caso contrario.
+     * Desactiva temporalmente un departamento en el sistema (Baja Lógica).
+     * * En lugar de borrar el registro, actualiza el campo T02_FechaBajaDepartamento 
+     * con la fecha y hora exacta de la solicitud (NOW()), ocultándolo de las consultas generales.
+     *
+     * @param string $codDepartamento Código del departamento a dar de baja.
+     * @return boolean True si se actualizó la fila correctamente, false en caso contrario.
      */
     public static function bajaLogicaDepartamento($codDepartamento) {
         $sql = <<<SQL
@@ -172,10 +189,12 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Realiza el alta lógica de un departamento.
-     * Pone la fecha de baja a NULL para reactivarlo.
-     * @param string $codDepartamento Código del departamento a reactivar.
-     * @return boolean True si se realizó la actualización, false en caso contrario.
+     * Reactiva un departamento previamente dado de baja (Alta Lógica).
+     * * Elimina la fecha de baja (la establece a NULL), restaurando el departamento
+     * al estado activo en el sistema.
+     *
+     * @param string $codDepartamento Código del departamento a rehabilitar.
+     * @return boolean True si se actualizó la fila correctamente, false en caso contrario.
      */
     public static function altaLogicaDepartamento($codDepartamento) {
         $sql = <<<SQL
@@ -192,7 +211,13 @@ final class DepartamentoPDO {
     }
     
     /**
-     * Cuenta departamentos filtrados por descripción y estado.
+     * Calcula el número total de departamentos que coinciden con unos filtros dados.
+     * * Esencial para construir sistemas de paginación precisos. Cuenta los registros 
+     * filtrando tanto por coincidencia de texto como por su estado lógico.
+     *
+     * @param string $descDepartamento Cadena de texto a buscar en la descripción.
+     * @param string $estadoDepartamento Estado para filtrar ('alta', 'baja', o 'todos').
+     * @return int Número total de registros coincidentes. Devuelve 0 en caso de error o ausencia.
      */
     public static function contarDepartamentosPorDescEstado($descDepartamento, $estadoDepartamento) {
         $condicionEstado = "";
@@ -225,7 +250,14 @@ final class DepartamentoPDO {
     }
 
     /**
-     * Busca departamentos con filtro y paginación (LIMIT y OFFSET).
+     * Obtiene un subconjunto de departamentos basado en filtros y parámetros de paginación.
+     * * Combina la búsqueda por descripción y estado con cláusulas LIMIT y OFFSET
+     * para devolver únicamente los registros correspondientes a la página solicitada.
+     *
+     * @param string $descDepartamento   Cadena de texto para filtrar la descripción.
+     * @param string $estadoDepartamento Estado a filtrar ('alta', 'baja', o 'todos').
+     * @param int    $paginaActual       Número de la página solicitada por el usuario.
+     * @return Departamento[] Array de objetos Departamento para la página actual.
      */
     public static function buscaDepartamentosPorDescEstadoPaginado($descDepartamento, $estadoDepartamento, $paginaActual) {
         // Calcular el offset (desplazamiento)
@@ -268,6 +300,92 @@ final class DepartamentoPDO {
         }
         return $aDepartamentos;
     }
-}
+    
+    /**
+     * Prepara y estructura la información de los departamentos para su exportación a JSON.
+     * * Solicita los datos a la BBDD a través de los métodos de búsqueda existentes, 
+     * iterando sobre los objetos recuperados para extraer sus valores puros a un array asociativo.
+     *
+     * @param string $descDepartamento (Opcional) Cadena de texto para filtrar por descripción. Por defecto vacío.
+     * @return array Array multidimensional con la estructura de datos lista para codificar en formato JSON.
+     */
+    public static function exportarDepartamentos($descDepartamento = "") {
+        // Reutilizamos el método para obtener los objetos de la BBDD
+        $aObjetosDepartamento = self::buscaDepartamentosPorDesc($descDepartamento); 
+        
+        $aExportacion = [];
+        
+        // Rellenamos un array asociativo con los objetos
+        if ($aObjetosDepartamento) {
+            foreach ($aObjetosDepartamento as $oDepto) {
+                $aExportacion[] = [
+                    'codDepartamento'           => $oDepto->getCodDepartamento(),
+                    'descDepartamento'          => $oDepto->getDescDepartamento(),
+                    'fechaCreacionDepartamento' => $oDepto->getFechaCreacionDepartamento(),
+                    'volumenDeNegocio'          => $oDepto->getVolumenDeNegocio(),
+                    'fechaBajaDepartamento'     => $oDepto->getFechaBajaDepartamento()
+                ];
+            }
+        }
+        
+        // Devolvemos el array estructurado
+        return $aExportacion;
+    }
+    
+    /**
+     * Importa masivamente un conjunto de departamentos hacia la base de datos usando una Transacción.
+     * * Toma los datos decodificados de un JSON, genera una colección estructurada de parámetros
+     * y delega su inserción transaccional a la clase DBPDO. Si la base de datos rechaza 
+     * un solo registro (ej: clave primaria duplicada), se ejecuta un Rollback automático 
+     * revirtiendo cualquier cambio previo.
+     *
+     * @param array $aDepartamentos Array asociativo extraído del fichero JSON con la información a importar.
+     * @return boolean Devuelve true si la totalidad de los departamentos se han insertado correctamente. False en caso de error.
+     */
+    public static function importarDepartamentos($aDepartamentos) {
+        
+        // Preparamos la consulta SQL
+        $sql = <<<SQL
+            INSERT INTO T02_Departamento (
+                T02_CodDepartamento, 
+                T02_DescDepartamento, 
+                T02_FechaCreacionDepartamento, 
+                T02_VolumenDeNegocio, 
+                T02_FechaBajaDepartamento
+            ) VALUES (
+                :codDepartamento, 
+                :descDepartamento, 
+                :fechaCreacion, 
+                :volumenNegocio, 
+                :fechaBaja
+            )
+        SQL;
+        
+        // Recorremos tu array $aDepartamentos para preparar la colección de parámetros
+        $aParametrosTransaccion = [];
+        
+        foreach ($aDepartamentos as $aDepto) {
+            $aParametrosTransaccion[] = [
+                ':codDepartamento'  => $aDepto['codDepartamento'],
+                ':descDepartamento' => $aDepto['descDepartamento'],
+                // Si el JSON no trae fecha de creación, le ponemos la actual por defecto
+                ':fechaCreacion'    => $aDepto['fechaCreacionDepartamento'] ?? date('Y-m-d H:i:s'),
+                ':volumenNegocio'   => $aDepto['volumenDeNegocio'],
+                // Si viene vacío o no existe, insertamos un NULL en la BD
+                ':fechaBaja'        => empty($aDepto['fechaBajaDepartamento']) ? null : $aDepto['fechaBajaDepartamento']
+            ];
+        }
 
+        // Ejecutamos la transacción delegando en DBPDO
+        try {
+            // Llamamos a nuestro nuevo método, pasándole la SQL y los parámetros empaquetados
+            return DBPDO::ejecutarTransaccion($sql, $aParametrosTransaccion);
+            
+        } catch (PDOException $e) {
+            // Registramos el error para el administrador.
+            error_log("Error en importación de departamentos (Transacción cancelada): " . $e->getMessage());
+            return false;
+        }
+    }
+}
 ?>

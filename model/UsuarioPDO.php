@@ -1,22 +1,30 @@
 <?php
-/**
- * @author: Enrique Nieto Lorenzo
- * @since: 18/01/2026
- * @description: Clase UsuarioPDO que gestiona las operaciones de usuario en la base de datos.
- */
 
+/**
+ * Clase que gestiona la persistencia y operaciones de los Usuarios en la base de datos.
+ * * Actúa como el modelo DAO (Data Access Object) para la entidad Usuario, 
+ * encapsulando todas las consultas SQL relativas a la tabla T01_Usuario 
+ * (validación, inserción, modificación y eliminación).
+ *
+ * @author Enrique Nieto Lorenzo
+ * @since 18/01/2026
+ * @version 1.0.0
+ */
 final class UsuarioPDO {
 
     /**
-     * Valida si un usuario existe y la contraseña es correcta.
-     * Si es válido, actualiza la información de conexión y devuelve un objeto Usuario.
-     * @param string $codUsuario Código del usuario.
-     * @param string $password Contraseña del usuario.
-     * @return Usuario|null Devuelve el objeto Usuario si las credenciales son correctas, null en caso contrario.
+     * Autentica a un usuario comprobando sus credenciales en la base de datos.
+     * * Realiza una consulta filtrando por código de usuario y contraseña (cifrada con SHA256,
+     * utilizando el propio código de usuario como SALT concatenado a la contraseña).
+     * Si las credenciales son correctas, extrae los datos y devuelve una instancia de Usuario.
+     *
+     * @param string $codUsuario Código identificador del usuario.
+     * @param string $password   Contraseña introducida por el usuario en texto plano.
+     * @return Usuario|null Devuelve el objeto Usuario si el login es correcto, o null en caso de credenciales inválidas.
      */
     public static function validarUsuario($codUsuario, $password) {
         $oUsuario = null;
-        
+
         // Construimos la consulta SQL
         $sql = <<<SQL
             SELECT * FROM T01_Usuario 
@@ -26,13 +34,13 @@ final class UsuarioPDO {
 
         // Ejecutamos la consulta
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codUsuario'  => $codUsuario,
-            ':password' => $codUsuario . $password
+                    ':codUsuario' => $codUsuario,
+                    ':password' => $codUsuario . $password
         ]);
-        
+
         if ($consulta && $consulta->rowCount() > 0) {
             $usuarioBD = $consulta->fetchObject();
-        
+
             // Procesamos el resultado
             if ($usuarioBD) {
                 // Convertimos fecha de string a DateTime
@@ -41,14 +49,14 @@ final class UsuarioPDO {
 
                 // Instanciamos el objeto Usuario
                 $oUsuario = new Usuario(
-                    $usuarioBD->T01_CodUsuario,
-                    $usuarioBD->T01_Password,
-                    $usuarioBD->T01_DescUsuario,
-                    $usuarioBD->T01_NumConexiones,
-                    $oFechaValida,           // FechaHoraUltimaConexion (La que hay en BD)
-                    null,                    // FechaHoraUltimaConexionAnterior (NULL al validar)
-                    $usuarioBD->T01_Perfil,
-                    $usuarioBD->T01_ImagenUsuario ?? null
+                        $usuarioBD->T01_CodUsuario,
+                        $usuarioBD->T01_Password,
+                        $usuarioBD->T01_DescUsuario,
+                        $usuarioBD->T01_NumConexiones,
+                        $oFechaValida, // FechaHoraUltimaConexion (La que hay en BD)
+                        null, // FechaHoraUltimaConexionAnterior (NULL al validar)
+                        $usuarioBD->T01_Perfil,
+                        $usuarioBD->T01_ImagenUsuario ?? null
                 );
             }
         }
@@ -57,9 +65,13 @@ final class UsuarioPDO {
     }
 
     /**
-     * Actualiza la fecha de última conexión y el contador de accesos en la base de datos.
-     * @param Usuario $oUsuario Objeto Usuario a actualizar.
-     * @return Usuario|null Objeto Usuario con la fecha de última conexión actualizada.
+     * Actualiza el registro de conexiones de un usuario en la base de datos y en memoria.
+     * * Tras un login exitoso, este método incrementa el contador de conexiones (+1)
+     * y actualiza la fecha de la última conexión (T01_FechaHoraUltimaConexion) al momento actual (NOW()).
+     * Finalmente, sincroniza el objeto Usuario en memoria con estos nuevos datos.
+     *
+     * @param Usuario $oUsuario Objeto Usuario con los datos de la sesión recién iniciada.
+     * @return Usuario|null Objeto Usuario actualizado en sus propiedades de conexión, o null si falló el UPDATE.
      */
     public static function registrarUltimaConexion($oUsuario) {
         //Actualizamos la BD
@@ -71,9 +83,9 @@ final class UsuarioPDO {
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codUsuario' => $oUsuario->getCodUsuario()
+                    ':codUsuario' => $oUsuario->getCodUsuario()
         ]);
-        
+
         if ($consulta) {
             // Actualizar Objeto en memoria
             // Lo que era la fecha actual, ahora es fecha anterior
@@ -81,20 +93,24 @@ final class UsuarioPDO {
 
             // Sumamos 1 conexión
             $oUsuario->setNumConexiones($oUsuario->getNumConexiones() + 1);
-            
+
             // Ponemos la actual fecha de conexión
             $oUsuario->setFechaHoraUltimaConexion(new DateTime());
         }
 
         return $oUsuario;
     }
-    
+
     /**
-     * Registra un nuevo usuario en la base de datos.
-     * @param string $codUsuario Código del usuario (PK).
-     * @param string $password Contraseña (sin cifrar, se cifra dentro).
-     * @param string $descUsuario Nombre completo del usuario.
-     * @return Usuario|null Devuelve el objeto Usuario creado y logueado, o null si falla.
+     * Registra un nuevo usuario en el sistema.
+     * * Inserta un registro en la tabla T01_Usuario, cifrando la contraseña mediante SHA256 
+     * (concatenada con el código de usuario). Establece el perfil predeterminado como 'usuario',
+     * inicializa el contador de conexiones a 1 y registra la fecha y hora actual de creación.
+     *
+     * @param string $codUsuario  Código único del usuario (PK).
+     * @param string $password    Contraseña en texto plano a cifrar.
+     * @param string $descUsuario Descripción o nombre completo del nuevo usuario.
+     * @return Usuario|null Devuelve el objeto Usuario creado y listo para la sesión, o null si falló la inserción.
      */
     public static function altaUsuario($codUsuario, $password, $descUsuario) {
         $oUsuario = null;
@@ -106,53 +122,59 @@ final class UsuarioPDO {
         SQL;
 
         $parametros = [
-            ':codUsuario'  => $codUsuario,
-            ':password'    => $codUsuario . $password,
+            ':codUsuario' => $codUsuario,
+            ':password' => $codUsuario . $password,
             ':descUsuario' => $descUsuario
         ];
 
         if (DBPDO::ejecutarConsulta($sql, $parametros)) {
             // Si se crea, lo validamos para devolver el objeto completo
             $oUsuario = new Usuario(
-                $codUsuario,
-                $password,
-                $descUsuario,
-                1,
-                new DateTime(),
-                null,
-                'usuario',
-                null
+                    $codUsuario,
+                    $password,
+                    $descUsuario,
+                    1,
+                    new DateTime(),
+                    null,
+                    'usuario',
+                    null
             );
         }
         return $oUsuario;
     }
 
     /**
-     * Comprueba si un código de usuario ya existe en la base de datos.
-     * @param string $codUsuario Código a comprobar.
-     * @return bool True si el código NO existe (está libre), False si YA existe.
+     * Verifica la disponibilidad de un código de usuario.
+     * * Consulta si un código primario ya está en uso en la tabla de usuarios. 
+     * Fundamental para la validación de formularios de registro y evitar duplicidades de PK.
+     *
+     * @param string $codUsuario Código de usuario a verificar.
+     * @return bool Devuelve true si el código está DISPONIBLE (no existe), y false si ya está OCUPADO.
      */
     public static function validarCodNoExiste($codUsuario) {
         $bNoExiste = true;
-        
+
         $sql = "SELECT T01_CodUsuario FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
         $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
-        
+
         if ($consulta && $consulta->rowCount() > 0) {
             $bNoExiste = false; // El usuario ya existe
         }
-        
+
         return $bNoExiste;
     }
-    
+
     /**
-     * Modifica la descripción (Nombre y Apellidos) de un usuario.
-     * @param Usuario $oUsuario El objeto usuario con los datos actuales.
-     * @param string $nuevoDescUsuario La nueva descripción.
-     * @return Usuario|null Devuelve el objeto actualizado o null si falla.
+     * Modifica la descripción (Nombre completo) de un usuario existente.
+     * * Actualiza físicamente la columna T01_DescUsuario en la base de datos y, 
+     * en caso de éxito, actualiza la propiedad correspondiente en el objeto Usuario en memoria.
+     *
+     * @param Usuario $oUsuario         Objeto Usuario actual (sacado de la sesión).
+     * @param string  $nuevoDescUsuario Nuevo nombre o descripción a establecer.
+     * @return Usuario|null Devuelve el objeto Usuario actualizado, o null en caso de error en la BD.
      */
     public static function modificarUsuario($oUsuario, $nuevoDescUsuario) {
-        
+
         // En la consulta a la DB solo actualizamos la descripción
         $sql = <<<SQL
             UPDATE T01_Usuario SET 
@@ -161,8 +183,8 @@ final class UsuarioPDO {
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':nuevoDescUsuario' => $nuevoDescUsuario,
-            ':codUsuario'       => $oUsuario->getCodUsuario()
+                    ':nuevoDescUsuario' => $nuevoDescUsuario,
+                    ':codUsuario' => $oUsuario->getCodUsuario()
         ]);
 
         // Actualizar en la memoria
@@ -173,56 +195,48 @@ final class UsuarioPDO {
 
         return null;
     }
-    
-    /**
-     * Cambia la contraseña del usuario en la base de datos.
-     * @param Usuario $oUsuario Objeto usuario actual.
-     * @param string $nuevaPassword La nueva contraseña.
-     * @return Usuario|null Devuelve el objeto Usuario actualizado o null si falla la BBDD.
-     */
-    public static function cambiarPassword($oUsuario, $nuevaPassword) {
-        
-        $sql = "UPDATE T01_Usuario 
-                SET T01_Password = SHA2(:password, 256) 
-                WHERE T01_CodUsuario = :codUsuario";
 
-        // Concatenamos CodUsuario + NuevaPassword
+    /**
+     * Cambia y cifra la contraseña de un usuario.
+     * * Actualiza el campo T01_Password aplicando de nuevo la función SHA256 
+     * con el SALT correspondiente al usuario.
+     *
+     * @param string $codUsuario    Código identificador del usuario.
+     * @param string $nuevaPassword La nueva contraseña introducida en texto plano.
+     * @return bool Devuelve true si la actualización afectó a alguna fila (éxito), o false si falló.
+     */
+    public static function cambiarPassword($codUsuario, $nuevaPassword) {
+        $sql = "UPDATE T01_Usuario SET T01_Password = SHA2(:password, 256) WHERE T01_CodUsuario = :codUsuario";
+
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':password'   => $oUsuario->getCodUsuario() . $nuevaPassword,
-            ':codUsuario' => $oUsuario->getCodUsuario()
+                    ':password' => $codUsuario . $nuevaPassword,
+                    ':codUsuario' => $codUsuario
         ]);
 
-        // Si la consulta se ejecutó correctamente
-        if ($consulta) {
-            $nuevoHash = hash('sha256', $oUsuario->getCodUsuario() . $nuevaPassword);
-            
-            // Actualizamos la propiedad password del objeto
-            $oUsuario->setPassword($nuevoHash);
-            
-            // Devolvemos el objeto actualizado para guardarlo en la sesión
-            return $oUsuario;
-        }
-
-        return null;
+        return ($consulta && $consulta->rowCount() > 0);
     }
-    
+
     /**
-     * Elimina un usuario de la base de datos
-     * @param Usuario $oUsuario Objeto del usuario a eliminar
-     * @return boolean True si se borró correctamente, false si no
+     * Elimina físicamente un usuario de la base de datos.
+     * * Ejecuta un borrado permanente (DELETE) en la tabla T01_Usuario para el código indicado.
+     *
+     * @param string $codUsuario Código del usuario a eliminar.
+     * @return boolean Devuelve true si se borró la fila correctamente, false en caso contrario.
      */
-    public static function borrarUsuario($oUsuario){
+    public static function borrarUsuario($codUsuario) {
         $sql = "DELETE FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
 
         return DBPDO::ejecutarConsulta($sql, [
-            ':codUsuario' => $oUsuario->getCodUsuario()
-        ])->rowCount() > 0;
+                    ':codUsuario' => $codUsuario
+                ])->rowCount() > 0;
     }
-    
+
     /**
-     * Busca usuarios cuya descripción contenga la cadena proporcionada.
-     * @param string $descUsuario Descripción a buscar (o parte de ella).
-     * @return array Array de objetos Usuario encontrados.
+     * Obtiene una lista de usuarios filtrada parcialmente por descripción.
+     * * Empleado generalmente en listados y búsquedas de mantenimiento.
+     *
+     * @param string $descUsuario Texto o subcadena para filtrar (ej. nombre).
+     * @return Usuario[] Array de objetos Usuario coincidentes. Array vacío si no hay resultados.
      */
     public static function buscaUsuariosPorDesc($descUsuario) {
 
@@ -254,6 +268,25 @@ final class UsuarioPDO {
         }
 
         return $aUsuarios;
+    }
+
+    /**
+     * Modifica el nivel de privilegios (Perfil) de un usuario en la base de datos.
+     * * Exclusivo para administradores. Cambia el campo T01_Perfil.
+     *
+     * @param string $codUsuario  Código del usuario a modificar.
+     * @param string $nuevoPerfil Nuevo valor ('usuario' o 'administrador').
+     * @return bool Devuelve true si la actualización fue exitosa, false en caso contrario.
+     */
+    public static function cambiarPerfilUsuario($codUsuario, $nuevoPerfil) {
+        $sql = "UPDATE T01_Usuario SET T01_Perfil = :nuevoPerfil WHERE T01_CodUsuario = :codUsuario";
+
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+                    ':nuevoPerfil' => $nuevoPerfil,
+                    ':codUsuario' => $codUsuario
+        ]);
+
+        return ($consulta && $consulta->rowCount() > 0);
     }
 }
 ?>
