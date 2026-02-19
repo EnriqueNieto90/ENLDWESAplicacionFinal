@@ -98,6 +98,9 @@
                     <a href="../index.html" target="_blank" title="Web Personal">
                         <i class="fa-solid fa-house"></i>
                     </a>
+                    <a href="https://github.com/EnriqueNieto90/ENLDAWProyectoDAW" target="_blank" title="Documentación de tecnologías y herramientas">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </a>
                 </div>
             </div>
         </footer>
