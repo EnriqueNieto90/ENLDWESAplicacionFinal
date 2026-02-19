@@ -12,7 +12,7 @@ require_once 'confAPI.php';
 require_once '../core/231018libreriaValidacion.php';
 
 // CARGA DEL MODELO DE DEPARTAMENTOS
-require_once '../config/EDconfDBPDO.php';
+require_once '../config/confDBPDO.php';
 require_once '../model/Departamento.php';
 require_once '../model/DepartamentoPDO.php';
 require_once '../model/DBPDO.php';
