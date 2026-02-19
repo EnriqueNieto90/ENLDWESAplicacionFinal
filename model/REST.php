@@ -56,10 +56,10 @@ class REST {
         // Si la consulta a la API devuelve algo que no podemos controlar se lanza un objeto de error
         return new FotoNasa(
             'Error de conexión con la NASA',
-            'webroot/images/error_nasa.jpg',
+            'webroot/media/images/error_nasa.jpg',
             $sFecha,
             'No disponible',
-            'webroot/images/error_nasa.jpg'
+            'webroot/media/images/error_nasa.jpg'
         );
     }
 

@@ -64,17 +64,55 @@ if (isset($_REQUEST['anadir'])) {
     exit;
 }
 
-// Definimos el valor por defecto recuperando de la sesión (si existe) o cadena vacía
-$descripcionBuscada = $_SESSION['descripcionBuscadaEnCurso'] ?? "";
+// GESTIÓN DE FILTROS Y PAGINACIÓN
 
-// Si el usuario ha enviado una nueva búsqueda, sobrescribimos la variable y actualizamos la sesión
+// Recuperar filtros de la sesión o inicializar por defecto
+$descripcionBuscada = $_SESSION['criterioBusqueda']['desc'] ?? "";
+$estadoBuscado = $_SESSION['criterioBusqueda']['estado'] ?? "alta";
+
+// Si el usuario pulsa BUSCAR, actualizamos la sesión y reiniciamos a página 1
 if (isset($_REQUEST['buscar'])) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? "";
-    $_SESSION['descripcionBuscadaEnCurso'] = $descripcionBuscada;
+    $estadoBuscado = $_REQUEST['estado'] ?? "todos";
+    
+    $_SESSION['criterioBusqueda']['desc'] = $descripcionBuscada;
+    $_SESSION['criterioBusqueda']['estado'] = $estadoBuscado;
+    $_SESSION['paginaActual'] = 1; // Al buscar, volvemos al principio
 }
 
-// Recuperar los datos de la DB
-$aDepartamentosEncontrados = DepartamentoPDO::buscaDepartamentosPorDesc($descripcionBuscada);
+// Gestión de botones de PAGINACIÓN
+$paginaActual = $_SESSION['paginaActual'] ?? 1;
+
+// Contamos el total de registros para saber la última página
+$totalRegistros = DepartamentoPDO::contarDepartamentosPorDescEstado($descripcionBuscada, $estadoBuscado);
+$totalPaginas = ceil($totalRegistros / RESULTADOS_POR_PAGINA);
+
+// Asegurar que al menos hay 1 página
+if ($totalPaginas < 1) $totalPaginas = 1;
+
+// Lógica de navegación
+if (isset($_REQUEST['paginaPrimera'])) {
+    $paginaActual = 1;
+}
+if (isset($_REQUEST['paginaAnterior']) && $paginaActual > 1) {
+    $paginaActual--;
+}
+if (isset($_REQUEST['paginaSiguiente']) && $paginaActual < $totalPaginas) {
+    $paginaActual++;
+}
+if (isset($_REQUEST['paginaUltima'])) {
+    $paginaActual = $totalPaginas;
+}
+
+// Guardamos la página actual en sesión
+$_SESSION['paginaActual'] = $paginaActual;
+
+// Recuperar los datos de la DB usando el método PAGINADO
+$aDepartamentosEncontrados = DepartamentoPDO::buscaDepartamentosPorDescEstadoPaginado(
+    $descripcionBuscada, 
+    $estadoBuscado, 
+    $paginaActual
+);
 
 // PREPARAR ARRAY PARA LA VISTA
 $avMtoDepartamentos = [];
@@ -86,11 +124,14 @@ if ($aDepartamentosEncontrados) {
             'desc' => $oDep->getDescDepartamento(),
             'volumen' => number_format($oDep->getVolumenDeNegocio(), 2, ',', '.') . ' €',
             'fechaAlta' => (new DateTime($oDep->getFechaCreacionDepartamento()))->format('d/m/Y'),
-            'fechaBaja' => $oDep->getFechaBajaDepartamento() ? (new DateTime($oDep->getFechaBajaDepartamento()))->format('d/m/Y') : '-'
+            'fechaBaja' => $oDep->getFechaBajaDepartamento() ? (new DateTime($oDep->getFechaBajaDepartamento()))->format('d/m/Y') : '-',
+            // Añadimos clase CSS para pintar rojo si está de baja
+            'estilo' => $oDep->getFechaBajaDepartamento() ? 'fila-baja' : '' 
         ];
     }
 }
 
-// Guardamos el término buscado para que se mantenga en el input
-$valorBuscar = $descripcionBuscada;
+// Pasamos variables extra a la vista para pintar la paginación
+$valorDescBuscar = $descripcionBuscada;
+$valorEstadoBuscar = $estadoBuscado;
 ?>

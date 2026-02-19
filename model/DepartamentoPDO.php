@@ -134,7 +134,7 @@ final class DepartamentoPDO {
 
         $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
 
-        return $consulta; // Devuelve true si la consulta se ejecutó (aunque no cambie filas)
+        return $consulta; // Devuelve true si la consulta se ejecutó
     }
 
     /**
@@ -189,6 +189,84 @@ final class DepartamentoPDO {
         ]);
 
         return $consulta->rowCount() > 0;
+    }
+    
+    /**
+     * Cuenta departamentos filtrados por descripción y estado.
+     */
+    public static function contarDepartamentosPorDescEstado($descDepartamento, $estadoDepartamento) {
+        $condicionEstado = "";
+        
+        switch ($estadoDepartamento) {
+            case 'alta':
+                $condicionEstado = "AND T02_FechaBajaDepartamento IS NULL";
+                break;
+            case 'baja':
+                $condicionEstado = "AND T02_FechaBajaDepartamento IS NOT NULL";
+                break;
+            // 'todos' no añade condición
+        }
+
+        $sql = <<<SQL
+            SELECT COUNT(*) as total 
+            FROM T02_Departamento
+            WHERE T02_DescDepartamento LIKE :descDepartamento
+            $condicionEstado
+        SQL;
+
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':descDepartamento' => '%' . $descDepartamento . '%'
+        ]);
+
+        if ($oDatos = $consulta->fetchObject()) {
+            return $oDatos->total;
+        }
+        return 0;
+    }
+
+    /**
+     * Busca departamentos con filtro y paginación (LIMIT y OFFSET).
+     */
+    public static function buscaDepartamentosPorDescEstadoPaginado($descDepartamento, $estadoDepartamento, $paginaActual) {
+        // Calcular el offset (desplazamiento)
+        $paginacion = (int) RESULTADOS_POR_PAGINA;
+        $offset = ($paginaActual - 1) * $paginacion;
+
+        $condicionEstado = "";
+        switch ($estadoDepartamento) {
+            case 'alta':
+                $condicionEstado = "AND T02_FechaBajaDepartamento IS NULL";
+                break;
+            case 'baja':
+                $condicionEstado = "AND T02_FechaBajaDepartamento IS NOT NULL";
+                break;
+        }
+
+        // Consulta con LIMIT y OFFSET
+        $sql = <<<SQL
+            SELECT * FROM T02_Departamento
+            WHERE T02_DescDepartamento LIKE :descDepartamento
+            $condicionEstado
+            LIMIT $paginacion OFFSET $offset
+        SQL;
+
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':descDepartamento' => '%' . $descDepartamento . '%'
+        ]);
+
+        $aDepartamentos = [];
+        if ($consulta->rowCount() > 0) {
+            while ($oDep = $consulta->fetchObject()) {
+                $aDepartamentos[] = new Departamento(
+                    $oDep->T02_CodDepartamento,
+                    $oDep->T02_DescDepartamento,
+                    $oDep->T02_FechaCreacionDepartamento,
+                    $oDep->T02_VolumenDeNegocio,
+                    $oDep->T02_FechaBajaDepartamento
+                );
+            }
+        }
+        return $aDepartamentos;
     }
 }
 

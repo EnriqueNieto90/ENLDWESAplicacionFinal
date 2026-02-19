@@ -1381,6 +1381,38 @@ body.view-error, body.view-wip {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: #fff;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.paginacion-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-paginacion {
+    background: #0078D4;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.btn-paginacion:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+.info-paginacion {
+    font-weight: bold;
+    margin: 0 15px;
+}
+
 /* =========================================
     EDICIÓN / CONSULTA DE DEPARTAMENTOS
    ========================================= */

@@ -11,6 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Aplicación Final</title>
+        <link rel="icon" type="image/svg+xml" href="webroot/media/favicon/favicon.svg">
         <link rel="stylesheet" href="webroot/css/all.min.css">
         <link rel="stylesheet" href="webroot/css/estilosLogin.css">
     </head>
