@@ -17,7 +17,7 @@
         <form action="index.php" method="post"> 
 
             <div class="grupo-input">
-                <input type="text" class="input-microsoft" name="usuario" value="<?php echo $_REQUEST['usuario'] ?? ''; ?>" placeholder="Usuario">
+                <input type="text" class="input-microsoft" name="usuario" placeholder="Usuario">
             </div>
 
             <div class="grupo-input">

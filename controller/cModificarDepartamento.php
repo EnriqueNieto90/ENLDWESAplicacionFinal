@@ -19,39 +19,39 @@ if (!isset($_SESSION['codDepartamentoEnCurso'])) {
     exit;
 }
 
-// 2. RECUPERACIÓN DEL OBJETO (DATOS ACTUALES)
+// RECUPERACIÓN DEL OBJETO
 $codDepartamento = $_SESSION['codDepartamentoEnCurso'];
 $oDepartamento = DepartamentoPDO::buscaDepartamentoPorCod($codDepartamento);
 
-// 3. INICIALIZACIÓN DE VARIABLES
+// INICIALIZACIÓN DE VARIABLES
 $entradaOK = true;
 $aErrores = [
     'descDepartamento' => null,
     'volumenDeNegocio' => null
 ];
 
-// 4. PROCESAR FORMULARIO (Si se pulsa ACEPTAR)
+// PROCESAR FORMULARIO
 if (isset($_REQUEST['aceptar'])) {
 
-    // A) Validar Descripción (Alfanumérico, mín 4, máx 255)
+    // Validar Descripción
     $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 4, 1);
     
-    // Estilo "Alta": Comprobamos inmediatamente tras validar
+    // Comprobamos inmediatamente tras validar
     if ($aErrores['descDepartamento'] != null) {
         $entradaOK = false;
     }
 
-    // B) Validar Volumen de Negocio
+    // Validar Volumen de Negocio
     // Reemplazamos coma por punto antes de validar
     $volumenFiltrado = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 1000000000, 0, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($volumenFiltrado, 100000000000000000000, 0, 1);
 
-    // Estilo "Alta": Comprobamos inmediatamente tras validar
+    // Comprobamos inmediatamente tras validar
     if ($aErrores['volumenDeNegocio'] != null) {
         $entradaOK = false;
     }
 
-    // 5. EJECUCIÓN DE LA MODIFICACIÓN
+    // EJECUCIÓN DE LA MODIFICACIÓN
     if ($entradaOK) {
         // Si todo está bien, llamamos al modelo
         if (DepartamentoPDO::modificaDepartamento($codDepartamento, $_REQUEST['descDepartamento'], (float)$volumenFiltrado)) {
@@ -59,18 +59,18 @@ if (isset($_REQUEST['aceptar'])) {
             header('Location: index.php');
             exit;
         } else {
-            // Error en BBDD (poco probable si validamos bien, pero por seguridad)
+            // Error en BBDD
             $aErrores['descDepartamento'] = "Error al modificar en la base de datos.";
         }
     }
 } else {
-    // Si no se ha pulsado aceptar (primera carga), la entrada no es OK (para no procesar)
+    // Si no se ha pulsado aceptar (primera carga), la entrada no es OK para no procesar
     $entradaOK = false;
 }
 
-// 6. PREPARAR DATOS PARA LA VISTA
+// PREPARAR DATOS PARA LA VISTA
 // Si venimos de un submit ($entradaOK puede ser false por errores), mostramos lo que escribió el usuario.
-// Si es la primera vez (y no hay submit), mostramos los datos de la BBDD ($oDepartamento).
+// Si es la primera vez, mostramos los datos de la BBDD ($oDepartamento).
 $descMostrar = isset($_REQUEST['aceptar']) ? $_REQUEST['descDepartamento'] : $oDepartamento->getDescDepartamento();
 $volumenMostrar = isset($_REQUEST['aceptar']) ? $_REQUEST['volumenDeNegocio'] : $oDepartamento->getVolumenDeNegocio();
 

@@ -39,7 +39,7 @@ if (!in_array($_SESSION['paginaEnCurso'], $aPaginasPublicas) &&
     !isset($_SESSION['usuarioENLAplicacionFinal'])) {
     
     $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: index.php');
+    header('Location: index.php'); 
     exit;
 }
 
